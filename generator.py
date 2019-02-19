@@ -56,27 +56,21 @@ for _section in config.sections():
     configs = dict(config.items(_section))
 
     if "mongo_host" in configs:
-
         services[_section]['configs'].append("mongodb")
 
     if "rabbitmq_host" in configs:
-
         services[_section]['configs'].append("rabbitmq")
 
     if "redis_host" in configs:
-
         services[_section]['configs'].append("redis")
 
     if "sms_server" in configs:
-
         services[_section]['configs'].append("sms")
 
     if "smtp_host" in configs:
-
         services[_section]['configs'].append("smtp")
 
     if "couch_host" in configs:
-
         services[_section]['configs'].append("couch")        
 
 for i, e in enumerate(services):

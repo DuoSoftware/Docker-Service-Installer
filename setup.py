@@ -18,13 +18,12 @@ from curses.textpad import Textbox, rectangle
 class Installer(object):
 
     def __init__(self, services):
-        
         self.config = None
-        self.ins_type = None
         self.repository = None
-        self.version_tag = None
-        self.go_version_tag = None
         self.repository_ipurl = None
+        self.ins_type = None
+        self.go_version_tag = None
+        self.version_tag = None
         self.window_height, self.window_width = [int(i) for i in popen('stty size', 'r').read().split()]
         
         self.services = services
@@ -32,17 +31,15 @@ class Installer(object):
         self.editor = {
             'screen': None,
             'window': None,
+            'help_window': None,
             'textbox': None,
             'statusbar': None,
-            'help_window': None,
             'current_item': None
-            
         }
 
         self.data_sources = ['mongodb', 'rabbitmq', 'redis', 'database']
 
     def init_editor(self, stdscr, section, text=""):
-
         self.editor['screen'] = stdscr
         self.editor['screen'].clear()
         self.editor['screen'].addstr(0, 1, ' [' + section + '] ', curses.A_REVERSE)
@@ -90,7 +87,6 @@ class Installer(object):
 
 
     def make_help_window(self):
-        
         # region make_help_window
         help_window = curses.newwin(25, 85, 5, 5)
         h, w = help_window.getmaxyx()
@@ -136,9 +132,8 @@ class Installer(object):
 
 
     def show_help_window(self):
-
         if self.editor['help_window'] is not None:
-            
+
             curses.curs_set(0)            
             self.editor['help_window'].show()
             curses.panel.update_panels()
@@ -164,14 +159,13 @@ class Installer(object):
 
             return True
 
-    def print_msg(self, text):
+    def _print(self, text):
 
         text = "| {} |".format(text)
         border = "-" * len(text)
         print "{} \n {} \n {}".format(border, text, border)
 
     def key_listener(self, ch):
-
         if ch == 20 and self.editor['current_item'] in self.data_sources:
             self.editor['statusbar'].addstr(0, 1, "Method not implemented!")
             self.editor['statusbar'].refresh()
@@ -189,7 +183,6 @@ class Installer(object):
             return ch    
 
     def set_install_type(self):
-
         self.ins_type = popen('whiptail --title "Advanced Menu" --notags --menu "Choose an option" 15 60 4 \
                     "1" "Install all Services" \
                     "2" "Custom Installation" 3>&1 1>&2 2>&3'
@@ -206,7 +199,6 @@ class Installer(object):
 
     # returns list []
     def get_installation_list(self):
-
         servicelist = self.services.keys()
         servicelist.sort()
 
@@ -243,7 +235,6 @@ class Installer(object):
     
 
     def run(self):
-
         # load sample configs, we use this to replace missing sections (keys), or if there's no config file.
         with open("config.sample.json") as f:
             conf_sample = json.load(f)
@@ -318,7 +309,6 @@ class Installer(object):
         print self.config
 
     def write_to_config(self, new_conf, current_conf=None):
-
         if current_conf is not None:
             for _temp_sect in new_conf.keys():                
                 # if the current conf doesn't have this section, we add it.
@@ -370,12 +360,6 @@ class Installer(object):
                         # break
 
         return config
-    
-    def _print(self, text):
-
-        text = "| {} |".format(text)
-        border = "-" * len(text)
-        print "{}\n{}\n{}".format(border, text, border)
 
 if __name__ == "__main__":
 
