@@ -62,6 +62,8 @@ class Installer(object):
 
         self.editor['textbox'] = Textbox(self.editor['window'], insert_mode=False)
 
+        self.editor['textbox'].stripspaces = True
+
         # status bar
         self.editor['statusbar'] = self.editor['screen'].subwin(1, self.window_width, self.window_height - 1,0)
         self.editor['statusbar'].bkgd(curses.A_REVERSE)
@@ -153,8 +155,15 @@ class Installer(object):
             
             # reset the textbox content to current state!
             current_text = self.editor['textbox'].gather()
+
+            # reformat the text to fit the textbox (when new lines are present in the original text, a blank line will be added if we leave it alone)
+            reformatted_text = ""
+            for line in current_text.splitlines():
+                    eol =  "\n" if line.strip()[-1:] == "," else ""
+                    reformatted_text += line + eol
+
             self.editor['window'].clear()
-            self.editor['window'].addstr(0, 0, current_text)
+            self.editor['window'].addstr(0, 0, reformatted_text)
             self.editor['window'].refresh()
 
             return True
@@ -183,7 +192,7 @@ class Installer(object):
             return ch    
 
     def set_install_type(self):
-        self.ins_type = popen('whiptail --title "Advanced Menu" --notags --menu "Choose an option" 15 60 4 \
+        self.ins_type = popen('whiptail --title "Facetone Service Installer" --notags --menu "" 15 60 4 \
                     "1" "Install all Services" \
                     "2" "Custom Installation" 3>&1 1>&2 2>&3'
                     ).read()
