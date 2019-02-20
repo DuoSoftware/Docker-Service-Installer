@@ -19,11 +19,11 @@ class Installer(object):
 
     def __init__(self, services):
         self.config = None
-        self.repository = None
+        self._repository = None
+        self._install_type = None
+        self._go_version_tag = None
+        self._version_tag = None
         self.repository_ipurl = None
-        self.ins_type = None
-        self.go_version_tag = None
-        self.version_tag = None
         self.window_height, self.window_width = [int(i) for i in popen('stty size', 'r').read().split()]
         
         self.services = services
@@ -38,6 +38,20 @@ class Installer(object):
         }
 
         self.data_sources = ['mongodb', 'rabbitmq', 'redis', 'database']
+
+    @property
+    def install_type(self):
+        if self._install_type is not None:
+            return self._install_type
+        else:
+            return self.set_install_type()
+    
+    @property
+    def repository(self):
+        if self._repository is not None:
+                return self._repository
+        else:
+            return self.set_install_repository()
 
     def init_editor(self, stdscr, section, text=""):
         self.editor['screen'] = stdscr
@@ -87,7 +101,6 @@ class Installer(object):
         # return the text entered in the textbox
         return self.editor['textbox'].gather()
 
-
     def make_help_window(self):
         # region make_help_window
         help_window = curses.newwin(25, 85, 5, 5)
@@ -131,7 +144,6 @@ class Installer(object):
 
         return True
         # endregion
-
 
     def show_help_window(self):
         if self.editor['help_window'] is not None:
@@ -192,19 +204,23 @@ class Installer(object):
             return ch    
 
     def set_install_type(self):
-        self.ins_type = popen('whiptail --title "Facetone Service Installer" --notags --menu "" 15 60 4 \
+        self._install_type = popen('whiptail --title "Facetone Service Installer" --notags --menu "" 15 60 4 \
                     "1" "Install all Services" \
                     "2" "Custom Installation" 3>&1 1>&2 2>&3'
                     ).read()
 
-        return self.ins_type
+        return self._install_type
 
-    @property
-    def install_type(self):
-        if self.ins_type is not None:
-            return self.ins_type
-        else:
-            return self.set_install_type()
+    def set_install_repository(self):
+        self._repository = popen('whiptail --title "Facetone Service Installer" --notags --menu "\nSelect the repository source." 15 60 4 \
+                    "github" "Github" \
+                    "dockerhub" "Docker Hub" 3>&1 1>&2 2>&3'
+                    ).read()
+
+        if self._repository == "":
+            self.exit_installer()
+            
+        return self._repository
 
     # returns list []
     def get_installation_list(self):
@@ -237,11 +253,61 @@ class Installer(object):
 
         return install_list
 
-    
     def exit_installer(self, msg="exiting installer"):
         # Do any tear down work here...for now we'll just exit.
         sys.exit(msg)
+        
+    def write_to_config(self, new_conf, current_conf=None):
+        if current_conf is not None:
+            for _temp_sect in new_conf.keys():                
+                # if the current conf doesn't have this section, we add it.
+                if _temp_sect not in current_conf:
+                    current_conf[_temp_sect] = {}
+
+                for key, val in new_conf[_temp_sect].items():
+                    current_conf[_temp_sect][key] = val
+        else:
+            current_conf = new_conf
+
+        with open("config.json", "w+") as f:
+            f.write(json.dumps(current_conf, sort_keys=True, indent=4))
+
+    """
+    @params
+    config_inst = An instance of a valid configuration object,
     
+    returns: updated configuration instance
+    """
+    def edit_configuration(self, config_inst):
+        config = {}
+
+        for _sec in config_inst.keys():  
+            
+            conf_invalid = True
+
+            while conf_invalid:
+                e_txt = ""
+
+                for index, (key, value) in enumerate(config_inst[_sec].iteritems()):
+                    delimiter = "," if index != (len(config_inst[_sec]) - 1) else ""
+                    e_txt += '"{}": "{}"{}\n'.format(key, value, delimiter)
+        
+                e_txt = curses.wrapper(self.init_editor, _sec, e_txt)
+                e_txt = "{{ {} }}".format(e_txt)
+                e_txt = e_txt.replace('\n', '')
+
+                try:
+                    config[_sec] = json.loads(e_txt)
+                    conf_invalid = False
+                except Exception, e:
+                    confirmation = system('whiptail --title "Invalid configuration." --no-button "Exit Installer" --yesno " \
+                                                \n\nDo you want to edit [{}] section again?" 15 60'.format(_sec))
+                    
+                    if confirmation != 0:
+                        self.exit_installer()
+                        # break
+
+        return config
 
     def run(self):
         # load sample configs, we use this to replace missing sections (keys), or if there's no config file.
@@ -315,60 +381,12 @@ class Installer(object):
         self.write_to_config(self.config, current_conf)
 
         # docker service installation process starts from here.
+
+        # self.set_install_repository()
+
+        print self.repository
+
         print self.config
-
-    def write_to_config(self, new_conf, current_conf=None):
-        if current_conf is not None:
-            for _temp_sect in new_conf.keys():                
-                # if the current conf doesn't have this section, we add it.
-                if _temp_sect not in current_conf:
-                    current_conf[_temp_sect] = {}
-
-                for key, val in new_conf[_temp_sect].items():
-                    current_conf[_temp_sect][key] = val
-        else:
-            current_conf = new_conf
-
-        with open("config.json", "w+") as f:
-            f.write(json.dumps(current_conf, sort_keys=True, indent=4))
-
-    """
-    @params
-    config_inst = An instance of a valid configuration object,
-    
-    returns: updated configuration instance
-    """
-
-    def edit_configuration(self, config_inst):
-        config = {}
-
-        for _sec in config_inst.keys():  
-            
-            conf_invalid = True
-
-            while conf_invalid:
-                e_txt = ""
-
-                for index, (key, value) in enumerate(config_inst[_sec].iteritems()):
-                    delimiter = "," if index != (len(config_inst[_sec]) - 1) else ""
-                    e_txt += '"{}": "{}"{}\n'.format(key, value, delimiter)
-        
-                e_txt = curses.wrapper(self.init_editor, _sec, e_txt)
-                e_txt = "{{ {} }}".format(e_txt)
-                e_txt = e_txt.replace('\n', '')
-
-                try:
-                    config[_sec] = json.loads(e_txt)
-                    conf_invalid = False
-                except Exception, e:
-                    confirmation = system('whiptail --title "Invalid configuration." --no-button "Exit Installer" --yesno " \
-                                                \n\nDo you want to edit [{}] section again?" 15 60'.format(_sec))
-                    
-                    if confirmation != 0:
-                        self.exit_installer()
-                        # break
-
-        return config
 
 if __name__ == "__main__":
 
