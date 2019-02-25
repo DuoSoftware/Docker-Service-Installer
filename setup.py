@@ -7,7 +7,7 @@ Date: Feb 2019
 """
 
 import sys
-import time
+from datetime import datetime
 import json
 import curses
 from curses.panel import new_panel
@@ -19,8 +19,8 @@ class Installer(object):
 
     def __init__(self, services):
         self.config = None
-        self._repository = None
-        self._install_type = None
+        self.repository = None
+        self.install_type = None
         self._go_version_tag = None
         self._version_tag = None
         self.repository_ipurl = None
@@ -39,17 +39,17 @@ class Installer(object):
 
         self.data_sources = ['mongodb', 'rabbitmq', 'redis', 'database']
 
-    @property
-    def install_type(self):
-        if self._install_type is not None:
-            return self._install_type
+        self.date = datetime.now()
+
+    def get_install_type(self):
+        if self.install_type is not None:
+            return self.install_type
         else:
             return self.set_install_type()
-    
-    @property
-    def repository(self):
-        if self._repository is not None:
-                return self._repository
+
+    def get_repository(self):
+        if self.repository is not None:
+                return self.repository
         else:
             return self.set_install_repository()
 
@@ -74,7 +74,7 @@ class Installer(object):
         # editor textbox
         self.editor['window'].addstr(0, 0, text)
 
-        self.editor['textbox'] = Textbox(self.editor['window'], insert_mode=False)
+        self.editor['textbox'] = Textbox(self.editor['window'], insert_mode=True)
 
         self.editor['textbox'].stripspaces = True
 
@@ -96,7 +96,7 @@ class Installer(object):
         except:
             pass
 
-        self.editor['textbox'].edit(self.key_listener)
+        self.editor['textbox'].edit(self.listen_keys)
 
         # return the text entered in the textbox
         return self.editor['textbox'].gather()
@@ -183,10 +183,10 @@ class Installer(object):
     def _print(self, text):
 
         text = "| {} |".format(text)
-        border = "-" * len(text)
-        print "{} \n {} \n {}".format(border, text, border)
+        border = "+{}+".format("-" * (len(text) - 2))
+        print "{}\n{}\n{}".format(border, text, border)
 
-    def key_listener(self, ch):
+    def listen_keys(self, ch):
         if ch == 20 and self.editor['current_item'] in self.data_sources:
             self.editor['statusbar'].addstr(0, 1, "Method not implemented!")
             self.editor['statusbar'].refresh()
@@ -204,25 +204,24 @@ class Installer(object):
             return ch    
 
     def set_install_type(self):
-        self._install_type = popen('whiptail --title "Facetone Service Installer" --notags --menu "" 15 60 4 \
+        self.install_type = popen('whiptail --title "Facetone Service Installer" --notags --menu "" 15 60 4 \
                     "1" "Install all Services" \
                     "2" "Custom Installation" 3>&1 1>&2 2>&3'
                     ).read()
 
-        return self._install_type
+        return self.install_type
 
     def set_install_repository(self):
-        self._repository = popen('whiptail --title "Facetone Service Installer" --notags --menu "\nSelect the repository source." 15 60 4 \
+        self.repository = popen('whiptail --title "Facetone Service Installer" --notags --menu "\nSelect the repository source." 15 60 4 \
                     "github" "Github" \
                     "dockerhub" "Docker Hub" 3>&1 1>&2 2>&3'
                     ).read()
 
-        if self._repository == "":
+        if self.repository == "":
             self.exit_installer()
             
-        return self._repository
+        return self.repository
 
-    # returns list []
     def get_installation_list(self):
         servicelist = self.services.keys()
         servicelist.sort()
@@ -255,7 +254,8 @@ class Installer(object):
 
     def exit_installer(self, msg="exiting installer"):
         # Do any tear down work here...for now we'll just exit.
-        sys.exit(msg)
+        self._print(msg)
+        sys.exit()
         
     def write_to_config(self, new_conf, current_conf=None):
         if current_conf is not None:
@@ -274,24 +274,35 @@ class Installer(object):
 
     """
     @params
-    config_inst = An instance of a valid configuration object,
-    
+    config_inst = An instance of a valid configuration object.
     returns: updated configuration instance
     """
     def edit_configuration(self, config_inst):
         config = {}
+
+        def gen_line(section_vals, indent=0):
+
+            e_txt = "";
+
+            for index, (key, value) in enumerate(section_vals.iteritems()):
+                delimiter = "," if index != (len(section_vals) - 1) else ""
+                if type(value) is not dict:
+                    char_indent = " " * indent
+                    e_txt += '{}"{}": "{}"{}\n'.format(char_indent, key, value, delimiter)
+                else:
+                    # recursively generate the second level configurations
+                    sub_text = gen_line(value, 4)
+                    e_txt += '"{}": {{\n{}}}{}\n'.format(key, sub_text, delimiter)
+            return e_txt
+            
+    
 
         for _sec in config_inst.keys():  
             
             conf_invalid = True
 
             while conf_invalid:
-                e_txt = ""
-
-                for index, (key, value) in enumerate(config_inst[_sec].iteritems()):
-                    delimiter = "," if index != (len(config_inst[_sec]) - 1) else ""
-                    e_txt += '"{}": "{}"{}\n'.format(key, value, delimiter)
-        
+                e_txt = gen_line(config_inst[_sec])
                 e_txt = curses.wrapper(self.init_editor, _sec, e_txt)
                 e_txt = "{{ {} }}".format(e_txt)
                 e_txt = e_txt.replace('\n', '')
@@ -319,6 +330,9 @@ class Installer(object):
 
         # This is to hold the content of user's current config file..
         current_conf = None
+
+        # prompt the user to select the installation type.
+        self.get_install_type()
 
         if self.install_type == "":
             self.exit_installer("nothing selected!")
@@ -384,83 +398,21 @@ class Installer(object):
 
         # self.set_install_repository()
 
+        # prompt the uset to select the repository.
+        self.get_repository()
+
         print self.repository
 
         print self.config
 
+       
 if __name__ == "__main__":
-
-    services = {
-                # "agentdialerservice": {'github_url': 'https://github.com/DuoSoftware/DVP-AgentDialerService.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "agentdialerservice": {'github_url': 'https://github.com/DuoSoftware/DVP-AgentDialerService.git', 'configs': ['general'], 'type': 'nodejs'},
-                "appregistry": {'github_url': 'https://github.com/DuoSoftware/DVP-APPRegistry.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "ardsliteroutingengine": {'github_url': 'https://github.com/DuoSoftware/DVP-ARDSLiteRoutingEngine.git', 'configs': ['general', 'ardsliteroutingengine', 'mongodb', 'rabbitmq', 'redis'], 'type': 'go'},
-                "ardsliteroutingengineimproved": {'github_url': 'https://github.com/DuoSoftware/DVP-ARDSLiteRoutingEngineImproved.git', 'configs': ['general', 'ardsliteroutingengineimproved', 'mongodb', 'rabbitmq', 'redis'], 'type': 'go'},
-                "ardsliteservice": {'github_url': 'https://github.com/DuoSoftware/DVP-ARDSLiteService.git', 'configs': ['general', 'ardsliteservice', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "ardsliteserviceimproved": {'github_url': 'https://github.com/DuoSoftware/DVP-ARDSLiteServiceImproved.git', 'configs': ['general', 'ardsliteserviceimproved', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "ardsmonitoring": {'github_url': 'https://github.com/DuoSoftware/DVP-ARDSMonitoring.git', 'configs': ['general', 'ardsmonitoring', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "ardsslotcalculator": {'github_url': 'https://github.com/DuoSoftware/DVP-ARDSSlotCalculator.git', 'configs': ['general', 'redis'], 'type': 'nodejs'},
-                "autoattendant": {'github_url': 'https://github.com/DuoSoftware/DVP-AutoAttendant.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "billingservice": {'github_url': 'https://github.com/DuoSoftware/DVP-Billing.git', 'configs': ['general', 'billingservice', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "callbackservice": {'github_url': 'https://github.com/DuoSoftware/DVP-CallBackService.git', 'configs': ['general', 'callbackservice', 'mongodb', 'rabbitmq', 'redis'], 'type': 'go'},
-                "campaignmanager": {'github_url': 'https://github.com/DuoSoftware/DVP-CampaignManager.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "carrierprovider": {'github_url': 'https://github.com/DuoSoftware/DVP-CarrierProvider.git', 'configs': ['general'], 'type': 'nodejs'},
-                "cdrengine": {'github_url': 'https://github.com/DuoSoftware/DVP-CDREngine.git', 'configs': ['general', 'cdrengine', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "cdreventlistner": {'github_url': 'https://github.com/DuoSoftware/DVP-CDREventListner.git', 'configs': ['general', 'cdreventlistner', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "cdrgenerator": {'github_url': 'https://github.com/DuoSoftware/DVP-CDRGenerator.git', 'configs': ['general', 'cdrgenerator', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "cdrprocessor": {'github_url': 'https://github.com/DuoSoftware/DVP-CDRProcessor.git', 'configs': ['general', 'cdrprocessor', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "clusterconfig": {'github_url': 'https://github.com/DuoSoftware/DVP-ClusterConfiguration.git', 'configs': ['general', 'clusterconfig', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "conference": {'github_url': 'https://github.com/DuoSoftware/DVP-Conference.git', 'configs': ['general', 'conference', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "contactbasednumberdialingservice": {'github_url': 'https://github.com/DuoSoftware/DVP-ContactBasedNumberDialingService.git', 'configs': ['general', 'mongodb', 'redis'], 'type': 'nodejs'},
-                "contacts": {'github_url': 'https://github.com/DuoSoftware/DVP-Contacts.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "crmintegrations": {'github_url': 'https://github.com/DuoSoftware/DVP-CRMIntegrations.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "csatservice": {'github_url': 'https://github.com/DuoSoftware/DVP-CSATService.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "dashboard": {'github_url': 'https://github.com/DuoSoftware/DVP-DashBoard.git', 'configs': ['general', 'dashboard', 'mongodb', 'rabbitmq', 'redis'], 'type': 'go'},
-                "dashboarddataprocessor": {'github_url': 'https://github.com/DuoSoftware/DVP-DashboardDataProcessor.git', 'configs': ['general', 'dashboarddataprocessor', 'mongodb', 'rabbitmq'], 'type': 'go'},
-                "dashboardservice": {'github_url': 'https://github.com/DuoSoftware/DVP-DashBoardService.git', 'configs': ['general', 'dashboardservice', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "dialerapi": {'github_url': 'https://github.com/DuoSoftware/DVP-DialerAPI.git', 'configs': ['general', 'dialerapi', 'mongodb', 'rabbitmq', 'redis'], 'type': 'go'},
-                "diameterclient": {'github_url': 'https://github.com/DuoSoftware/DVP-DiameterClient.git', 'configs': ['general', 'diameterclient', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "diameterrelay": {'github_url': 'https://github.com/DuoSoftware/DVP-DiameterRelay.git', 'configs': ['general', 'diameterrelay', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "diameterserver": {'github_url': 'https://github.com/DuoSoftware/DVP-DiameterServer.git', 'configs': ['general', 'diameterserver', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "dynamicconfigurationgenerator": {'github_url': 'https://github.com/DuoSoftware/DVP-DynamicConfigurationGenerator.git', 'configs': ['general', 'dynamicconfigurationgenerator', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "engagementservice": {'github_url': 'https://github.com/DuoSoftware/DVP-Engagement.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "eventmonitor": {'github_url': 'https://github.com/DuoSoftware/DVP-EventMonitor.git', 'configs': ['general', 'eventmonitor', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "eventservice": {'github_url': 'https://github.com/DuoSoftware/DVP-EventService.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "eventsink": {'github_url': 'https://github.com/DuoSoftware/DVP-EventSink.git', 'configs': ['general', 'eventsink', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "filearchiveservice": {'github_url': 'https://github.com/DuoSoftware/DVP-FileArchiveService.git', 'configs': ['general', 'filearchiveservice'], 'type': 'go'},
-                "fileservice": {'github_url': 'https://github.com/DuoSoftware/DVP-FileService.git', 'configs': ['general', 'fileservice', 'mongodb', 'rabbitmq', 'redis', 'couch'], 'type': 'nodejs'},
-                "httpprogrammingapi": {'github_url': 'https://github.com/DuoSoftware/DVP-HTTPProgrammingAPI.git', 'configs': ['general', 'httpprogrammingapi', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "httpprogrammingapidebug": {'github_url': 'https://github.com/DuoSoftware/DVP-HTTPProgrammingAPIDEBUG.git', 'configs': ['general', 'httpprogrammingapidebug', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "httpprogrammingmonitorapi": {'github_url': 'https://github.com/DuoSoftware/DVP-HTTPProgrammingMonitorAPI.git', 'configs': ['general', 'mongodb', 'redis'], 'type': 'nodejs'},
-                "integrationapi": {'github_url': 'https://github.com/DuoSoftware/DVP-IntegrationAPI.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "interactions": {'github_url': 'https://github.com/DuoSoftware/DVP-Interactions.git', 'configs': ['general', 'interactions', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "ipmessagingservice": {'github_url': 'https://github.com/DuoSoftware/DVP-IPMessagingService.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "limithandler": {'github_url': 'https://github.com/DuoSoftware/DVP-LimitHandler.git', 'configs': ['general', 'limithandler', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "liteticket": {'github_url': 'https://github.com/DuoSoftware/DVP-LiteTicket.git', 'configs': ['general', 'liteticket', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "mailreceiver": {'github_url': 'https://github.com/DuoSoftware/DVP-MailReceiver.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis', 'sms', 'smtp'], 'type': 'nodejs'},
-                "mailsender": {'github_url': 'https://github.com/DuoSoftware/DVP-MailSender.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis', 'sms', 'smtp'], 'type': 'nodejs'},
-                "monitorrestapi": {'github_url': 'https://github.com/DuoSoftware/DVP-MonitorRestAPI.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "notificationservice": {'github_url': 'https://github.com/DuoSoftware/DVP-NotificationService.git', 'configs': ['general', 'notificationservice', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "pbxservice": {'github_url': 'https://github.com/DuoSoftware/DVP-PBXService.git', 'configs': ['general', 'pbxservice', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "phonenumbertrunkservice": {'github_url': 'https://github.com/DuoSoftware/DVP-PhoneNumberTrunkService.git', 'configs': ['general', 'phonenumbertrunkservice', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "productivityservice": {'github_url': 'https://github.com/DuoSoftware/DVP-ProductivityService.git', 'configs': ['general', 'productivityservice', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "qamodule": {'github_url': 'https://github.com/DuoSoftware/DVP-QAModule.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "queuemusic": {'github_url': 'https://github.com/DuoSoftware/DVP-QueueMusic.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "reportqueryfilters": {'github_url': 'https://github.com/DuoSoftware/DVP-ReportQueryFilters.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "resourceservice": {'github_url': 'https://github.com/DuoSoftware/DVP-ResourceService.git', 'configs': ['general', 'resourceservice', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "ruleservice": {'github_url': 'https://github.com/DuoSoftware/DVP-RuleService.git', 'configs': ['general', 'ruleservice', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "scheduleworker": {'github_url': 'https://github.com/DuoSoftware/DVP-ScheduleWorker.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "sipuserendpointservice": {'github_url': 'https://github.com/DuoSoftware/DVP-SIPUserEndpointService.git', 'configs': ['general', 'sipuserendpointservice', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "skypebot": {'github_url': 'https://github.com/DuoSoftware/DVP-SkypeBot.git', 'configs': ['general', 'skypebot'], 'type': 'nodejs'},
-                "smppclient": {'github_url': 'https://github.com/DuoSoftware/DVP-SMPPClient.git', 'configs': ['general', 'smppclient', 'mongodb', 'rabbitmq', 'redis', 'sms'], 'type': 'nodejs'},
-                "socialconnector": {'github_url': 'https://github.com/DuoSoftware/DVP-SocialConnector.git', 'configs': ['general', 'socialconnector', 'mongodb', 'rabbitmq', 'redis', 'sms', 'smtp'], 'type': 'nodejs'},
-                "templates": {'github_url': 'https://github.com/DuoSoftware/DVP-Templates.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "todolistservice": {'github_url': 'https://github.com/DuoSoftware/DVP-ToDoListService.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "twitterreciver": {'github_url': 'https://github.com/DuoSoftware/DVP-TwitterReciver.git', 'configs': ['general', 'twitterreciver', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "userservice": {'github_url': 'https://github.com/DuoSoftware/DVP-UserService.git', 'configs': ['general', 'userservice', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "voxboneapi": {'github_url': 'https://github.com/DuoSoftware/DVP-VoxboneAPI.git', 'configs': ['general', 'voxboneapi', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-                "walletservice": {'github_url': 'https://github.com/DuoSoftware/DVP-Wallet.git', 'configs': ['general', 'mongodb', 'rabbitmq', 'redis'], 'type': 'nodejs'},
-        }
+    try:
+        with open('services.json', 'r') as js:
+            services = json.load(js)
+    except Exception, e:
+        print "Error: There was an error parsing the services.json file. \n[{}]".format(e.message)
+        sys.exit()  
 
     Installer(services).run()
 
