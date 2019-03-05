@@ -1,0 +1,833 @@
+{
+    "ipmessagingservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8890/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "campaignmanager": {
+        "DOCKER_PARAMS": {
+            "expose": "8827/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "skypebot": {
+        "DOCKER_PARAMS": {
+            "expose": "8892/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "SKYPE_BOT_APP_ID": "", 
+        "SKYPE_BOT_APP_PASSWORD": "", 
+        "COMPANY_NAME": "", 
+        "HOST_COMPANY": "", 
+        "HOST_SECRET": ""
+    }, 
+    "walletservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8880/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "redis": {
+        "REDIS_PASSWORD": "", 
+        "REDIS_SENTINEL_HOSTS": "", 
+        "REDIS_SENTINEL_PORT": "", 
+        "REDIS_MODE": "instance", 
+        "REDIS_HOST": "", 
+        "REDIS_DB": "0", 
+        "REDIS_SENTINEL_NAME": "redis-cluster", 
+        "REDIS_PORT": "6389"
+    }, 
+    "limithandler": {
+        "DOCKER_PARAMS": {
+            "expose": "8815/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_CONFIG": ""
+    }, 
+    "smtp": {
+        "SMTP_PORT": "", 
+        "SMTP_HOST": "", 
+        "SMTP_PASSWORD": "", 
+        "SMTP_USER": ""
+    }, 
+    "general": {
+        "FRONTEND": "", 
+        "TENANT_NAME": "", 
+        "HOST_IP": "0.0.0.0", 
+        "HOST_TOKEN": "", 
+        "LB_PORT": "80", 
+        "TENANT": "1", 
+        "HOST_VERSION": "1.0.0.0"
+    }, 
+    "ardsliteservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8828/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_ARDS": "", 
+        "DASHBOARD_USE_MSG_QUEUE": "", 
+        "ARDS_USE_MSG_QUEUE": ""
+    }, 
+    "csatservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8885/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "qamodule": {
+        "DOCKER_PARAMS": {
+            "expose": "8884/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "eventmonitor": {
+        "DOCKER_PARAMS": {
+            "expose": "8806/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "XMLRPC_PORT": "", 
+        "BILLING_ENABLED": "", 
+        "REDIS_DB_PROCESSEDCDR": "", 
+        "EVENTSOCKET_PORT": "", 
+        "EVENT_CONSUME_TYPE": "", 
+        "FREESWITCH_HOST": "", 
+        "FREESWITCH_EVENTSOCKET_PASSWORD": "", 
+        "DASHBOARD_USE_MSG_QUEUE": "", 
+        "USE_CDR_GENARATOR": ""
+    }, 
+    "sipuserendpointservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8814/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "LBDATABASE_MYSQL_PASSWORD": "", 
+        "LBDATABASE_MYSQL_DB": "", 
+        "LBDATABASE_MYSQL_USER": "", 
+        "LBMYSQL_PORT": "", 
+        "REDIS_DB_CONFIG": "", 
+        "SIPUSER_PWD": "", 
+        "LBDATABASE_TYPE": "", 
+        "LBDATABASE_HOST": ""
+    }, 
+    "userservice": {
+        "SYS_AUTH_MULTI_LOGIN": "", 
+        "WINDOWS_PWD": "", 
+        "FACEBOOK_PWD": "", 
+        "CLUSTER_NAME": "", 
+        "TWITTER_PWD": "", 
+        "SPOTIFY_PWD": "", 
+        "LINKEDIN_PWD": "", 
+        "YAHOO_PWD": "", 
+        "GOOGLE_PWD": "", 
+        "INSTAGRAM_PWD": "", 
+        "TWITTER_KEY": "", 
+        "APP_UI_HOST": "", 
+        "SIGNUP_VERIFICATION": "", 
+        "TWITCH_PWD": "", 
+        "GITHUB_PWD": "", 
+        "FOURSQUARE_PWD": "", 
+        "APP_AGENT_UI": "", 
+        "DOCKER_PARAMS": {
+            "expose": "8842/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "LOGIN_VERIFICATION": "", 
+        "GOOGLE_RECAPTCHA_KEY": "", 
+        "BITBUCKET_PWD": "", 
+        "EXTERNAL_PROFILE_SEARCH": "", 
+        "PROVISION_MECHANISM": ""
+    }, 
+    "appregistry": {
+        "DOCKER_PARAMS": {
+            "expose": "8811/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "ruleservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8817/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_CONFIG": ""
+    }, 
+    "event": {
+        "FREESWITCH_HOST": "", 
+        "FREESWITCH_EVENTSOCKET_PASSWORD": "", 
+        "EVENT_CONSUME_TYPE": "amqp", 
+        "EVENTSOCKET_PORT": ""
+    }, 
+    "contactbasednumberdialingservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8899/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "conference": {
+        "DOCKER_PARAMS": {
+            "log-opt max-file": "10", 
+            "expose 8821 --log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_CONFIG": ""
+    }, 
+    "pbxservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8820/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_CONFIG": ""
+    }, 
+    "mailsender": {
+        "DOCKER_PARAMS": {
+            "expose": "8878/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "httpprogrammingapidebug": {
+        "DOCKER_PARAMS": {
+            "log-opt max-size": "10m", 
+            "-env": "'SYS_DATABASE_HOST={DATABASE_HOST}'", 
+            "log-opt max-file": "10", 
+            "memory": "'512m'", 
+            "expose": "8825/tcp", 
+            "restart": "always"
+        }, 
+        "EVENT_CONSUME_TYPE": ""
+    }, 
+    "contacts": {
+        "DOCKER_PARAMS": {
+            "expose": "8893/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "clusterconfig": {
+        "DOCKER_PARAMS": {
+            "expose": "8805/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_CONFIG": ""
+    }, 
+    "autoattendant": {
+        "DOCKER_PARAMS": {
+            "expose": "8824/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "sms": {
+        "SMS_SERVER": "", 
+        "SMS_QUEUE": "", 
+        "SMS_NUMBER": "", 
+        "SMS_PASSWORD": "", 
+        "SMS_PORT": "", 
+        "SMS_MODE": "", 
+        "SMS_USER": ""
+    }, 
+    "dashboarddataprocessor": {
+        "DOCKER_PARAMS": {
+            "log-opt max-size": "10m", 
+            "log-opt max-file": "10", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_DASHBOARD": "", 
+        "REDIS_MODE": ""
+    }, 
+    "couch": {
+        "COUCH_HOST": "", 
+        "COUCH_PORT": "5984"
+    }, 
+    "ardsliteserviceimproved": {
+        "DOCKER_PARAMS": {
+            "expose": "8828/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_ARDS": "", 
+        "ARDS_USE_MSG_QUEUE": ""
+    }, 
+    "engagementservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8834/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "queuemusic": {
+        "DOCKER_PARAMS": {
+            "expose": "8843/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "smppclient": {
+        "DOCKER_PARAMS": {
+            "log-opt max-size": "10m", 
+            "log-opt max-file": "10", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "SMPP_PASSWORD": "", 
+        "SMPP_PORT": "", 
+        "RULESERVICE_HOST": "", 
+        "SMPP_USER": "", 
+        "SMPP_HOST": ""
+    }, 
+    "diameterserver": {
+        "DOCKER_PARAMS": {
+            "expose": "8891/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "WALLETSERVICE_HOST": "", 
+        "WALLERTSERVICE_PORT": ""
+    }, 
+    "cdrprocessor": {
+        "DOCKER_PARAMS": {
+            "expose": "8809/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "SAVE_CDR_MONGO": ""
+    }, 
+    "cdrengine": {
+        "DOCKER_PARAMS": {
+            "expose": "8816/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_CONFIG": ""
+    }, 
+    "productivityservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8876/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_DASHBOARD": "", 
+        "REDIS_DB_ARDS": ""
+    }, 
+    "scheduleworker": {
+        "DOCKER_PARAMS": {
+            "expose": "8852/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "twitterreciver": {
+        "TWITTER_CONSUMER_SECRET": "", 
+        "DOCKER_PARAMS": {
+            "expose": "4647/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "TWITTER_CONSUMER_KEY": ""
+    }, 
+    "diameterrelay": {
+        "DOCKER_PARAMS": {
+            "expose": "8886/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "DIAMETER_SERVER_PORT": ""
+    }, 
+    "socialconnector": {
+        "DOCKER_PARAMS": {
+            "expose": "8878/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "TWITTER_QUEUE": "", 
+        "TWITTER_SECRET": "", 
+        "FBCLIENT_ID": "", 
+        "FBCLIENT_KEY": "", 
+        "FACEBOOK_QUEUE": "", 
+        "TWITTER_CALLBACKURL": "", 
+        "TWITTER_ENVIRONMENT": "", 
+        "TWITTER_KEY": ""
+    }, 
+    "templates": {
+        "DOCKER_PARAMS": {
+            "expose": "8875/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "reportqueryfilters": {
+        "DOCKER_PARAMS": {
+            "expose": "8846/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'256m'"
+        }
+    }, 
+    "resourceservice": {
+        "DASHBOARD_REDIS_PASSWORD": "", 
+        "DASHBOARD_REDIS_HOST": "", 
+        "DASHBOARD_REDIS_PORT": "", 
+        "REDIS_DB_ARDS": "", 
+        "REDIS_DB_DASHBOARD": "", 
+        "DOCKER_PARAMS": {
+            "expose": "8831/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "agentdialerservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8895/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "xmlrpc": {
+        "XMLRPC_PORT": "8080"
+    }, 
+    "interactions": {
+        "DOCKER_PARAMS": {
+            "expose": "8873/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "EXTERNAL_PROFILE_SEARCH": ""
+    }, 
+    "cdrgenerator": {
+        "DOCKER_PARAMS": {
+            "expose": "8859/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_PROCESSEDCDR": "", 
+        "REDIS_DB_PROCESSCDR": ""
+    }, 
+    "mongodb": {
+        "MONGO_PORT": "", 
+        "MONGO_DB": "", 
+        "MONGO_USER": "", 
+        "MONGO_HOST": "", 
+        "MONGO_REPLICA_SET_NAME": "", 
+        "MONGO_PASSWORD": ""
+    }, 
+    "crmintegrations": {
+        "DOCKER_PARAMS": {
+            "expose": "8894/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "phonenumbertrunkservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8818/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_CONFIG": ""
+    }, 
+    "dashboardservice": {
+        "DASHBOARD_REDIS_PASSWORD": "", 
+        "DASHBOARD_REDIS_HOST": "", 
+        "STATSD_HOST": "", 
+        "DASHBOARD_REDIS_PORT": "", 
+        "REDIS_DB_ARDS": "", 
+        "STATSD_PORT": "", 
+        "REDIS_DB_DASHBOARD": "", 
+        "DOCKER_PARAMS": {
+            "expose": "8883/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "dialerapi": {
+        "FREESWITCH_HOST": "", 
+        "REDIS_DB_DIALER": "", 
+        "DOCKER_PARAMS": {
+            "expose": "8836/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "XMLRPC_PORT": "", 
+        "USE_DIALLER_AMQP_ADAPTER": ""
+    }, 
+    "notificationservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8833/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "CRM_ENABLE": ""
+    }, 
+    "eventservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8822/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "liteticket": {
+        "DOCKER_PARAMS": {
+            "expose": "8872/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_ARDS": "", 
+        "DATABASE_POSTGRES_PASSWORD": "", 
+        "DATABASE_POSTGRES_USER": "", 
+        "REDIS_DB_DASHBOARD": "", 
+        "DATABASE_TYPE": ""
+    }, 
+    "ardsliteroutingengine": {
+        "DOCKER_PARAMS": {
+            "expose": "8835/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_ARDS": "", 
+        "ARDSLITEROUTINGENGINE_ID": "", 
+        "ARDS_USE_MSG_QUEUE": "", 
+        "REDIS_DB_LOCATION": ""
+    }, 
+    "httpprogrammingapi": {
+        "DOCKER_PARAMS": {
+            "expose": "8807/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "EVENT_QUEUE": "", 
+        "FREESWITCH_HOST": "", 
+        "EVENTSOCKET_PORT": "", 
+        "EVENT_CONSUME_TYPE": "", 
+        "HTTP_EVENT_QUEUE": "", 
+        "FREESWITCH_EVENTSOCKET_PASSWORD": ""
+    }, 
+    "eventsink": {
+        "DOCKER_PARAMS": {
+            "expose": "8838/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "EVENT_CONSUME_TYPE": ""
+    }, 
+    "ardsmonitoring": {
+        "DOCKER_PARAMS": {
+            "expose": "8830/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_ARDS": ""
+    }, 
+    "voxboneapi": {
+        "VOX_KEY": "", 
+        "DOCKER_PARAMS": {
+            "expose": "8832/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "VOX_URL": ""
+    }, 
+    "ardsslotcalculator": {
+        "DOCKER_PARAMS": {
+            "log-opt max-size": "10m", 
+            "log-opt max-file": "10", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "database": {
+        "DATABASE_POSTGRES_USER": "", 
+        "DATABASE_POSTGRES_PASSWORD": "", 
+        "DATABASE_HOST": "", 
+        "SQL_PORT": "", 
+        "DATABASE_TYPE": "postgres"
+    }, 
+    "billingservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8881/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "BILLING_SCHEDULE_FREQUENCY": "", 
+        "BILLING_BILLING_EMAIL_WARNING": "", 
+        "BILLING_SMS_WARNING": "", 
+        "BILLING_CALL_WARNING": "", 
+        "USERBILLING_ENABLED": "", 
+        "WALLERTSERVICE_PORT": "", 
+        "TENANTBILLING_ENABLED": "", 
+        "WALLETSERVICE_HOST": "", 
+        "BILLING_SCHEDULE_TRIES": ""
+    }, 
+    "integrationapi": {
+        "DOCKER_PARAMS": {
+            "expose": "8882/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "diameterclient": {
+        "DIAMETER_RELAY_PORT": "", 
+        "DOCKER_PARAMS": {
+            "expose": "8887/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "ardsliteroutingengineimproved": {
+        "DOCKER_PARAMS": {
+            "expose": "8835/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_ARDS": "", 
+        "ARDSLITEROUTINGENGINEIMPROVED_ID": "", 
+        "ARDS_USE_MSG_QUEUE": "", 
+        "REDIS_DB_LOCATION": ""
+    }, 
+    "carrierprovider": {
+        "DOCKER_PARAMS": {
+            "expose": "8080/tcp"
+        }
+    }, 
+    "rabbitmq": {
+        "RABBITMQ_USER": "admin", 
+        "RABBITMQ_PASSWORD": "", 
+        "RABBITMQ_PORT": "5672", 
+        "RABBITMQ_HOST": "", 
+        "RABBITMQ_VHOST": "/"
+    }, 
+    "cdreventlistner": {
+        "DOCKER_PARAMS": {
+            "expose": "8816/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "SAVE_CDR_MONGO": ""
+    }, 
+    "todolistservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8879/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "httpprogrammingmonitorapi": {
+        "DOCKER_PARAMS": {
+            "expose": "8813/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "mailreceiver": {
+        "DOCKER_PARAMS": {
+            "expose": "8877/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "dynamicconfigurationgenerator": {
+        "DOCKER_PARAMS": {
+            "expose": "8816/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "LOG_HOST": "", 
+        "LOG_LEVEL": "", 
+        "OUTBOUND_RECORDING_PATH": "", 
+        "BILLING_ENABLED": "", 
+        "DEPLOYMENT_ENV": "", 
+        "REDIS_DB_CONFIG": "", 
+        "LOG_PORT": "", 
+        "DASHBOARD_USE_MSG_QUEUE": ""
+    }, 
+    "dashboard": {
+        "DASHBOARD_REDIS_PASSWORD": "", 
+        "DASHBOARD_REDIS_HOST": "", 
+        "STATSD_HOST": "", 
+        "DASHBOARD_REDIS_PORT": "", 
+        "REDIS_DB_ARDS": "", 
+        "STATSD_PORT": "", 
+        "REDIS_DB_DASHBOARD": "", 
+        "DOCKER_PARAMS": {
+            "expose": "8841/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "DASHBOARD_CACHE_TYPE": "", 
+        "DASHBOARD_USE_MSG_QUEUE": ""
+    }, 
+    "fileservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8812/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'128m'"
+        }, 
+        "CRYPTO_PASSWORD": "", 
+        "FILE_STORAGE": "", 
+        "FILE_DIRECTORY_PATH_LOCAL": "", 
+        "CRYPTO_ALGO": "", 
+        "FILE_DIRECTORY_PATH": ""
+    }, 
+    "filearchiveservice": {
+        "DOCKER_PARAMS": {
+            "log-opt max-size": "10m", 
+            "log-opt max-file": "10", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "FILE_DIRECTORY_PATH": ""
+    }, 
+    "monitorrestapi": {
+        "DOCKER_PARAMS": {
+            "expose": "8823/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }
+    }, 
+    "callbackservice": {
+        "DOCKER_PARAMS": {
+            "expose": "8840/tcp", 
+            "log-opt max-file": "10", 
+            "log-opt max-size": "10m", 
+            "restart": "always", 
+            "memory": "'512m'"
+        }, 
+        "REDIS_DB_ARDS": ""
+    }
+}

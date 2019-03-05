@@ -1,314 +1,1044 @@
 {
-    "general": {
-        "FRONTEND": "",
-        "HOST_IP": "0.0.0.0",
-        "HOST_TOKEN": "",
-        "HOST_VERSION": "1.0.0.0",
-        "LB_PORT": "80",
-        "TENANT_NAME": "",
-        "TENANT": "1"
-    },
-    "redis": {
-        "REDIS_HOST": "",
-        "REDIS_PASSWORD": "",
-        "REDIS_PORT": "6389",
-        "REDIS_DB": "0",
-        "REDIS_MODE": "instance",
-        "REDIS_SENTINEL_HOSTS": "",
-        "REDIS_SENTINEL_PORT": "",
-        "REDIS_SENTINEL_NAME": "redis-cluster"
-    },
-    "database": {
-        "DATABASE_HOST": "",
-        "DATABASE_TYPE": "postgres",
-        "DATABASE_POSTGRES_USER": "",
-        "DATABASE_POSTGRES_PASSWORD": "",
-        "SQL_PORT": ""
-    },
-    "rabbitmq": {
-        "RABBITMQ_HOST": "",
-        "RABBITMQ_PORT": "5672",
-        "RABBITMQ_USER": "admin",
-        "RABBITMQ_PASSWORD": "",
-        "RABBITMQ_VHOST": "/"
-    },
-    "mongodb": {
-        "MONGO_HOST": "",
-        "MONGO_USER": "",
-        "MONGO_PASSWORD": "",
-        "MONGO_DB": "",
-        "MONGO_PORT": ""
-    },
-    "couch": {
-        "COUCH_HOST": "",
-        "COUCH_PORT": "5984"
-    },
-    "xmlrpc": {
-        "XMLRPC_PORT": "8080"
-    },
-    "event": {
-        "EVENTSOCKET_PORT": "",
-        "FREESWITCH_EVENTSOCKET_PASSWORD": "",
-        "FREESWITCH_HOST": "",
-        "EVENT_CONSUME_TYPE": "amqp"
-    },
-    "sms": {
-        "SMS_PASSWORD": "",
-        "SMS_PORT": "",
-        "SMS_SERVER": "",
-        "SMS_USER": "",
-        "SMS_MODE": "",
-        "SMS_QUEUE": "",
-        "SMS_NUMBER": ""
-    },
-    "smtp": {
-        "SMTP_HOST": "",
-        "SMTP_PASSWORD": "",
-        "SMTP_PORT": "",
-        "SMTP_USER": ""
-    },
-    "dynamicconfigurationgenerator": {
-        "BILLING_ENABLED": "",
-        "DASHBOARD_USE_MSG_QUEUE": "",
-        "DEPLOYMENT_ENV": "",
-        "LOG_HOST": "",
-        "LOG_LEVEL": "",
-        "LOG_PORT": "",
-        "OUTBOUND_RECORDING_PATH": "",
-        "REDIS_DB_CONFIG": ""
-    },
-    "resourceservice": {
-        "DASHBOARD_REDIS_HOST": "",
-        "DASHBOARD_REDIS_PASSWORD": "",
-        "DASHBOARD_REDIS_PORT": "",
-        "REDIS_DB_ARDS": "",
-        "REDIS_DB_DASHBOARD": ""
-    },
-    "ardsmonitoring": {
-        "REDIS_DB_ARDS": ""
-    },
-    "phonenumbertrunkservice": {
-        "REDIS_DB_CONFIG": ""
-    },
-    "limithandler": {
-        "REDIS_DB_CONFIG": ""
-    },
+    "agentdialerservice": {
+        "DOCKER_PARAMS": {
+            "--expose": "8895/tcp"
+        }, 
+        "LB_FRONTEND": "agentdialerservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/agentdialerservice/config", 
+        "VIRTUAL_HOST": "agentdialerservice.*"
+    }, 
+    "appregistry": {
+        "DOCKER_PARAMS": {
+            "--expose": "8811/tcp"
+        }, 
+        "LB_FRONTEND": "appregistry.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/appregistry/config", 
+        "VIRTUAL_HOST": "appregistry.*"
+    }, 
     "ardsliteroutingengine": {
-        "ARDS_USE_MSG_QUEUE": "",
-        "ARDSLITEROUTINGENGINE_ID": "",
-        "REDIS_DB_ARDS": "",
-        "REDIS_DB_LOCATION": ""
-    },
-    "notificationservice": {
-        "CRM_ENABLE": ""
-    },
-    "pbxservice": {
-        "REDIS_DB_CONFIG": ""
-    },
-    "callbackservice": {
-        "REDIS_DB_ARDS": ""
-    },
-    "voxboneapi": {
-        "VOX_KEY": "",
-        "VOX_URL": ""
-    },
-    "ruleservice": {
-        "REDIS_DB_CONFIG": ""
-    },
-    "conference": {
-        "REDIS_DB_CONFIG": ""
-    },
-    "httpprogrammingapidebug": {
-        "EVENT_CONSUME_TYPE": ""
-    },
-    "interactions": {
-        "EXTERNAL_PROFILE_SEARCH": ""
-    },
+        "ARDSLITEROUTINGENGINE_ID": "", 
+        "ARDS_USE_MSG_QUEUE": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8835/tcp"
+        }, 
+        "GO_CONFIG_DIR": "/go/src/gopkg.in/DuoSoftware/DVP-ARDSLiteRoutingEngine.v3/ArdsLiteRoutingEngine", 
+        "LB_FRONTEND": "ardsliteroutingengine.{general->FRONTEND}", 
+        "REDIS_DB_ARDS": "", 
+        "REDIS_DB_LOCATION": "", 
+        "SYS_ARDSLITESERVICE_HOST": "ardsliteservice.{general->FRONTEND}", 
+        "VIRTUAL_HOST": "ardsliteroutingengine.*"
+    }, 
+    "ardsliteroutingengineimproved": {
+        "ARDSLITEROUTINGENGINEIMPROVED_ID": "", 
+        "ARDS_USE_MSG_QUEUE": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8835/tcp"
+        }, 
+        "GO_CONFIG_DIR": "/go/src/gopkg.in/DuoSoftware/DVP-ARDSLiteRoutingEngineImproved.v3/ARDSLiteRoutingEngine", 
+        "LB_FRONTEND": "ardsliteroutingengineimproved.{general->FRONTEND}", 
+        "REDIS_DB_ARDS": "", 
+        "REDIS_DB_LOCATION": "", 
+        "VIRTUAL_HOST": "ardsliteroutingengineimproved.*"
+    }, 
     "ardsliteservice": {
-        "ARDS_USE_MSG_QUEUE": "",
-        "DASHBOARD_USE_MSG_QUEUE": "",
-        "REDIS_DB_ARDS": ""
+        "ARDS_USE_MSG_QUEUE": "", 
+        "DASHBOARD_USE_MSG_QUEUE": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8828/tcp"
+        }, 
+        "LB_FRONTEND": "ardsliteservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/ardsliteservice/config", 
+        "REDIS_DB_ARDS": "", 
+        "SYS_ARDSLITEROUTINGENGINE_GO_CONFIG_DIR": "/go/src/github.com/DuoSoftware/DVP-ARDSLiteRoutingEngine/ArdsLiteRoutingEngine", 
+        "SYS_ARDSLITEROUTINGENGINE_HOST": "ardsliteroutingengine.{general->FRONTEND}", 
+        "SYS_ARDSLITEROUTINGENGINE_PORT": "8835", 
+        "SYS_ARDSMONITORING_HOST": "ardsmonitoring.{general->FRONTEND}", 
+        "SYS_ARDSMONITORING_PORT": "8830", 
+        "SYS_NOTIFICATIONSERVICE_HOST": "notificationservice.{general->FRONTEND}", 
+        "SYS_NOTIFICATIONSERVICE_PORT": "8833", 
+        "SYS_RESOURCESERVICE_HOST": "resourceservice.{general->FRONTEND}", 
+        "SYS_RESOURCESERVICE_PORT": "8831", 
+        "SYS_SCHEDULEWORKER_HOST": "scheduleworker.{general->FRONTEND}", 
+        "SYS_SCHEDULEWORKER_PORT": "8852", 
+        "SYS_USERSERVICE_HOST": "userservice.{general->FRONTEND}", 
+        "VIRTUAL_HOST": "ardsliteservice.*"
+    }, 
+    "ardsliteserviceimproved": {
+        "ARDS_USE_MSG_QUEUE": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8828/tcp"
+        }, 
+        "LB_FRONTEND": "ardsliteserviceimproved.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/ardsliteserviceimproved/config", 
+        "REDIS_DB_ARDS": "", 
+        "SYS_ARDSLITEROUTINGENGINE_GO_CONFIG_DIR": "/go/src/github.com/DuoSoftware/DVP-ARDSLiteRoutingEngine/ArdsLiteRoutingEngine", 
+        "SYS_ARDSLITEROUTINGENGINE_HOST": "ardsliteroutingengine.{general->FRONTEND}", 
+        "SYS_ARDSLITEROUTINGENGINE_PORT": "8835", 
+        "SYS_ARDSMONITORING_HOST": "ardsmonitoring.{general->FRONTEND}", 
+        "SYS_ARDSMONITORING_PORT": "8830", 
+        "SYS_NOTIFICATIONSERVICE_HOST": "notificationservice.{general->FRONTEND}", 
+        "SYS_NOTIFICATIONSERVICE_PORT": "8833", 
+        "SYS_RESOURCESERVICE_HOST": "resourceservice.{general->FRONTEND}", 
+        "SYS_RESOURCESERVICE_PORT": "8831", 
+        "SYS_SCHEDULEWORKER_HOST": "scheduleworker.{general->FRONTEND}", 
+        "SYS_SCHEDULEWORKER_PORT": "8852", 
+        "VIRTUAL_HOST": "ardsliteserviceimproved.*"
+    }, 
+    "ardsmonitoring": {
+        "DOCKER_PARAMS": {
+            "--expose": "8830/tcp"
+        }, 
+        "LB_FRONTEND": "ardsmonitoring.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/ardsmonitoring/config", 
+        "REDIS_DB_ARDS": "", 
+        "SYS_ARDSLITEROUTINGENGINE_HOST": "ardsliteroutingengine.{general->FRONTEND}", 
+        "SYS_ARDSLITEROUTINGENGINE_PORT": "8835", 
+        "SYS_CDRPROCESSOR_HOST": "cdrprocessor.{general->FRONTEND}", 
+        "SYS_CDRPROCESSOR_PORT": "8809", 
+        "SYS_FILESERVICE_HOST": "fileservice.{general->FRONTEND}", 
+        "SYS_FILESERVICE_PORT": "8812", 
+        "SYS_NOTIFICATIONSERVICE_HOST": "notificationservice.{general->FRONTEND}", 
+        "SYS_NOTIFICATIONSERVICE_PORT": "8833", 
+        "VIRTUAL_HOST": "ardsmonitoring.*"
+    }, 
+    "ardsslotcalculator": {
+        "DOCKER_PARAMS": {}, 
+        "LB_FRONTEND": "ardsslotcalculator.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/ardsslotcalculator/config", 
+        "VIRTUAL_HOST": "ardsslotcalculator.*"
+    }, 
+    "autoattendant": {
+        "DOCKER_PARAMS": {
+            "--expose": "8824/tcp"
+        }, 
+        "LB_FRONTEND": "autoattendant.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/autoattendant/config", 
+        "VIRTUAL_HOST": "autoattendant.*"
+    }, 
+    "billingservice": {
+        "BILLING_BILLING_EMAIL_WARNING": "", 
+        "BILLING_CALL_WARNING": "", 
+        "BILLING_SCHEDULE_FREQUENCY": "", 
+        "BILLING_SCHEDULE_TRIES": "", 
+        "BILLING_SMS_WARNING": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8881/tcp"
+        }, 
+        "LB_FRONTEND": "billingservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/billingservice/config", 
+        "SYS_USERSERVICE_HOST": "userservice.{general->FRONTEND}", 
+        "TENANTBILLING_ENABLED": "", 
+        "USERBILLING_ENABLED": "", 
+        "VIRTUAL_HOST": "billingservice.*", 
+        "WALLERTSERVICE_PORT": "", 
+        "WALLETSERVICE_HOST": ""
+    }, 
+    "callbackservice": {
+        "DOCKER_PARAMS": {
+            "--expose": "8840/tcp"
+        }, 
+        "GO_CONFIG_DIR": "/go/src/github.com/DuoSoftware/DVP-CallBackService/CallbackServer", 
+        "LB_FRONTEND": "callbackservice.{general->FRONTEND}", 
+        "REDIS_DB_ARDS": "", 
+        "SYS_CAMPAIGNMANAGER_HOST": "campaignmanager.{general->FRONTEND}", 
+        "SYS_CAMPAIGNMANAGER_NODE_CONFIG_DIR": "/usr/local/src/campaignmanager/config", 
+        "SYS_CAMPAIGNMANAGER_PORT": "8827", 
+        "SYS_DIALER_HOST": "dialerapi.{general->FRONTEND}", 
+        "SYS_DIALER_PORT": "8836", 
+        "VIRTUAL_HOST": "callbackservice.*"
+    }, 
+    "campaignmanager": {
+        "DOCKER_PARAMS": {
+            "--expose": "8827/tcp"
+        }, 
+        "LB_FRONTEND": "campaignmanager.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/campaignmanager/config", 
+        "VIRTUAL_HOST": "campaignmanager.*"
+    }, 
+    "carrierprovider": {
+        "DOCKER_PARAMS": {
+            "--expose": "8080/tcp",
+            "-p": "8090:8080"
+        }, 
+        "LB_FRONTEND": "carrierprovider.{general->FRONTEND}", 
+        "VIRTUAL_HOST": "carrierprovider.*"
+    }, 
+    "cdrengine": {
+        "DOCKER_PARAMS": {
+            "--expose": "8816/tcp"
+        }, 
+        "HOST_CDRENGINE_PORT": "8818", 
+        "LB_FRONTEND": "cdrengine.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/cdrengine/config", 
+        "REDIS_DB_CONFIG": "", 
+        "SYS_REDIS_DB": "2", 
+        "VIRTUAL_HOST": "cdrengine.*"
+    }, 
+    "cdreventlistner": {
+        "DOCKER_PARAMS": {
+            "--expose": "8816/tcp"
+        }, 
+        "LB_FRONTEND": "cdreventlistner.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/cdreventlistner/config", 
+        "SAVE_CDR_MONGO": "", 
+        "SYS_REDIS_DB": "2", 
+        "VIRTUAL_HOST": "cdreventlistner.*"
+    }, 
+    "cdrgenerator": {
+        "DOCKER_PARAMS": {
+            "--expose": "8859/tcp"
+        }, 
+        "LB_FRONTEND": "cdrgenerator.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/cdrgenerator/config", 
+        "REDIS_DB_PROCESSCDR": "", 
+        "REDIS_DB_PROCESSEDCDR": "", 
+        "VIRTUAL_HOST": "cdrgenerator.*"
+    }, 
+    "cdrprocessor": {
+        "DOCKER_PARAMS": {
+            "--expose": "8809/tcp"
+        }, 
+        "LB_FRONTEND": "cdrprocessor.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/cdrprocessor/config", 
+        "SAVE_CDR_MONGO": "", 
+        "SYS_FILESERVICE_HOST": "fileservice.{general->FRONTEND}", 
+        "VIRTUAL_HOST": "cdrprocessor.*"
+    }, 
+    "clusterconfig": {
+        "DOCKER_PARAMS": {
+            "--expose": "8805/tcp"
+        }, 
+        "LB_FRONTEND": "clusterconfig.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/clusterconfiguration/config", 
+        "REDIS_DB_CONFIG": "", 
+        "VIRTUAL_HOST": "clusterconfig.*"
+    }, 
+    "conference": {
+        "DOCKER_PARAMS": {
+            "--expose": "8821"
+        }, 
+        "HOST_CONFERENCE_PORT": "8821", 
+        "HOST_NAME": "conference", 
+        "LB_FRONTEND": "conference.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/conference/config", 
+        "REDIS_DB_CONFIG": "", 
+        "SYS_NOTIFICATIONSERVICE_HOST": "notificationservice.{general->FRONTEND}", 
+        "SYS_NOTIFICATIONSERVICE_PORT": "8833", 
+        "VIRTUAL_HOST": "conference.*"
+    }, 
+    "contactbasednumberdialingservice": {
+        "DOCKER_PARAMS": {
+            "--expose": "8899/tcp"
+        }, 
+        "LB_FRONTEND": "contactbasednumberdialingservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/contactbasednumberdialingservice/config", 
+        "VIRTUAL_HOST": "contactbasednumberdialingservice.*"
+    }, 
+    "contacts": {
+        "DOCKER_PARAMS": {
+            "--expose": "8893/tcp"
+        }, 
+        "LB_FRONTEND": "contacts.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/contacts/config", 
+        "VIRTUAL_HOST": "contacts.*"
+    }, 
+    "couch": {
+        "COUCH_HOST": "", 
+        "COUCH_PORT": "5984"
+    }, 
+    "crmintegrations": {
+        "DOCKER_PARAMS": {
+            "--expose": "8894/tcp"
+        }, 
+        "LB_FRONTEND": "crmintegrations.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/crmintegrations/config", 
+        "SYS_MONITORRESTAPI_HOST": "monitorrestapi.app.veery.cloud", 
+        "SYS_MONITORRESTAPI_PORT": "8823", 
+        "VIRTUAL_HOST": "crmintegrations.*"
+    }, 
+    "csatservice": {
+        "DOCKER_PARAMS": {
+            "--expose": "8885/tcp"
+        }, 
+        "HOST_NAME": "csatservice", 
+        "LB_FRONTEND": "csatservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/csatservice/config", 
+        "SYS_FILESERVICE_HOST": "fileservice.{general->FRONTEND}", 
+        "SYS_FILESERVICE_PORT": "8812", 
+        "VIRTUAL_HOST": "csatservice.*"
+    }, 
+    "dashboard": {
+        "DASHBOARD_CACHE_TYPE": "", 
+        "DASHBOARD_REDIS_HOST": "", 
+        "DASHBOARD_REDIS_PASSWORD": "", 
+        "DASHBOARD_REDIS_PORT": "", 
+        "DASHBOARD_USE_MSG_QUEUE": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8841/tcp"
+        }, 
+        "GO_CONFIG_DIR": "/go/src/github.com/DuoSoftware/DVP-DashBoard/DashBoard", 
+        "HOST_USE_AMQP_ADAPTER": "true", 
+        "LB_FRONTEND": "dashboard.{general->FRONTEND}", 
+        "LB_PORT": "80", 
+        "REDIS_DB_ARDS": "", 
+        "REDIS_DB_DASHBOARD": "", 
+        "STATSD_HOST": "", 
+        "STATSD_PORT": "", 
+        "SYS_DASHBOARDSERVICE_HOST": "dashboardservice.{general->FRONTEND}", 
+        "SYS_DASHBOARDSERVICE_PORT": "8883", 
+        "VIRTUAL_HOST": "dashboard.*"
+    }, 
+    "dashboarddataprocessor": {
+        "DOCKER_PARAMS": {}, 
+        "GO_CONFIG_DIR": "/go/src/github.com/DuoSoftware/DVP-DashboardDataProcessor/DashboardDataProcessor", 
+        "REDIS_DB_DASHBOARD": "", 
+        "REDIS_MODE": "", 
+        "SYS_DASHBOARDSERVICE_HOST": "dashboardservice.{general->FRONTEND}", 
+        "SYS_DASHBOARDSERVICE_PORT": "8883"
+    }, 
+    "dashboardservice": {
+        "DASHBOARD_REDIS_HOST": "", 
+        "DASHBOARD_REDIS_PASSWORD": "", 
+        "DASHBOARD_REDIS_PORT": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8883/tcp"
+        }, 
+        "LB_FRONTEND": "dashboardservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/dashboardservice/config", 
+        "REDIS_DB_ARDS": "", 
+        "REDIS_DB_DASHBOARD": "", 
+        "STATSD_HOST": "", 
+        "STATSD_PORT": "", 
+        "SYS_NOTIFICATIONSERVICE_HOST": "notificationservice.{general->FRONTEND}", 
+        "SYS_NOTIFICATIONSERVICE_PORT": "8833", 
+        "VIRTUAL_HOST": "dashboardservice.*"
+    }, 
+    "database": {
+        "DATABASE_HOST": "", 
+        "DATABASE_POSTGRES_PASSWORD": "", 
+        "DATABASE_POSTGRES_USER": "", 
+        "DATABASE_TYPE": "postgres", 
+        "SQL_PORT": ""
+    }, 
+    "dialerapi": {
+        "DOCKER_PARAMS": {
+            "--expose": "8836/tcp"
+        }, 
+        "FREESWITCH_HOST": "", 
+        "GO_CONFIG_DIR": "/go/src/github.com/DuoSoftware/DVP-DialerAPI/DuoDialer", 
+        "LB_FRONTEND": "dialerapi.{general->FRONTEND}", 
+        "REDIS_DB_DIALER": "", 
+        "SYS_ARDSLITESERVICE_HOST": "ardsliteservice.{general->FRONTEND}", 
+        "SYS_ARDSLITESERVICE_PORT": "8828", 
+        "SYS_CALLBACKSERVICE_HOST": "callbackservice.{general->FRONTEND}", 
+        "SYS_CALLBACKSERVICE_PORT": "8840", 
+        "SYS_CAMPAIGNMANAGER_HOST": "campaignmanager.{general->FRONTEND}", 
+        "SYS_CAMPAIGNMANAGER_PORT": "8827", 
+        "SYS_CLUSTERCONFIGURATION_HOST": "clusterconfig.{general->FRONTEND}", 
+        "SYS_CLUSTERCONFIGURATION_PORT": "8805", 
+        "SYS_CONTACTBASEDNUMBERDIALINGSERVICE_HOST": "contactbasednumberdialingservice.{general->FRONTEND}", 
+        "SYS_CONTACTBASEDNUMBERDIALINGSERVICE_PORT": "80", 
+        "SYS_DIALER_CAMP_LIMIT": "30", 
+        "SYS_DIALER_ID": "Dialer2", 
+        "SYS_LIMITHANDLER_HOST": "limithandler.{general->FRONTEND}", 
+        "SYS_LIMITHANDLER_PORT": "8815", 
+        "SYS_NOTIFICATIONSERVICE_HOST": "notificationservice.{general->FRONTEND}", 
+        "SYS_NOTIFICATIONSERVICE_PORT": "8833", 
+        "SYS_RULESERVICE_HOST": "ruleservice.{general->FRONTEND}", 
+        "SYS_RULESERVICE_PORT": "8817", 
+        "USE_DIALLER_AMQP_ADAPTER": "", 
+        "VIRTUAL_HOST": "dialerapi.*", 
+        "XMLRPC_PORT": ""
+    }, 
+    "diameterclient": {
+        "DIAMETER_RELAY_PORT": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8887/tcp"
+        }, 
+        "HOST_NAME": "diameterclient", 
+        "LB_FRONTEND": "diameterclient.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/diameterclient/config", 
+        "SYS_DIAMETERRELAY_HOST": "diameterrelay.{general->FRONTEND}", 
+        "SYS_USERSERVICE_HOST": "userservice.{general->FRONTEND}", 
+        "SYS_WALLETSERVICE_HOST": "walletservice.{general->FRONTEND}", 
+        "VIRTUAL_HOST": "diameterclient.*"
+    }, 
+    "diameterrelay": {
+        "DIAMETER_SERVER_PORT": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8886/tcp",
+            "-p": "8886:8886"
+        }, 
+        "HOST_NAME": "diameterrelay", 
+        "LB_FRONTEND": "diameterrelay.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/diameterrelay/config", 
+        "SYS_DIAMETERSERVER_HOST": "diameterserver.{general->FRONTEND}", 
+        "VIRTUAL_HOST": "diameterrelay.*"
+    }, 
+    "diameterserver": {
+        "DOCKER_PARAMS": {
+            "--expose": "8891/tcp",
+            "-p": "8891:8891"
+        }, 
+        "LB_FRONTEND": "diameterserver.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/diameterserver/config", 
+        "SYS_CARRIERPROVIDER_HOST": "carrierprovider.{general->FRONTEND}", 
+        "SYS_CARRIERPROVIDER_PORT": "8890", 
+        "SYS_MONITORRESTAPI_HOST": "monitorrestapi.{general->FRONTEND}", 
+        "SYS_MONITORRESTAPI_PORT": "8823", 
+        "SYS_USERSERVICE_HOST": "userservice.{general->FRONTEND}", 
+        "SYS_USERSERVICE_PORT": "8842", 
+        "SYS_WALLETSERVICE_PORT": "8080", 
+        "VIRTUAL_HOST": "diameterserver.*", 
+        "WALLERTSERVICE_PORT": "", 
+        "WALLETSERVICE_HOST": ""
+    }, 
+    "dynamicconfigurationgenerator": {
+        "BILLING_ENABLED": "", 
+        "DASHBOARD_USE_MSG_QUEUE": "", 
+        "DEPLOYMENT_ENV": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8816/tcp"
+        }, 
+        "HOST_NAME": "dynamicconfigurationgenerator", 
+        "LB_FRONTEND": "dynamicconfigurationgenerator.{general->FRONTEND}", 
+        "LOG_HOST": "", 
+        "LOG_LEVEL": "", 
+        "LOG_PORT": "", 
+        "NODE_CONFIG_DIR": "/usr/local/src/dynamicconfigurationgenerator/config", 
+        "OUTBOUND_RECORDING_PATH": "", 
+        "REDIS_DB_CONFIG": "", 
+        "SYS_DIAMETERCLIENT_HOST": "diameterclient.{general->FRONTEND}", 
+        "SYS_FILESERVICE_HOST": "fileservice.{general->FRONTEND}", 
+        "SYS_FILESERVICE_PORT": "8812", 
+        "VIRTUAL_HOST": "dynamicconfigurationgenerator.*"
+    }, 
+    "engagementservice": {
+        "DOCKER_PARAMS": {
+            "--expose": "8834/tcp"
+        }, 
+        "LB_FRONTEND": "engagementservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/engagementservice/config", 
+        "VIRTUAL_HOST": "engagementservice.*"
+    }, 
+    "event": {
+        "EVENTSOCKET_PORT": "", 
+        "EVENT_CONSUME_TYPE": "amqp", 
+        "FREESWITCH_EVENTSOCKET_PASSWORD": "", 
+        "FREESWITCH_HOST": ""
+    }, 
+    "eventmonitor": {
+        "BILLING_ENABLED": "", 
+        "DASHBOARD_USE_MSG_QUEUE": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8806/tcp"
+        }, 
+        "EVENTSOCKET_PORT": "", 
+        "EVENT_CONSUME_TYPE": "", 
+        "FREESWITCH_EVENTSOCKET_PASSWORD": "", 
+        "FREESWITCH_HOST": "", 
+        "LB_FRONTEND": "eventmonitor.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/eventmonitor/config", 
+        "REDIS_DB_PROCESSEDCDR": "", 
+        "SYS_ARDSLITESERVICE_HOST": "ardsliteservice.{general->FRONTEND}", 
+        "SYS_ARDSLITESERVICE_NODE_CONFIG_DIR": "/usr/local/src/ardsliteservice/config", 
+        "SYS_ARDSLITESERVICE_PORT": "8828", 
+        "SYS_DIALER_GO_CONFIG_DIR": "/go/src/github.com/DuoSoftware/DVP-DialerAPI/DuoDialer", 
+        "SYS_DIALER_HOST": "dialerapi.{general->FRONTEND}", 
+        "SYS_DIALER_PORT": "8836", 
+        "SYS_DIAMETERCLIENT_HOST": "diameterclient.{general->FRONTEND}", 
+        "SYS_INTERACTIONS_HOST": "interactions.{general->FRONTEND}", 
+        "SYS_NOTIFICATIONSERVICE_HOST": "notificationservice.{general->FRONTEND}", 
+        "SYS_NOTIFICATIONSERVICE_PORT": "8833", 
+        "USE_CDR_GENARATOR": "", 
+        "VIRTUAL_HOST": "eventmonitor.*", 
+        "XMLRPC_PORT": ""
+    }, 
+    "eventservice": {
+        "DOCKER_PARAMS": {
+            "--expose": "8822/tcp"
+        }, 
+        "LB_FRONTEND": "eventservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/eventservice/config", 
+        "VIRTUAL_HOST": "eventservice.*"
+    }, 
+    "eventsink": {
+        "DOCKER_PARAMS": {
+            "--expose": "8838/tcp"
+        }, 
+        "EVENT_CONSUME_TYPE": "", 
+        "HOST_EVENTSINK_PORT": "8822", 
+        "LB_FRONTEND": "eventsink.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/eventsink/config", 
+        "VIRTUAL_HOST": "eventsink.*"
+    }, 
+    "filearchiveservice": {
+        "DOCKER_PARAMS": {}, 
+        "FILE_DIRECTORY_PATH": "", 
+        "GO_CONFIG_DIR": "/go/src/github.com/DuoSoftware/DVP-FileArchiveService", 
+        "SYS_USERSERVICE_HOST": "userservice.{general->FRONTEND}"
+    }, 
+    "fileservice": {
+        "CRYPTO_ALGO": "", 
+        "CRYPTO_PASSWORD": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8812/tcp"
+        }, 
+        "FILE_DIRECTORY_PATH": "", 
+        "FILE_DIRECTORY_PATH_LOCAL": "", 
+        "FILE_STORAGE": "", 
+        "LB_FRONTEND": "fileservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/fileservice/config", 
+        "VIRTUAL_HOST": "fileservice.*"
+    }, 
+    "general": {
+        "FRONTEND": "", 
+        "HOST_IP": "0.0.0.0", 
+        "HOST_TOKEN": "", 
+        "HOST_VERSION": "1.0.0.0", 
+        "LB_PORT": "80", 
+        "TENANT": "1", 
+        "TENANT_NAME": ""
+    }, 
+    "httpprogrammingapi": {
+        "DOCKER_PARAMS": {
+            "--expose": "8807/tcp"
+        }, 
+        "EVENTSOCKET_PORT": "", 
+        "EVENT_CONSUME_TYPE": "", 
+        "EVENT_QUEUE": "", 
+        "FREESWITCH_EVENTSOCKET_PASSWORD": "", 
+        "FREESWITCH_HOST": "", 
+        "HTTP_EVENT_QUEUE": "", 
+        "LB_FRONTEND": "httpprogrammingapi.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/httpprogrammingapi/config", 
+        "SYS_ARDSLITESERVICE_HOST": "ardsliteservice.{general->FRONTEND}", 
+        "SYS_ARDSLITESERVICE_NODE_CONFIG_DIR": "/usr/local/src/ardsliteservice/config", 
+        "SYS_ARDSLITESERVICE_PORT": "8828", 
+        "SYS_CSAT_HOST": "csatservice.{general->FRONTEND}", 
+        "SYS_DOWNLOAD_FILESERVICE_HOST": "fileservice.{general->FRONTEND}", 
+        "SYS_DOWNLOAD_FILESERVICE_PORT": "8812", 
+        "SYS_FILESERVICE_HOST": "fileservice.{general->FRONTEND}", 
+        "SYS_FILESERVICE_NODE_CONFIG_DIR": "/usr/local/src/fileservice/config", 
+        "SYS_FILESERVICE_PORT": "8812", 
+        "SYS_INTERACTION_HOST": "interactions.{general->FRONTEND}", 
+        "SYS_INTERACTION_PORT": "8873", 
+        "SYS_QUEUEMUSIC_HOST": "queuemusic.{general->FRONTEND}", 
+        "SYS_QUEUEMUSIC_PORT": "8842", 
+        "SYS_RULESERVICE_HOST": "ruleservice.{general->FRONTEND}", 
+        "SYS_RULESERVICE_PORT": "8817", 
+        "SYS_TICKET_HOST": "liteticket.{general->FRONTEND}", 
+        "SYS_TICKET_PORT": "8872", 
+        "SYS_TICKET_VERSION": "1.0.0.0", 
+        "SYS_USERSERVICE_HOST": "userservice.{general->FRONTEND}", 
+        "VIRTUAL_HOST": "httpprogrammingapi.*"
+    }, 
+    "httpprogrammingapidebug": {
+        "DOCKER_PARAMS": {
+            "--expose": "8825/tcp"
+        }, 
+        "EVENT_CONSUME_TYPE": "", 
+        "LB_FRONTEND": "httpprogrammingapidebug.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/httpprogrammingapidebug/config", 
+        "SYS_HTTPPROGRAMMINGAPI_HOST": "httpprogrammingapi.{general->FRONTEND}", 
+        "VIRTUAL_HOST": "httpprogrammingapidebug.*"
+    }, 
+    "httpprogrammingmonitorapi": {
+        "DOCKER_PARAMS": {
+            "--expose": "8813/tcp"
+        }, 
+        "LB_FRONTEND": "httpprogrammingmonitorapi.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/httpprogrammingmonitorapi/config", 
+        "VIRTUAL_HOST": "httpprogrammingmonitorapi.*"
+    }, 
+    "integrationapi": {
+        "DOCKER_PARAMS": {
+            "--expose": "8882/tcp",
+            "-p": "8882:8882"
+        }, 
+        "LB_FRONTEND": "integrationapi.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/integrationapi/config", 
+        "SYS_USERSERVICE_HOST": "userservice.{general->FRONTEND}", 
+        "VIRTUAL_HOST": "integrationapi.*"
+    }, 
+    "interactions": {
+        "DOCKER_PARAMS": {
+            "--expose": "8873/tcp"
+        }, 
+        "EXTERNAL_PROFILE_SEARCH": "", 
+        "LB_FRONTEND": "interactions.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/interactions/config", 
+        "SYS_CLUSTERCONFIG_HOST": "clusterconfig.{general->FRONTEND}", 
+        "SYS_CLUSTERCONFIG_PORT": "8805", 
+        "SYS_RESOURCESERVICE_HOST": "resourceservice.{general->FRONTEND}", 
+        "SYS_RESOURCESERVICE_PORT": "8831", 
+        "SYS_SIPUSERENDPOINTSERVICE_HOST": "sipuserendpointservice.{general->FRONTEND}", 
+        "SYS_SIPUSERENDPOINTSERVICE_PORT": "8814", 
+        "VIRTUAL_HOST": "interactions.*"
+    }, 
+    "ipmessagingservice": {
+        "DOCKER_PARAMS": {
+            "--expose": "8890/tcp",
+            "-p": "8889:8889"
+        }, 
+        "HOST_IPMESSANGERSERVICE_PORT": "8887", 
+        "HOST_NAME": "ipmessagingservice.{general->FRONTEND}", 
+        "LB_FRONTEND": "ipmessagingservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/ipmessagingservice/config", 
+        "SYS_ARDSLITESERVICE_HOST": "ardsliteservice.{general->FRONTEND}", 
+        "SYS_INTERACTIONS_HOST": "interactions.{general->FRONTEND}", 
+        "VIRTUAL_HOST": "ipmessagingservice.*"
+    }, 
+    "limithandler": {
+        "DOCKER_PARAMS": {
+            "--expose": "8815/tcp"
+        }, 
+        "LB_FRONTEND": "limithandler.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/limithandler/config", 
+        "REDIS_DB_CONFIG": "", 
+        "SYS_APPREGISTRY_HOST": "appregistry.{general->FRONTEND}", 
+        "SYS_NOTIFICATIONSERVICE_HOST": "notificationservice.{general->FRONTEND}", 
+        "SYS_USERSERVICE_HOST": "userservice.{general->FRONTEND}", 
+        "VIRTUAL_HOST": "limithandler.*"
+    }, 
+    "liteticket": {
+        "DATABASE_POSTGRES_PASSWORD": "", 
+        "DATABASE_POSTGRES_USER": "", 
+        "DATABASE_TYPE": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8872/tcp"
+        }, 
+        "LB_FRONTEND": "liteticket.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/liteticket/config", 
+        "REDIS_DB_ARDS": "", 
+        "REDIS_DB_DASHBOARD": "", 
+        "SYS_ARDSLITESERVICE_HOST": "ardsliteservice.{general->FRONTEND}", 
+        "SYS_ARDSLITESERVICE_PORT": "8828", 
+        "SYS_CLUSTERCONFIG_HOST": "clusterconfig.{general->FRONTEND}", 
+        "SYS_CLUSTERCONFIG_PORT": "8805", 
+        "SYS_FILESERVICE_HOST": "fileservice.{general->FRONTEND}", 
+        "SYS_FILESERVICE_PORT": "8812", 
+        "SYS_INTERACTIONS_HOST": "interactions.{general->FRONTEND}", 
+        "SYS_NOTIFICATIONSERVICE_HOST": "notificationservice.{general->FRONTEND}", 
+        "SYS_NOTIFICATIONSERVICE_PORT": "8833", 
+        "SYS_RESOURCESERVICE_HOST": "resourceservice.{general->FRONTEND}", 
+        "SYS_RESOURCESERVICE_PORT": "8831", 
+        "SYS_SCHEDULEWORKER_HOST": "scheduleworker.{general->FRONTEND}", 
+        "SYS_SCHEDULEWORKER_PORT": "8852", 
+        "SYS_SIPUSERENDPOINTSERVICE_HOST": "sipuserendpointservice.{general->FRONTEND}", 
+        "SYS_SIPUSERENDPOINTSERVICE_PORT": "8814", 
+        "VIRTUAL_HOST": "liteticket.*"
+    }, 
+    "imap": {
+        "IMAP_COMPANY": "103", 
+        "IMAP_FETCH": "true", 
+        "IMAP_HOST": "imap.gmail.com", 
+        "IMAP_MAILBOX": "INBOX", 
+        "IMAP_PASSWORD": "", 
+        "IMAP_PORT": "993", 
+        "IMAP_SECURITY": "true", 
+        "IMAP_SEEN": "true", 
+        "IMAP_TENAT": "1", 
+        "IMAP_USER_NAME": ""
     },
-    "userservice": {
-        "APP_AGENT_UI": "",
-        "APP_UI_HOST": "",
-        "BITBUCKET_PWD": "",
-        "CLUSTER_NAME": "",
-        "EXTERNAL_PROFILE_SEARCH": "",
-        "FACEBOOK_PWD": "",
-        "FOURSQUARE_PWD": "",
-        "GITHUB_PWD": "",
-        "GOOGLE_PWD": "",
-        "GOOGLE_RECAPTCHA_KEY": "",
-        "INSTAGRAM_PWD": "",
-        "LINKEDIN_PWD": "",
-        "LOGIN_VERIFICATION": "",
-        "PROVISION_MECHANISM": "",
-        "SIGNUP_VERIFICATION": "",
-        "SPOTIFY_PWD": "",
-        "SYS_AUTH_MULTI_LOGIN": "",
-        "TWITCH_PWD": "",
-        "TWITTER_KEY": "",
-        "TWITTER_PWD": "",
-        "WINDOWS_PWD": "",
+    "mailreceiver": {
+        "DOCKER_PARAMS": {
+            "--expose": "8877/tcp",
+            "-p": "8877:8877"
+        }, 
+        "HOST_ENABLE_SMSSENDER": "true", 
+        "HOST_ENABLE_SMTPLISTNER": "true", 
+        "HOST_ENABLE_SMTPSENDER": "true", 
+        "HOST_NAME": "mailreceiver.{general->FRONTEND}", 
+        "LB_FRONTEND": "mailreceiver.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/mailreceiver/config", 
+        "SYS_ARDSLITESERVICE_HOST": "ardsliteservice.{general->FRONTEND}", 
+        "SYS_CALLBACK_OPTION": "GET", 
+        "SYS_EMAIL_QUEUE_NAME": "EMAILOUT", 
+        "SYS_FILESERVICE_HOST": "fileservice.{general->FRONTEND}", 
+        "SYS_INTERACTIONS_HOST": "interactions.{general->FRONTEND}", 
+        "SYS_LITETICKET_HOST": "liteticket.{general->FRONTEND}", 
+        "SYS_REQUEST_TYPE": "CALL", 
+        "SYS_RESOURCESERVICE_HOST": "resourceservic.{general->FRONTEND}", 
+        "SYS_RESOURCE_TYPE": "cluster", 
+        "SYS_SCHEDULEWORKER_HOST": "scheduleworker.{general->FRONTEND}", 
+        "SYS_SERVER_ID": "2", 
+        "SYS_SMS_QUEUE_NAME": "SMSOUT", 
+        "SYS_SMS_SENDER": "true", 
+        "SYS_SMTP_LISTNER": "true", 
+        "SYS_SMTP_SENDER": "true", 
+        "VIRTUAL_HOST": "mailreceiver.*",
+        "HOST_ENABLE_IMAPLISTNER": "true"
+    }, 
+    "mailsender": {
+        "DOCKER_PARAMS": {
+            "--expose": "8878/tcp",
+            "-p": "8878:8878"
+        }, 
+        "HOST_ENABLE_IMAPLISTNER": "true", 
+        "HOST_ENABLE_SMSSENDER": "true", 
+        "HOST_ENABLE_SMTPLISTNER": "true", 
+        "HOST_ENABLE_SMTPSENDER": "true", 
+        "HOST_NAME": "mailsender.{general->FRONTEND}",
+        "LB_FRONTEND": "mailsender.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/mailsender/config", 
+        "SYS_ARDSLITESERVICE_HOST": "ardsliteservice.{general->FRONTEND}", 
+        "SYS_CALLBACK_OPTION": "GET", 
+        "SYS_EMAIL_QUEUE_NAME": "EMAILOUT", 
+        "SYS_FILESERVICE_HOST": "fileservice.{general->FRONTEND}", 
+        "SYS_INTERACTIONS_HOST": "interactions.{general->FRONTEND}", 
+        "SYS_LITETICKET_HOST": "liteticket.{general->FRONTEND}", 
+        "SYS_REQUEST_TYPE": "CALL", 
+        "SYS_RESOURCESERVICE_HOST": "resourceservic.{general->FRONTEND}", 
+        "SYS_RESOURCE_TYPE": "cluster", 
+        "SYS_SCHEDULEWORKER_HOST": "scheduleworker.{general->FRONTEND}", 
+        "SYS_SERVER_ID": "2", 
+        "SYS_SMS_QUEUE_NAME": "SMSOUT", 
+        "SYS_SMS_SENDER": "true", 
+        "SYS_SMTP_LISTNER": "true", 
+        "SYS_SMTP_SENDER": "true", 
+        "VIRTUAL_HOST": "mailsender.*"
+    }, 
+    "mongodb": {
+        "MONGO_DB": "", 
+        "MONGO_HOST": "", 
+        "MONGO_PASSWORD": "", 
+        "MONGO_PORT": "", 
+        "MONGO_REPLICA_SET_NAME": "", 
+        "MONGO_USER": ""
+    }, 
+    "monitorrestapi": {
+        "DOCKER_PARAMS": {
+            "--expose": "8823/tcp"
+        }, 
+        "LB_FRONTEND": "monitorrestapi.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/monitorrestapi/config", 
+        "VIRTUAL_HOST": "monitorrestapi.*"
+    }, 
+    "notificationservice": {
+        "CRM_ENABLE": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8833/tcp"
+        }, 
+        "LB_FRONTEND": "notificationservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/notificationservice/config", 
+        "SYS_CRMINTEGRATION_HOST": "crmintegrations.app.veery.cloud", 
+        "SYS_CRMINTEGRATION_PORT": "8894", 
+        "VIRTUAL_HOST": "notificationservice.*"
+    }, 
+    "pbxservice": {
+        "DOCKER_PARAMS": {
+            "--expose": "8820/tcp"
+        }, 
+        "LB_FRONTEND": "pbxservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/pbxservice/config", 
+        "REDIS_DB_CONFIG": "", 
+        "SYS_FILESERVICE_HOST": "fileservice.{general->FRONTEND}", 
+        "SYS_FILESERVICE_NODE_CONFIG_DIR": "/usr/local/src/fileservice/config", 
+        "SYS_FILESERVICE_PORT": "8812", 
+        "SYS_SIPUSERSERVICE_HOST": "sipuserendpointservice.{general->FRONTEND}", 
+        "SYS_SIPUSERSERVICE_NODE_CONFIG_DIR": "/usr/local/src/sipuserendpointservice/config", 
+        "SYS_SIPUSERSERVICE_PORT": "8814", 
+        "VIRTUAL_HOST": "pbxservice.*"
+    }, 
+    "phonenumbertrunkservice": {
+        "DOCKER_PARAMS": {
+            "--expose": "8818/tcp"
+        }, 
+        "LB_FRONTEND": "phonenumbertrunkservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/phonenumbertrunkservice/config", 
+        "REDIS_DB_CONFIG": "", 
+        "VIRTUAL_HOST": "phonenumbertrunkservice.*"
+    }, 
+    "productivityservice": {
+        "DOCKER_PARAMS": {
+            "--expose": "8876/tcp"
+        }, 
+        "LB_FRONTEND": "productivityservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/productivityservice/config", 
+        "REDIS_DB_ARDS": "", 
+        "REDIS_DB_DASHBOARD": "", 
+        "VIRTUAL_HOST": "productivityservice.*"
+    }, 
+    "qamodule": {
+        "DOCKER_PARAMS": {
+            "--expose": "8884/tcp"
+        }, 
+        "LB_FRONTEND": "qamodule.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/qamodule/config", 
+        "VIRTUAL_HOST": "qamodule.*"
+    }, 
+    "queuemusic": {
+        "DOCKER_PARAMS": {
+            "--expose": "8843/tcp"
+        }, 
+        "HOST_NAME": "queuemusic", 
+        "LB_FRONTEND": "queuemusic.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/queuemusic/config", 
+        "VIRTUAL_HOST": "queuemusic.*"
+    }, 
+    "rabbitmq": {
+        "RABBITMQ_HOST": "", 
+        "RABBITMQ_PASSWORD": "", 
+        "RABBITMQ_PORT": "5672", 
+        "RABBITMQ_USER": "admin", 
+        "RABBITMQ_VHOST": "/"
+    }, 
+    "redis": {
+        "REDIS_DB": "0", 
+        "REDIS_HOST": "", 
+        "REDIS_MODE": "instance", 
+        "REDIS_PASSWORD": "", 
+        "REDIS_PORT": "6389", 
+        "REDIS_SENTINEL_HOSTS": "", 
+        "REDIS_SENTINEL_NAME": "redis-cluster", 
+        "REDIS_SENTINEL_PORT": ""
+    }, 
+    "reportqueryfilters": {
+        "DOCKER_PARAMS": {
+            "--expose": "8846/tcp",
+            "-p": "8846:8846"
+        }, 
+        "LB_FRONTEND": "reportqueryfilters.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/reportqueryfilters/config", 
+        "VIRTUAL_HOST": "reportqueryfilters.*"
+    }, 
+    "resourceservice": {
+        "DASHBOARD_REDIS_HOST": "", 
+        "DASHBOARD_REDIS_PASSWORD": "", 
+        "DASHBOARD_REDIS_PORT": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8831/tcp"
+        }, 
+        "LB_FRONTEND": "resourceservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/resourceservice/config", 
+        "REDIS_DB_ARDS": "", 
+        "REDIS_DB_DASHBOARD": "", 
+        "VIRTUAL_HOST": "resourceservice.*"
+    }, 
+    "ruleservice": {
+        "DOCKER_PARAMS": {
+            "--expose": "8817/tcp"
+        }, 
+        "LB_FRONTEND": "ruleservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/ruleservice/config", 
+        "REDIS_DB_CONFIG": "", 
+        "VIRTUAL_HOST": "ruleservice.*"
+    }, 
+    "scheduleworker": {
+        "DOCKER_PARAMS": {
+            "--expose": "8852/tcp"
+        }, 
+        "LB_FRONTEND": "scheduleworker.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/scheduleworker/config", 
+        "VIRTUAL_HOST": "scheduleworker.*"
+    }, 
+    "sipuserendpointservice": {
+        "DOCKER_PARAMS": {
+            "--expose": "8814/tcp"
+        }, 
+        "LBDATABASE_HOST": "", 
+        "LBDATABASE_MYSQL_DB": "", 
+        "LBDATABASE_MYSQL_PASSWORD": "", 
+        "LBDATABASE_MYSQL_USER": "", 
+        "LBDATABASE_TYPE": "", 
+        "LBMYSQL_PORT": "", 
+        "LB_FRONTEND": "sipuserendpointservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/sipuserendpointservice/config", 
+        "REDIS_DB_CONFIG": "", 
+        "SIPUSER_PWD": "", 
+        "VIRTUAL_HOST": "sipuserendpointservice.*"
+    }, 
+    "skypebot": {
+        "COMPANY_NAME": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8892/tcp",
+            "-p": "8892:8892"
+        }, 
+        "HOST_COMPANY": "", 
+        "HOST_SECRET": "", 
+        "NODE_CONFIG_DIR": "/usr/local/src/skypebot/config", 
+        "SKYPE_BOT_APP_ID": "", 
+        "SKYPE_BOT_APP_PASSWORD": "", 
+        "SYS_CSAT_HOST": "csatservice.{general->FRONTEND}", 
+        "SYS_EXT_MESSENGER_HOST": "externalipmessagingservice.{general->FRONTEND}", 
+        "SYS_EXT_MESSENGER_PORT": "8890"
+    }, 
+    "smppclient": {
+        "DOCKER_PARAMS": {}, 
+        "LB_FRONTEND": "smppclient.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/smppclient/config", 
+        "RULESERVICE_HOST": "", 
+        "SMPP_HOST": "", 
+        "SMPP_PASSWORD": "", 
+        "SMPP_PORT": "", 
+        "SMPP_USER": "", 
+        "SMS_QUEUE_NAME": "SMS_QUEUE", 
+        "SYS_ARDSLITESERVICE_HOST": "ardsliteservice.{general->FRONTEND}", 
+        "SYS_ARDSLITESERVICE_PORT": "8828", 
+        "SYS_DYNAMICCONFIGGENERATOR_HOST": "dynamicconfigurationgenerator.{general->FRONTEND}", 
+        "SYS_DYNAMICCONFIGGENERATOR_PORT": "8816", 
+        "SYS_HTTPROGRAMINGAPI_HOST": "httpprogrammingapi.{general->FRONTEND}", 
+        "SYS_HTTPROGRAMINGAPI_PORT": "8807", 
+        "SYS_INTERACTIONS_HOST": "interactions.{general->FRONTEND}", 
+        "SYS_INTERACTIONS_PORT": "8873", 
+        "SYS_LITETICKET_HOST": "liteticket.{general->FRONTEND}", 
+        "SYS_LITETICKET_PORT": "8872", 
+        "SYS_RESOURCESERVICE_HOST": "resourceservice.{general->FRONTEND}", 
+        "SYS_RESOURCESERVICE_PORT": "8831", 
+        "SYS_RULESERVICE_PORT": "8817", 
+        "SYS_SCHEDULEWORKER_HOST": "scheduleworker.{general->FRONTEND}", 
+        "SYS_SCHEDULEWORKER_PORT": "8852", 
+        "VIRTUAL_HOST": "smppclient.*"
+    }, 
+    "sms": {
+        "SMS_MODE": "", 
+        "SMS_NUMBER": "", 
+        "SMS_PASSWORD": "", 
+        "SMS_PORT": "", 
+        "SMS_QUEUE": "", 
+        "SMS_SERVER": "", 
+        "SMS_USER": ""
+    }, 
+    "smtp": {
+        "SMTP_HOST": "", 
+        "SMTP_PASSWORD": "", 
+        "SMTP_PORT": "", 
+        "SMTP_USER": ""
+    }, 
+    "socialconnector": {
+        "DOCKER_PARAMS": {
+            "--expose": "8878/tcp",
+            "-p": "8878:8878"
+        }, 
+        "FACEBOOK_QUEUE": "", 
+        "FBCLIENT_ID": "", 
+        "FBCLIENT_KEY": "", 
+        "LB_FRONTEND": "socialconnector.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/socialconnector/config", 
+        "SYS_ARDSLITESERVICE_HOST": "ardsliteservice.{general->FRONTEND}", 
+        "SYS_FACEBOOK_URL": "https://graph.facebook.com/", 
+        "SYS_INTERACTIONS_HOST": "interactions.{general->FRONTEND}", 
+        "SYS_LITETICKET_HOST": "liteticket.{general->FRONTEND}", 
+        "SYS_RESOURCESERVICE_HOST": "resourceservice.{general->FRONTEND}", 
+        "SYS_SCHEDULEWORKER_HOST": "scheduleworker.{general->FRONTEND}", 
+        "TWITTER_CALLBACKURL": "", 
+        "TWITTER_ENVIRONMENT": "", 
+        "TWITTER_KEY": "", 
+        "TWITTER_QUEUE": "", 
+        "TWITTER_SECRET": "", 
+        "VIRTUAL_HOST": "socialconnector.*"
+    }, 
+    "templates": {
+        "DOCKER_PARAMS": {
+            "--expose": "8875/tcp"
+        }, 
+        "LB_FRONTEND": "templates.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/templates/config", 
+        "VIRTUAL_HOST": "templates.*"
+    }, 
+    "todolistservice": {
+        "DOCKER_PARAMS": {
+            "--expose": "8879/tcp"
+        }, 
+        "HOST_NAME": "todolistservice.{general->FRONTEND}", 
+        "LB_FRONTEND": "todolistservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/todolistservice/config", 
+        "SYS_NOTIFICATIONSERVICE_HOST": "notificationservice.{general->FRONTEND}", 
+        "SYS_SCHEDULEWORKER_HOST": "scheduleworker.{general->FRONTEND}", 
+        "VIRTUAL_HOST": "todolistservice.*"
+    }, 
+    "twitterreciver": {
+        "DOCKER_PARAMS": {
+            "--expose": "4647/tcp",
+            "-p": "4647:4647"
+        }, 
+        "LB_FRONTEND": "twitterreciver.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/twitterreciver/config", 
+        "SYS_ARDSLITESERVICE_HOST": "ardsliteservice.{general->FRONTEND}", 
+        "SYS_EXT_MESSENGER_HOST": "externalipmessagingservice.{general->FRONTEND}", 
+        "SYS_INTERACTIONS_HOST": "interactions.{general->FRONTEND}", 
+        "SYS_LITETICKET_HOST": "liteticket.{general->FRONTEND}", 
+        "SYS_RESOURCESERVICE_HOST": "resourceservice.{general->FRONTEND}", 
+        "SYS_RESOURCESERVICE_PORT": "8831", 
+        "TWITTER_CONSUMER_KEY": "", 
+        "TWITTER_CONSUMER_SECRET": "", 
+        "VIRTUAL_HOST": "twitterreciver.*"
+    }, 
+    "userservice_accs": {
+        "BITBUCKET_PWD": "", 
+        "FACEBOOK_PWD": "", 
+        "FOURSQUARE_PWD": "", 
+        "GITHUB_PWD": "", 
+        "GOOGLE_PWD": "", 
+        "GOOGLE_RECAPTCHA_KEY": "", 
+        "INSTAGRAM_PWD": "", 
+        "LINKEDIN_PWD": "", 
+        "SPOTIFY_PWD": "", 
+        "TWITCH_PWD": "", 
+        "TWITTER_KEY": "", 
+        "TWITTER_PWD": "", 
+        "WINDOWS_PWD": "", 
         "YAHOO_PWD": ""
     },
-    "httpprogrammingapi": {
-        "EVENT_CONSUME_TYPE": "",
-        "EVENT_QUEUE": "",
-        "EVENTSOCKET_PORT": "",
-        "FREESWITCH_EVENTSOCKET_PASSWORD": "",
-        "FREESWITCH_HOST": "",
-        "HTTP_EVENT_QUEUE": ""
-    },
-    "sipuserendpointservice": {
-        "LBDATABASE_HOST": "",
-        "LBDATABASE_MYSQL_DB": "",
-        "LBDATABASE_MYSQL_PASSWORD": "",
-        "LBDATABASE_MYSQL_USER": "",
-        "LBDATABASE_TYPE": "",
-        "LBMYSQL_PORT": "",
-        "REDIS_DB_CONFIG": "",
-        "SIPUSER_PWD": ""
-    },
-    "clusterconfig": {
-        "REDIS_DB_CONFIG": ""
-    },
-    "eventmonitor": {
-        "BILLING_ENABLED": "",
-        "DASHBOARD_USE_MSG_QUEUE": "",
-        "EVENT_CONSUME_TYPE": "",
-        "EVENTSOCKET_PORT": "",
-        "FREESWITCH_EVENTSOCKET_PASSWORD": "",
-        "FREESWITCH_HOST": "",
-        "REDIS_DB_PROCESSEDCDR": "",
-        "USE_CDR_GENARATOR": "",
-        "XMLRPC_PORT": ""
-    },
-    "dialerapi": {
-        "FREESWITCH_HOST": "",
-        "REDIS_DB_DIALER": "",
-        "USE_DIALLER_AMQP_ADAPTER": "",
-        "XMLRPC_PORT": ""
-    },
-    "dashboard": {
-        "DASHBOARD_CACHE_TYPE": "",
-        "DASHBOARD_REDIS_HOST": "",
-        "DASHBOARD_REDIS_PASSWORD": "",
-        "DASHBOARD_REDIS_PORT": "",
-        "DASHBOARD_USE_MSG_QUEUE": "",
-        "REDIS_DB_ARDS": "",
-        "REDIS_DB_DASHBOARD": "",
-        "STATSD_HOST": "",
-        "STATSD_PORT": ""
-    },
-    "cdrprocessor": {
-        "SAVE_CDR_MONGO": ""
-    },
-    "liteticket": {
-        "DATABASE_POSTGRES_PASSWORD": "",
-        "DATABASE_POSTGRES_USER": "",
-        "DATABASE_TYPE": "",
-        "REDIS_DB_ARDS": "",
-        "REDIS_DB_DASHBOARD": ""
-    },
-    "fileservice": {
-        "CRYPTO_ALGO": "",
-        "CRYPTO_PASSWORD": "",
-        "FILE_DIRECTORY_PATH_LOCAL": "",
-        "FILE_DIRECTORY_PATH": "",
-        "FILE_STORAGE": ""
-    },
-    "cdrgenerator": {
-        "REDIS_DB_PROCESSCDR": "",
-        "REDIS_DB_PROCESSEDCDR": ""
-    },
-    "productivityservice": {
-        "REDIS_DB_ARDS": "",
-        "REDIS_DB_DASHBOARD": ""
-    },
-    "socialconnector": {
-        "FACEBOOK_QUEUE": "",
-        "FBCLIENT_ID": "",
-        "FBCLIENT_KEY": "",
-        "TWITTER_CALLBACKURL": "",
-        "TWITTER_ENVIRONMENT": "",
-        "TWITTER_KEY": "",
-        "TWITTER_QUEUE": "",
-        "TWITTER_SECRET": ""
-    },
-    "billingservice": {
-        "BILLING_CALL_WARNING": "",
-        "BILLING_BILLING_EMAIL_WARNING": "",
-        "BILLING_SCHEDULE_FREQUENCY": "",
-        "BILLING_SCHEDULE_TRIES": "",
-        "BILLING_SMS_WARNING": "",
-        "TENANTBILLING_ENABLED": "",
-        "USERBILLING_ENABLED": "",
-        "WALLERTSERVICE_PORT": "",
-        "WALLETSERVICE_HOST": ""
-    },
-    "dashboardservice": {
-        "DASHBOARD_REDIS_HOST": "",
-        "DASHBOARD_REDIS_PASSWORD": "",
-        "DASHBOARD_REDIS_PORT": "",
-        "REDIS_DB_ARDS": "",
-        "REDIS_DB_DASHBOARD": "",
-        "STATSD_HOST": "",
-        "STATSD_PORT": ""
-    },
-    "diameterrelay": {
-        "DIAMETER_SERVER_PORT": ""
-    },
-    "diameterclient": {
-        "DIAMETER_RELAY_PORT": ""
-    },
-    "diameterserver": {
-        "WALLERTSERVICE_PORT": "",
-        "WALLETSERVICE_HOST": ""
-    },
-    "skypebot": {
-        "COMPANY_NAME": "",
-        "HOST_COMPANY": "",
-        "HOST_SECRET": "",
-        "SKYPE_BOT_APP_ID": "",
-        "SKYPE_BOT_APP_PASSWORD": ""
-    },
-    "filearchiveservice": {
-        "FILE_DIRECTORY_PATH": ""
-    },
-    "smppclient": {
-        "RULESERVICE_HOST": "",
-        "SMPP_HOST": "",
-        "SMPP_PASSWORD": "",
-        "SMPP_PORT": "",
-        "SMPP_USER": ""
-    },
-    "dashboarddataprocessor": {
-        "REDIS_DB_DASHBOARD": "",
-        "REDIS_MODE": ""
-    },
-    "ardsliteserviceimproved": {
-        "ARDS_USE_MSG_QUEUE": "",
-        "REDIS_DB_ARDS": ""
-    },
-    "ardsliteroutingengineimproved": {
-        "ARDS_USE_MSG_QUEUE": "",
-        "ARDSLITEROUTINGENGINEIMPROVED_ID": "",
-        "REDIS_DB_ARDS": "",
-        "REDIS_DB_LOCATION": ""
-    },
-    "eventsink": {
-        "EVENT_CONSUME_TYPE": ""
-    },
-    "cdrengine": {
-        "REDIS_DB_CONFIG": ""
-    },
-    "cdreventlistner": {
-        "SAVE_CDR_MONGO": ""
-    },
-    "twitterreciver": {
-        "TWITTER_CONSUMER_KEY": "",
-        "TWITTER_CONSUMER_SECRET": ""
+    "userservice": {
+        "APP_AGENT_UI": "", 
+        "APP_UI_HOST": "", 
+        "CLUSTER_NAME": "", 
+        "DOCKER_PARAMS": {
+            "--expose": "8842/tcp"
+        }, 
+        "EXTERNAL_PROFILE_SEARCH": "", 
+        "LB_FRONTEND": "userservice.{general->FRONTEND}", 
+        "LOGIN_VERIFICATION": "", 
+        "NODE_CONFIG_DIR": "/usr/local/src/userservice/config", 
+        "PROVISION_MECHANISM": "", 
+        "SIGNUP_VERIFICATION": "", 
+        "SYS_AUTH_MULTI_LOGIN": "", 
+        "SYS_BILLINGSERVICE_HOST": "billingservice.{general->FRONTEND}", 
+        "SYS_CLUSTERCONFIG_HOST": "clusterconfig.{general->FRONTEND}", 
+        "SYS_CLUSTERCONFIG_PORT": "8805", 
+        "SYS_FILESERVICE_HOST": "fileservice.{general->FRONTEND}", 
+        "SYS_LITETICKET_HOST": "liteticket.{general->FRONTEND}", 
+        "SYS_RESOURCESERVICE_HOST": "resourceservice.{general->FRONTEND}", 
+        "SYS_RESOURCESERVICE_PORT": "8831", 
+        "SYS_RULESERVICE_HOST": "ruleservice.{general->FRONTEND}", 
+        "SYS_SIPUSERENDPOINTSERVICE_HOST": "sipuserendpointservice.{general->FRONTEND}", 
+        "SYS_SIPUSERENDPOINTSERVICE_PORT": "8814", 
+        "VIRTUAL_HOST": "userservice.*"
+    }, 
+    "voxboneapi": {
+        "DOCKER_PARAMS": {
+            "--expose": "8832/tcp"
+        }, 
+        "LB_FRONTEND": "voxboneapi.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/voxboneapi/config", 
+        "SYS_BILLINGSERVICE_HOST": "billingservice.{general->FRONTEND}", 
+        "SYS_LIMITHANDLER_HOST": "limithandler.{general->FRONTEND}", 
+        "SYS_LIMITHANDLER_NODE_CONFIG_DIR": "/usr/local/src/limithandler/config", 
+        "SYS_LIMITHANDLER_PORT": "8815", 
+        "SYS_PHONENUMBERTRUNKSERVICE_HOST": "phonenumbertrunkservice.{general->FRONTEND}", 
+        "SYS_PHONENUMBERTRUNKSERVICE_NODE_CONFIG_DIR": "/usr/local/src/phonenumbertrunkservice/config", 
+        "SYS_PHONENUMBERTRUNKSERVICE_PORT": "8818", 
+        "SYS_RULESERVICE_HOST": "ruleservice.{general->FRONTEND}", 
+        "SYS_WALLETSERVICE_HOST": "walletservice.{general->FRONTEND}", 
+        "VIRTUAL_HOST": "voxboneapi.*", 
+        "VOXBONE_URL": "https://sandbox.voxbone.com/ws-voxbone/services/rest", 
+        "VOX_KEY": "", 
+        "VOX_URL": ""
+    }, 
+    "walletservice": {
+        "DOCKER_PARAMS": {
+            "--expose": "8880/tcp"
+        }, 
+        "LB_FRONTEND": "walletservice.{general->FRONTEND}", 
+        "NODE_CONFIG_DIR": "/usr/local/src/walletservice/config", 
+        "SYS_LIMITSERVICE_HOST": "limithandler.{general->FRONTEND}", 
+        "SYS_PHONENUMBERTRUNK_HOST": "phonenumbertrunkservice.{general->FRONTEND}", 
+        "SYS_VOXBONE_URL": "https://sandbox.voxbone.com/ws-voxbone/services/rest", 
+        "VIRTUAL_HOST": "walletservice.*"
+    }, 
+    "xmlrpc": {
+        "XMLRPC_PORT": "8080"
     }
 }

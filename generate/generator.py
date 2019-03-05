@@ -12,6 +12,18 @@ import ConfigParser
 
 services = {}
 
+config = ConfigParser.RawConfigParser()
+config.read("config.sample.ini")
+
+# sections = config.sections()
+
+with open('config.sample.json', 'r') as f:
+    _conf = json.load(f)
+    sections = _conf.keys()
+
+# print sections 
+# sys.exit()
+
 # First get all the services and add to the services dict.
 with open('conf.txt') as f:
     lines = f.readlines()
@@ -19,11 +31,32 @@ with open('conf.txt') as f:
     section_strp = ''
     last_match = ''
 
+    # regex to identify uppercase env variables.
+    regx = re.compile(r"\$([A-Z_]+)")
+
     for line in lines:
         match = re.match(r"^\"(.*)\"\).*$",line.strip())
         if match:
 
             if section_strp != "":
+
+                
+
+                release_from = "version_tag"
+                if re.findall(r'[^#]docker build -t ".*?:latest" .;',section_strp):
+                    release_from = "latest"
+
+                docker_run_cmd = ""
+
+                cmd_match = re.findall(r';(docker run .*?);',section_strp)
+
+                if cmd_match:
+                    docker_run_cmd = regx.sub(r"{\1}", cmd_match[0]).replace('"', "'")               
+                
+                # print docker_run_cmd
+                # sys.exit()
+                
+                
                 service_type = "nodejs"
                 envvars = re.findall(r"(\$GO_VERSION_TAG)",section_strp)
 
@@ -34,8 +67,14 @@ with open('conf.txt') as f:
 
                 services[last_match] = {
                     "type" : service_type,
-                    "configs": [ "general", last_match]
+                    "release_from": release_from,
+                    # "run_cmd": docker_run_cmd,
+                    "configs": [ "general"]
                 }
+
+                if last_match in sections:
+                    services[last_match]["configs"].append(last_match)
+                
 
                 # we need to grab the github urls from the list as well...
                 github_url = re.findall(r"https://github.com/(.*?).git", section_strp)
@@ -49,11 +88,19 @@ with open('conf.txt') as f:
 
 # now we will add remaining dependencies...
 
-config = ConfigParser.RawConfigParser()
-config.read("config.ini.full.backup")
+config2 = ConfigParser.RawConfigParser()
+config2.read("config.ini.full.backup")
 
-for _section in config.sections():
-    configs = dict(config.items(_section))
+# print config2.sections()
+
+for _section in config2.sections():
+    configs = dict(config2.items(_section))
+
+    # print _section
+    # print configs
+
+    if "database_host" in configs:
+        services[_section]['configs'].append("database")
 
     if "mongo_host" in configs:
         services[_section]['configs'].append("mongodb")
@@ -71,9 +118,13 @@ for _section in config.sections():
         services[_section]['configs'].append("smtp")
 
     if "couch_host" in configs:
-        services[_section]['configs'].append("couch")        
+        services[_section]['configs'].append("couch")  
 
 for i, e in enumerate(services):
-    print '"{}": {},'.format(e, services[e])
+    print '"{}": {},'.format(e, json.dumps(services[e]))
 
-# print json.dumps(services, indent=4)          
+
+
+    # print '"{}": {},'.format(e, services[e])
+
+# print json.dumps(services, indent=4)

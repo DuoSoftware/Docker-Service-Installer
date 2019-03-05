@@ -1,0 +1,907 @@
+{
+    "qamodule": {
+        "github_url": "https://github.com/DuoSoftware/DVP-QAModule.git", 
+        "configs": [
+            "general", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_QAMODULE_PORT={HOST_QAMODULE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_QAMODULE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name qamodule qamodule:{VERSION_TAG} node /usr/local/src/qamodule/app.js"
+    }, 
+    "skypebot": {
+        "github_url": "https://github.com/DuoSoftware/DVP-SkypeBot.git", 
+        "configs": [
+            "general", 
+            "skypebot"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_SECRET={HOST_SECRET}' --env='HOST_SKYPEBOT_PORT={HOST_SKYPEBOT_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_SECRET={HOST_SECRET}' --env='HOST_COMPANY={HOST_COMPANY}' --env='HOST_TENANT={TENANT}' --env='SYS_EXT_MESSENGER_HOST={SYS_EXT_MESSENGER_HOST}' --env='SYS_EXT_MESSENGER_PORT={SYS_EXT_MESSENGER_PORT}' --env='SYS_EXT_MESSENGER_VERSION={HOST_VERSION}' --env='SYS_CSAT_HOST={SYS_CSAT_HOST}' --env='SYS_CSAT_PORT={LB_PORT}' --env='SYS_CSAT_VERSION={HOST_VERSION}' --env='COMPANY_NAME={COMPANY_NAME}' --env='BOT_APP_ID={SKYPE_BOT_APP_ID}' --env='BOT_APP_PASSWORD={SKYPE_BOT_APP_PASSWORD}' --expose={HOST_SKYPEBOT_PORT}/tcp -p 8892:8892 --log-opt max-size=10m --log-opt max-file=10 --restart=always --name skypebot skypebot:{VERSION_TAG} node /usr/local/src/skypebot/app.js"
+    }, 
+    "reportqueryfilters": {
+        "github_url": "https://github.com/DuoSoftware/DVP-ReportQueryFilters.git", 
+        "configs": [
+            "general", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='256m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_REPORTQUERYFILTERS_PORT={HOST_REPORTQUERYFILTERS_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_REPORTQUERYFILTERS_PORT}/tcp -p 8846:8846 --log-opt max-size=10m --log-opt max-file=10 --restart=always --name reportqueryfilters reportqueryfilters:{VERSION_TAG} node /usr/local/src/reportqueryfilters/app.js"
+    }, 
+    "limithandler": {
+        "github_url": "https://github.com/DuoSoftware/DVP-LimitHandler.git", 
+        "configs": [
+            "general", 
+            "limithandler", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_LIMITHANDLER_PORT={HOST_LIMITHANDLER_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_CONFIG={REDIS_DB_CONFIG}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='HOST_IP={HOST_IP}' --env='HOST_VERSION={HOST_VERSION}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='SYS_NOTIFICATIONSERVICE_HOST={SYS_NOTIFICATIONSERVICE_HOST}' --env='SYS_NOTIFICATIONSERVICE_VERSION={HOST_VERSION}' --env='SYS_USERSERVICE_HOST={SYS_USERSERVICE_HOST}' --env='SYS_USERSERVICE_VERSION={HOST_VERSION}' --env='SYS_APPREGISTRY_HOST={SYS_APPREGISTRY_HOST}' --env='SYS_APPREGISTRY_VERSION={HOST_VERSION}' --expose={HOST_LIMITHANDLER_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name limithandler limithandler:{VERSION_TAG} node /usr/local/src/limithandler/app.js"
+    }, 
+    "socialconnector": {
+        "github_url": "https://github.com/DuoSoftware/DVP-SocialConnector.git", 
+        "configs": [
+            "general", 
+            "socialconnector", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis", 
+            "sms", 
+            "smtp"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_SOCIALCONNECTOR_PORT={HOST_SOCIALCONNECTOR_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_SMSSERVER_HOST={SMS_SERVER}' --env='SYS_SMSSERVER_PORT={SMS_PORT}' --env='SYS_SMSSERVER_PASSWORD={SMS_PASSWORD}' --env='SYS_SMSSERVER_USER={SMS_USER}' --env='SYS_SMPP_HOST={SMTP_HOST}' --env='SYS_SMPP_PORT={SMTP_PORT}' --env='SYS_SMPP_PASSWORD={SMTP_PASSWORD}' --env='SYS_SMPP_USER={SMTP_USER}' --env='SMS_QUEUE_NAME={SMS_QUEUE}' --env='SMS_MODE={SMS_MODE}' --env='TWITTER_QUEUE_NAME={TWITTER_QUEUE}' --env='FACEBOOK_QUEUE_NAME={FACEBOOK_QUEUE}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='SYS_RESOURCESERVICE_HOST={SYS_RESOURCESERVICE_HOST}' --env='SYS_RESOURCESERVICE_VERSION={HOST_VERSION}' --env='SYS_INTERACTIONS_HOST={SYS_INTERACTIONS_HOST}' --env='SYS_INTERACTIONS_VERSION={HOST_VERSION}' --env='SYS_SCHEDULEWORKER_HOST={SYS_SCHEDULEWORKER_HOST}' --env='SYS_SCHEDULEWORKER_VERSION={HOST_VERSION}' --env='SYS_LITETICKET_HOST={SYS_LITETICKET_HOST}' --env='SYS_LITETICKET_VERSION={HOST_VERSION}' --env='SYS_ARDSLITESERVICE_HOST={SYS_ARDSLITESERVICE_HOST}' --env='SYS_ARDSLITESERVICE_VERSION={HOST_VERSION}' --env='TWITTER_CONSUMER_KEY={TWITTER_KEY}' --env='TWITTER_CONSUMER_SECRET={TWITTER_SECRET}' --env='TWITTER_ENVIRONMENT={TWITTER_ENVIRONMENT}' --env='TWITTER_CALLBACKURL={TWITTER_CALLBACKURL}' --env='SYS_FACEBOOK_URL={SYS_FACEBOOK_URL}' --env='SYS_FBCLIENT_ID={FBCLIENT_ID}' --env='SYS_FBCLIENT_KEY={FBCLIENT_KEY}' --expose={HOST_SOCIALCONNECTOR_PORT}/tcp -p 8878:8878 --log-opt max-size=10m --log-opt max-file=10 --restart=always --name socialconnector socialconnector:{VERSION_TAG} node /usr/local/src/socialconnector/app.js"
+    }, 
+    "agentdialerservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-AgentDialerService.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_AGENTDIALERSERVICE_PORT={HOST_AGENTDIALERSERVICE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_AGENTDIALERSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name agentdialerservice agentdialerservice:{VERSION_TAG} node /usr/local/src/agentdialerservice/app.js"
+    }, 
+    "ardsliteservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-ARDSLiteService.git", 
+        "configs": [
+            "general", 
+            "ardsliteservice", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_ARDSLITESERVICE_PORT={HOST_ARDSLITESERVICE_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_ARDS={REDIS_DB_ARDS}' --env='SYS_ARDSLITEROUTINGENGINE_HOST={SYS_ARDSLITEROUTINGENGINE_HOST}' --env='SYS_ARDSLITEROUTINGENGINE_GO_CONFIG_DIR={SYS_ARDSLITEROUTINGENGINE_GO_CONFIG_DIR}' --env='SYS_ARDSLITEROUTINGENGINE_PORT={SYS_ARDSLITEROUTINGENGINE_PORT}' --env='SYS_USERSERVICE_HOST={SYS_USERSERVICE_HOST}' --env='SYS_USERSERVICE_VERSION={HOST_VERSION}' --env='SYS_USERSERVICE_PORT={LB_PORT}' --env='SYS_RESOURCESERVICE_HOST={SYS_RESOURCESERVICE_HOST}' --env='SYS_RESOURCESERVICE_PORT={SYS_RESOURCESERVICE_PORT}' --env='SYS_RESOURCESERVICE_VERSION={HOST_VERSION}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_SCHEDULEWORKER_HOST={SYS_SCHEDULEWORKER_HOST}' --env='SYS_SCHEDULEWORKER_PORT={SYS_SCHEDULEWORKER_PORT}' --env='SYS_SCHEDULEWORKER_VERSION={HOST_VERSION}' --env='SYS_NOTIFICATIONSERVICE_HOST={SYS_NOTIFICATIONSERVICE_HOST}' --env='SYS_NOTIFICATIONSERVICE_VERSION={HOST_VERSION}' --env='SYS_NOTIFICATIONSERVICE_PORT={SYS_NOTIFICATIONSERVICE_PORT}' --env='SYS_ARDSMONITORING_HOST={SYS_ARDSMONITORING_HOST}' --env='SYS_ARDSMONITORING_PORT={SYS_ARDSMONITORING_PORT}' --env='SYS_ARDSMONITORING_VERSION={HOST_VERSION}' --env='HOST_USE_MSG_QUEUE={ARDS_USE_MSG_QUEUE}' --env='HOST_USE_DASHBOARD_MSG_QUEUE={DASHBOARD_USE_MSG_QUEUE}' --expose={HOST_ARDSLITESERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name ardsliteservice ardsliteservice:{VERSION_TAG} node /usr/local/src/ardsliteservice/app.js"
+    }, 
+    "csatservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-CSATService.git", 
+        "configs": [
+            "general", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_CSATSERVICE_PORT={HOST_CSATSERVICE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_NAME={HOST_NAME}' --env='SYS_FILESERVICE_HOST={SYS_FILESERVICE_HOST}' --env='SYS_FILESERVICE_PORT={SYS_FILESERVICE_PORT}' --env='SYS_FILESERVICE_VERSION={HOST_VERSION}'  --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='VIRTUAL_HOST={HOST_NAME}.*' --env='LB_FRONTEND={HOST_NAME}.{FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_CSATSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name csatservice csatservice:{VERSION_TAG} node /usr/local/src/csatservice/app.js"
+    }, 
+    "autoattendant": {
+        "github_url": "https://github.com/DuoSoftware/DVP-AutoAttendant.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}'  --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_AUTOATTENDANT_PORT={HOST_AUTOATTENDANT_PORT}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_AUTOATTENDANT_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name autoattendant autoattendant:{VERSION_TAG} node /usr/local/src/autoattendant/app.js"
+    }, 
+    "eventmonitor": {
+        "github_url": "https://github.com/DuoSoftware/DVP-EventMonitor.git", 
+        "configs": [
+            "general", 
+            "eventmonitor", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='HOST_USE_CDR_GEN={USE_CDR_GENARATOR}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_BILLING_ENABLED={BILLING_ENABLED}' --env='HOST_EVENTMONITOR_PORT={HOST_EVENTMONITOR_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB={REDIS_DB_PROCESSEDCDR}' --env='SYS_REDIS_DB_PROCESSEDCDR={REDIS_DB_PROCESSEDCDR}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='HOST_EVENT_CONSUME_TYPE={EVENT_CONSUME_TYPE}' --env='SYS_ARDSLITESERVICE_HOST={SYS_ARDSLITESERVICE_HOST}' --env='SYS_ARDSLITESERVICE_NODE_CONFIG_DIR={SYS_ARDSLITESERVICE_NODE_CONFIG_DIR}' --env='SYS_ARDSLITESERVICE_PORT={SYS_ARDSLITESERVICE_PORT}' --env='SYS_ARDSLITESERVICE_VERSION={HOST_VERSION}' --env='SYS_DIAMETERCLIENT_HOST={SYS_DIAMETERCLIENT_HOST}' --env='SYS_DIAMETERCLIENT_PORT={LB_PORT}' --env='SYS_DIAMETERCLIENT_VERSION={HOST_VERSION}' --env='SYS_DIALER_HOST={SYS_DIALER_HOST}' --env='HOST_USE_DASHBOARD_MSG_QUEUE={DASHBOARD_USE_MSG_QUEUE}' --env='SYS_DIALER_GO_CONFIG_DIR={SYS_DIALER_GO_CONFIG_DIR}' --env='SYS_DIALER_PORT={SYS_DIALER_PORT}' --env='SYS_NOTIFICATIONSERVICE_HOST={SYS_NOTIFICATIONSERVICE_HOST}' --env='SYS_NOTIFICATIONSERVICE_PORT={SYS_NOTIFICATIONSERVICE_PORT}' --env='SYS_INTERACTIONS_HOST={SYS_INTERACTIONS_HOST}' --env='SYS_INTERACTIONS_VERSION={HOST_VERSION}' --env='SYS_FREESWITCH_HOST={FREESWITCH_HOST}' --env='SYS_FREESWITCH_EVENTSOCKET_PASSWORD={FREESWITCH_EVENTSOCKET_PASSWORD}' --env='SYS_XMLRPC_PORT={XMLRPC_PORT}' --env='SYS_EVENTSOCKET_PORT={EVENTSOCKET_PORT}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_EVENTMONITOR_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name eventmonitor eventmonitor:{VERSION_TAG} node /usr/local/src/eventmonitor/app.js"
+    }, 
+    "userservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-UserService.git", 
+        "configs": [
+            "general", 
+            "userservice", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='SYS_AUTH_MULTI_LOGIN={SYS_AUTH_MULTI_LOGIN}' --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='EXTERNAL_PROFILE_SEARCH={EXTERNAL_PROFILE_SEARCH}' --env='HOST_TOKEN={HOST_TOKEN}' --env='ACTIVE_TENANT={TENANT}' --env='HOST_USERSERVICE_PORT={HOST_USERSERVICE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='SYS_RESOURCESERVICE_HOST={SYS_RESOURCESERVICE_HOST}' --env='SYS_RESOURCESERVICE_PORT={SYS_RESOURCESERVICE_PORT}' --env='SYS_RESOURCESERVICE_VERSION={HOST_VERSION}' --env='SYS_SIPUSERENDPOINTSERVICE_HOST={SYS_SIPUSERENDPOINTSERVICE_HOST}' --env='SYS_SIPUSERENDPOINTSERVICE_PORT={SYS_SIPUSERENDPOINTSERVICE_PORT}' --env='SYS_SIPUSERENDPOINTSERVICE_VERSION={HOST_VERSION}' --env='SYS_CLUSTERCONFIG_HOST={SYS_CLUSTERCONFIG_HOST}' --env='SYS_CLUSTERCONFIG_PORT={SYS_CLUSTERCONFIG_PORT}' --env='SYS_CLUSTERCONFIG_VERSION={HOST_VERSION}' --env='FACEBOOK_CLIENT_SECRET={FACEBOOK_PWD}' --env='FOURSQUARE_CLIENT_SECRET={FOURSQUARE_PWD}' --env='GOOGLE_CLIENT_SECRET={GOOGLE_PWD}' --env='GITHUB_CLIENT_SECRET={GITHUB_PWD}' --env='INSTAGRAM_CLIENT_SECRET={INSTAGRAM_PWD}' --env='LINKEDIN_CLIENT_SECRET={LINKEDIN_PWD}' --env='TWITCH_CLIENT_SECRET={TWITCH_PWD}' --env='MICROSOFT_CLIENT_SECRET={WINDOWS_PWD}' --env='YAHOO_CLIENT_SECRET={YAHOO_PWD}' --env='BITBUCKET_CLIENT_SECRET={BITBUCKET_PWD}' --env='SPOTIFY_CLIENT_SECRET={SPOTIFY_PWD}' --env='TWITTER_CLIENT_KEY={TWITTER_KEY}' --env='TWITTER_CLIENT_SECRET={TWITTER_PWD}' --env='LOGIN_VERIFICATION_REQUIRE={LOGIN_VERIFICATION}' --env='SIGNUP_VERIFICATION_REQUIRE={SIGNUP_VERIFICATION}' --env='GOOGLE_RECAPTCHA_KEY={GOOGLE_RECAPTCHA_KEY}' --env='SYS_APP_UI_HOST={APP_UI_HOST}' --env='SYS_BILLINGSERVICE_HOST={SYS_BILLINGSERVICE_HOST}' --env='SYS_BILLINGSERVICE_PORT={LB_PORT}' --env='SYS_APP_AGENT_UI_HOST={APP_AGENT_UI}' --env='SYS_BILLINGSERVICE_VERSION={HOST_VERSION}' --env='SYS_RULESERVICE_HOST={SYS_RULESERVICE_HOST}' --env='SYS_RULESERVICE_PORT={LB_PORT}' --env='SYS_RULESERVICE_VERSION={HOST_VERSION}' --env='SYS_FILESERVICE_HOST={SYS_FILESERVICE_HOST}' --env='SYS_FILESERVICE_PORT={LB_PORT}' --env='SYS_FILESERVICE_VERSION={HOST_VERSION}' --env='SYS_LITETICKET_HOST={SYS_LITETICKET_HOST}' --env='SYS_LITETICKET_PORT={LB_PORT}' --env='SYS_LITETICKET_VERSION={HOST_VERSION}' --env='HOST_CLUSTER_NAME={CLUSTER_NAME}' --env='HOST_PROVISION_MECHANISM={PROVISION_MECHANISM}' --expose={HOST_USERSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name userservice userservice:{VERSION_TAG} node /usr/local/src/userservice/app.js"
+    }, 
+    "sipuserendpointservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-SIPUserEndpointService.git", 
+        "configs": [
+            "general", 
+            "sipuserendpointservice", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_CONFIG={REDIS_DB_CONFIG}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='HOST_SIPUSERENDPOINTSERVICE_PORT={HOST_SIPUSERENDPOINTSERVICE_PORT}' --env='HOST_SIPUSERENDPOINTSERVICE_ENCRYPTPASS={SIPUSER_PWD}' --env='HOST_IP={HOST_IP}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_LBDATABASE_MYSQL_USER={LBDATABASE_MYSQL_USER}' --env='SYS_LBDATABASE_MYSQL_PASSWORD={LBDATABASE_MYSQL_PASSWORD}' --env='SYS_LBDATABASE_HOST={LBDATABASE_HOST}' --env='SYS_LBDATABASE_TYPE={LBDATABASE_TYPE}' --env='SYS_LBMYSQL_PORT={LBMYSQL_PORT}' --env='SYS_LBDATABASE_MYSQL_DB={LBDATABASE_MYSQL_DB}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_SIPUSERENDPOINTSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name sipuserendpointservice sipuserendpointservice:{VERSION_TAG} node /usr/local/src/sipuserendpointservice/app.js"
+    }, 
+    "queuemusic": {
+        "github_url": "https://github.com/DuoSoftware/DVP-QueueMusic.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='HOST_NAME={HOST_NAME}' --env='HOST_QUEUEMUSIC_PORT={HOST_QUEUEMUSIC_PORT}' --env='HOST_IP={HOST_IP}' --env='HOST_VERSION={HOST_VERSION}' --env='VIRTUAL_HOST={HOST_NAME}.*' --env='LB_FRONTEND={HOST_NAME}.{FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_QUEUEMUSIC_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name queuemusic queuemusic:{VERSION_TAG} node /usr/local/src/queuemusic/app.js"
+    }, 
+    "ardsslotcalculator": {
+        "github_url": "https://github.com/DuoSoftware/DVP-ARDSSlotCalculator.git", 
+        "configs": [
+            "general", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --log-opt max-size=10m --log-opt max-file=10 --restart=always --name ardsslotcalculator ardsslotcalculator:{VERSION_TAG} node --expose-gc /usr/local/src/ardsslotcalculator/app.js"
+    }, 
+    "pbxservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-PBXService.git", 
+        "configs": [
+            "general", 
+            "pbxservice", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_PBXSERVICE_PORT={HOST_PBXSERVICE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_CONFIG={REDIS_DB_CONFIG}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_SIPUSERSERVICE_HOST={SYS_SIPUSERSERVICE_HOST}' --env='SYS_SIPUSERSERVICE_NODE_CONFIG_DIR={SYS_SIPUSERSERVICE_NODE_CONFIG_DIR}' --env='SYS_SIPUSERSERVICE_PORT={SYS_SIPUSERSERVICE_PORT}'  --env='SYS_SIPUSERSERVICE_VERSION={HOST_VERSION}' --env='SYS_FILESERVICE_HOST={SYS_FILESERVICE_HOST}' --env='SYS_FILESERVICE_NODE_CONFIG_DIR={SYS_FILESERVICE_NODE_CONFIG_DIR}' --env='SYS_FILESERVICE_PORT={SYS_FILESERVICE_PORT}' --env='SYS_FILESERVICE_VERSION={HOST_VERSION}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_PBXSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name pbxservice pbxservice:{VERSION_TAG} node /usr/local/src/pbxservice/app.js"
+    }, 
+    "mailsender": {
+        "github_url": "https://github.com/DuoSoftware/DVP-MailSender.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis", 
+            "sms", 
+            "smtp"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_MAILSENDER_PORT={HOST_MAILSENDER_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_ENABLE_SMTPLISTNER={HOST_ENABLE_SMTPLISTNER}' --env='HOST_ENABLE_SMTPSENDER={HOST_ENABLE_SMTPLISTNER}' --env='HOST_ENABLE_SMSSENDER={HOST_ENABLE_SMTPLISTNER}' --env='HOST_ENABLE_IMAPLISTNER={HOST_ENABLE_SMTPLISTNER}' --env='HOST_NAME={HOST_NAME}' --env='SYS_SERVER_ID=' --env='SYS_CALLBACK_OPTION={SYS_CALLBACK_OPTION}' --env='SYS_REQUEST_TYPE={SYS_REQUEST_TYPE}' --env='SYS_SERVER_ID={SYS_SERVER_ID}' --env='SYS_RESOURCE_TYPE={SYS_RESOURCE_TYPE}' --env='SYS_EMAIL_QUEUE_NAME={SYS_EMAIL_QUEUE_NAME}' --env='SYS_SMS_QUEUE_NAME={SYS_SMS_QUEUE_NAME}' --env='SYS_SMTP_LISTNER={HOST_ENABLE_SMTPLISTNER}' --env='SYS_SMTP_SENDER={HOST_ENABLE_SMTPLISTNER}' --env='SYS_SMS_SENDER={HOST_ENABLE_SMTPLISTNER}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}' --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_SMSSERVER_HOST={SMS_SERVER}' --env='SYS_SMSSERVER_PORT={SMS_PORT}' --env='SYS_SMSSERVER_PASSWORD={SMS_PASSWORD}' --env='SYS_SMSSERVER_USER={SMS_USER}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={HOST_NAME}' --env='LB_PORT={LB_PORT}' --env='IMAP_USER_NAME={IMAP_USER_NAME}' --env='IMAP_PASSWORD={IMAP_PASSWORD}' --env='IMAP_HOST={IMAP_HOST}' --env='IMAP_PORT={IMAP_PORT}' --env='IMAP_SECURITY={HOST_ENABLE_SMTPLISTNER}' --env='IMAP_MAILBOX={IMAP_MAILBOX}' --env='IMAP_SEEN={HOST_ENABLE_SMTPLISTNER}' --env='IMAP_COMPANY={IMAP_COMPANY}' --env='IMAP_TENAT={IMAP_TENAT}' --env='IMAP_FETCH={HOST_ENABLE_SMTPLISTNER}' --env='SYS_SMTP_HOST={SMTP_HOST}' --env='SYS_SMTP_PORT={SMTP_PORT}' --env='SYS_SMTP_USER={SMTP_USER}' --env='SYS_SMTP_PASSWORD={SMTP_PASSWORD}' --env='SYS_RESOURCESERVICE_HOST={SYS_RESOURCESERVICE_HOST}' --env='SYS_RESOURCESERVICE_VERSION={HOST_VERSION}' --env='SYS_FILESERVICE_HOST={SYS_FILESERVICE_HOST}' --env='SYS_FILESERVICE_VERSION={HOST_VERSION}' --env='SYS_SCHEDULEWORKER_HOST={SYS_SCHEDULEWORKER_HOST}' --env='SYS_SCHEDULEWORKER_VERSION={HOST_VERSION}' --env='SYS_LITETICKET_HOST={SYS_LITETICKET_HOST}' --env='SYS_LITETICKET_VERSION={HOST_VERSION}' --env='SYS_INTERACTIONS_HOST={SYS_INTERACTIONS_HOST}' --env='SYS_INTERACTIONS_VERSION={HOST_VERSION}' --env='SYS_ARDSLITESERVICE_HOST={SYS_ARDSLITESERVICE_HOST}' --env='SYS_ARDSLITESERVICE_VERSION={HOST_VERSION}' --expose={HOST_MAILSENDER_PORT}/tcp -p 8878:8878 --log-opt max-size={IMAP_TENAT}0m --log-opt max-file={IMAP_TENAT}0 --restart=always --name mailsender mailsender:{VERSION_TAG} node /usr/local/src/mailsender/app.js"
+    }, 
+    "httpprogrammingapidebug": {
+        "github_url": "https://github.com/DuoSoftware/DVP-HTTPProgrammingAPIDEBUG.git", 
+        "configs": [
+            "general", 
+            "httpprogrammingapidebug", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_HTTPPROGRAMMINGAPIDEBUG_PORT={HOST_HTTPPROGRAMMINGAPIDEBUG_PORT}' ---env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_RABBITMQ_VHOST={RABBITMQ_VHOST}' --env='HOST_DVPEVENTS_TYPE={EVENT_CONSUME_TYPE}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_HTTPPROGRAMMINGAPI_HOST={SYS_HTTPPROGRAMMINGAPI_HOST}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_HTTPPROGRAMMINGAPIDEBUG_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name httpprogrammingapidebug httpprogrammingapidebug:{VERSION_TAG} node /usr/local/src/httpprogrammingapidebug/app.js"
+    }, 
+    "contacts": {
+        "github_url": "https://github.com/DuoSoftware/DVP-Contacts.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_CONTACTS_PORT={HOST_CONTACTS_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_CONTACTS_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name contacts contacts:{VERSION_TAG} node /usr/local/src/contacts/app.js"
+    }, 
+    "clusterconfig": {
+        "github_url": "https://github.com/DuoSoftware/DVP-ClusterConfiguration.git", 
+        "configs": [
+            "general", 
+            "clusterconfig", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_CLUSTERCONFIGURATION_PORT={HOST_CLUSTERCONFIGURATION_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='HOST_TOKEN={HOST_TOKEN}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_CONFIG={REDIS_DB_CONFIG}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_CLUSTERCONFIGURATION_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name clusterconfig clusterconfig:{VERSION_TAG} node /usr/local/src/clusterconfiguration/app.js"
+    }, 
+    "notificationservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-NotificationService.git", 
+        "configs": [
+            "general", 
+            "notificationservice", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='SYS_CRM_ENABLE={CRM_ENABLE}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_NOTIFICATIONSERVICE_PORT={HOST_NOTIFICATIONSERVICE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_CRMINTEGRATION_HOST={SYS_CRMINTEGRATION_HOST}' --env='SYS_CRMINTEGRATION_PORT={SYS_CRMINTEGRATION_PORT}' --env='SYS_CRMINTEGRATION_VERSION={HOST_VERSION}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_NOTIFICATIONSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name notificationservice notificationservice:{VERSION_TAG} node /usr/local/src/notificationservice/app.js"
+    }, 
+    "billingservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-Billing.git", 
+        "configs": [
+            "general", 
+            "billingservice", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_BILLINGSERVICE_PORT={HOST_BILLINGSERVICE_PORT}' --env='BILLING_SCHEDULE_FREQUENCY={BILLING_SCHEDULE_FREQUENCY}' --env='BILLING_SCHEDULE_TRIES={BILLING_SCHEDULE_TRIES}' --env='HOST_USERBILLING_ENABLED={USERBILLING_ENABLED}' --env='HOST_TENANTBILLING_ENABLED={TENANTBILLING_ENABLED}' --env='HOST_TENANT_NAME={TENANT_NAME}' --env='BILLING_DATE={BILLING_DATE}' --env='BILLING_EMAIL_WARNING_ACTIVATION={BILLING_EMAIL_WARNING}' --env='BILLING_SMS_WARNING_ACTIVATION={BILLING_SMS_WARNING}' --env='BILLING_CALL_WARNING_ACTIVATION={BILLING_CALL_WARNING}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='SYS_USERSERVICE_HOST={SYS_USERSERVICE_HOST}' --env='SYS_USERSERVICE_VERSION={HOST_VERSION}' --env='SYS_WALLETSERVICE_HOST={WALLETSERVICE_HOST}:{WALLERTSERVICE_PORT}' --env='SYS_WALLETSERVICE_VERSION={HOST_VERSION}' --expose={HOST_BILLINGSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name billingservice billingservice:{VERSION_TAG} node /usr/local/src/billingservice/app.js"
+    }, 
+    "dashboarddataprocessor": {
+        "github_url": "https://github.com/DuoSoftware/DVP-DashboardDataProcessor.git", 
+        "configs": [
+            "general", 
+            "dashboarddataprocessor", 
+            "database", 
+            "mongodb", 
+            "rabbitmq"
+        ], 
+        "type": "go", 
+        "release_from": "latest", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={GO_VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='GO_CONFIG_DIR={GO_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_IP={HOST_IP}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DASHBOARD_REDIS_HOST={DASHBOARD_REDIS_HOST}' --env='SYS_DASHBOARD_REDIS_PORT={DASHBOARD_REDIS_PORT}' --env='SYS_REDIS_DB_DASHBOARD={REDIS_DB_DASHBOARD}' --env='SYS_DASHBOARD_REDIS_PASSWORD={DASHBOARD_REDIS_PASSWORD}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_DASHBOARDSERVICE_HOST={SYS_DASHBOARDSERVICE_HOST}' --env='SYS_DASHBOARDSERVICE_PORT={SYS_DASHBOARDSERVICE_PORT}' --env='HOST_TOKEN={HOST_TOKEN}' --log-opt max-size=10m --log-opt max-file=10 --restart=always --name dashboarddataprocessor dashboarddataprocessor:latest go run *.go"
+    }, 
+    "ardsliteserviceimproved": {
+        "github_url": "https://github.com/DuoSoftware/DVP-ARDSLiteServiceImproved.git", 
+        "configs": [
+            "general", 
+            "ardsliteserviceimproved", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_ARDSLITESERVICEIMPROVED_PORT={HOST_ARDSLITESERVICEIMPROVED_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_ARDS={REDIS_DB_ARDS}' --env='SYS_ARDSLITEROUTINGENGINE_HOST={SYS_ARDSLITEROUTINGENGINE_HOST}' --env='SYS_ARDSLITEROUTINGENGINE_GO_CONFIG_DIR={SYS_ARDSLITEROUTINGENGINE_GO_CONFIG_DIR}' --env='SYS_ARDSLITEROUTINGENGINE_PORT={SYS_ARDSLITEROUTINGENGINE_PORT}' --env='SYS_RESOURCESERVICE_HOST={SYS_RESOURCESERVICE_HOST}' --env='SYS_RESOURCESERVICE_PORT={SYS_RESOURCESERVICE_PORT}' --env='SYS_RESOURCESERVICE_VERSION={HOST_VERSION}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_SCHEDULEWORKER_HOST={SYS_SCHEDULEWORKER_HOST}' --env='SYS_SCHEDULEWORKER_PORT={SYS_SCHEDULEWORKER_PORT}' --env='SYS_SCHEDULEWORKER_VERSION={HOST_VERSION}' --env='SYS_NOTIFICATIONSERVICE_HOST={SYS_NOTIFICATIONSERVICE_HOST}' --env='SYS_NOTIFICATIONSERVICE_VERSION={HOST_VERSION}' --env='SYS_NOTIFICATIONSERVICE_PORT={SYS_NOTIFICATIONSERVICE_PORT}' --env='SYS_ARDSMONITORING_HOST={SYS_ARDSMONITORING_HOST}' --env='SYS_ARDSMONITORING_PORT={SYS_ARDSMONITORING_PORT}' --env='SYS_ARDSMONITORING_VERSION={HOST_VERSION}' --env='HOST_USE_MSG_QUEUE={ARDS_USE_MSG_QUEUE}' --expose={HOST_ARDSLITESERVICEIMPROVED_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name ardsliteserviceimproved ardsliteserviceimproved:{VERSION_TAG} node /usr/local/src/ardsliteserviceimproved/app.js"
+    }, 
+    "engagementservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-Engagement.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_ENGAGEMENTSERVICE_PORT={HOST_ENGAGEMENTSERVICE_PORT}' --env='HOST_IP={HOST_IP}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_ENGAGEMENTSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name engagementservice engagementservice:{VERSION_TAG} node /usr/local/src/engagementservice/app.js"
+    }, 
+    "templates": {
+        "github_url": "https://github.com/DuoSoftware/DVP-Templates.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_TEMPLATE_PORT={HOST_TEMPLATE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_TEMPLATE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name templates templates:{VERSION_TAG} node /usr/local/src/templates/app.js"
+    }, 
+    "diameterserver": {
+        "github_url": "https://github.com/DuoSoftware/DVP-DiameterServer.git", 
+        "configs": [
+            "general", 
+            "diameterserver", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_DIAMETERSERVER_PORT={HOST_DIAMETERSERVER_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='SYS_USERSERVICE_HOST={SYS_USERSERVICE_HOST}' --env='SYS_USERSERVICE_VERSION={HOST_VERSION}' --env='SYS_USERSERVICE_PORT={SYS_USERSERVICE_PORT}' --env='SYS_WALLETSERVICE_HOST={WALLETSERVICE_HOST}:{WALLERTSERVICE_PORT}' --env='SYS_WALLETSERVICE_VERSION={HOST_VERSION}' --env='SYS_WALLETSERVICE_PORT={SYS_WALLETSERVICE_PORT}' --env='SYS_MONITORRESTAPI_HOST={SYS_MONITORRESTAPI_HOST}' --env='SYS_MONITORRESTAPI_VERSION={HOST_VERSION}' --env='SYS_MONITORRESTAPI_PORT={SYS_MONITORRESTAPI_PORT}' --env='SYS_CARRIERPROVIDER_HOST={SYS_CARRIERPROVIDER_HOST}' -env='SYS_CARRIERPROVIDER_VERSION={HOST_VERSION}' --env='SYS_CARRIERPROVIDER_PORT={SYS_CARRIERPROVIDER_PORT}' --expose={HOST_DIAMETERSERVER_PORT}/tcp -p 8891:8891 --log-opt max-size=10m --log-opt max-file=10 --restart=always --name diameterserver diameterserver:{VERSION_TAG} node /usr/local/src/diameterserver/app.js"
+    }, 
+    "cdrprocessor": {
+        "github_url": "https://github.com/DuoSoftware/DVP-CDRProcessor.git", 
+        "configs": [
+            "general", 
+            "cdrprocessor", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_CDRPROCESSOR_PORT={HOST_CDRPROCESSOR_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_SAVE_CDR_MONGO={SAVE_CDR_MONGO}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_FILESERVICE_HOST={SYS_FILESERVICE_HOST}' --env='SYS_FILESERVICE_PORT={LB_PORT}' --env='SYS_FILESERVICE_VERSION={HOST_VERSION}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_CDRPROCESSOR_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name cdrprocessor cdrprocessor:{VERSION_TAG} node --expose-gc /usr/local/src/cdrprocessor/app.js"
+    }, 
+    "twitterreciver": {
+        "github_url": "https://github.com/DuoSoftware/DVP-TwitterReciver.git", 
+        "configs": [
+            "general", 
+            "twitterreciver", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_TWITTERRECIVER_PORT={HOST_TWITTERRECIVER_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}' --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='SYS_RESOURCESERVICE_HOST={SYS_RESOURCESERVICE_HOST}' --env='SYS_RESOURCESERVICE_PORT={SYS_RESOURCESERVICE_PORT}' --env='SYS_RESOURCESERVICE_VERSION={HOST_VERSION}' --env='SYS_INTERACTIONS_HOST={SYS_INTERACTIONS_HOST}' --env='SYS_INTERACTIONS_PORT={LB_PORT}' --env='SYS_INTERACTIONS_VERSION={HOST_VERSION}' --env='SYS_LITETICKET_HOST={SYS_LITETICKET_HOST}' --env='SYS_LITETICKET_PORT={LB_PORT}' --env='SYS_LITETICKET_VERSION={HOST_VERSION}' --env='SYS_ARDSLITESERVICE_HOST={SYS_ARDSLITESERVICE_HOST}' --env='SYS_ARDSLITESERVICE_PORT={LB_PORT}' --env='SYS_ARDSLITESERVICE_VERSION={HOST_VERSION}' --env='TWITTER_CONSUMER_KEY={TWITTER_CONSUMER_KEY}' --env='TWITTER_CONSUMER_SECRET={TWITTER_CONSUMER_SECRET}' --env='SYS_EXT_MESSENGER_HOST={SYS_EXT_MESSENGER_HOST}' --env='SYS_EXT_MESSENGER_PORT={LB_PORT}' --env='SYS_EXT_MESSENGER_VERSION={HOST_VERSION}' --expose={HOST_TWITTERRECIVER_PORT}/tcp -p 4647:4647 --log-opt max-size=10m --log-opt max-file=10 --restart=always --name twitterreciver twitterreciver:{VERSION_TAG} node /usr/local/src/twitterreciver/app.js"
+    }, 
+    "productivityservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-ProductivityService.git", 
+        "configs": [
+            "general", 
+            "productivityservice", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_PRODUCTIVITYSERVICE_PORT={HOST_PRODUCTIVITYSERVICE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_DASHBOARD={REDIS_DB_DASHBOARD}' --env='SYS_REDIS_DB_ARDS={REDIS_DB_ARDS}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_PRODUCTIVITYSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name productivityservice productivityservice:{VERSION_TAG} node /usr/local/src/productivityservice/app.js"
+    }, 
+    "scheduleworker": {
+        "github_url": "https://github.com/DuoSoftware/DVP-ScheduleWorker.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_SCHEDULEWORKER_PORT={HOST_SCHEDULEWORKER_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}'  --env='LB_PORT={LB_PORT}' --expose={HOST_SCHEDULEWORKER_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name scheduleworker scheduleworker:{VERSION_TAG} node /usr/local/src/scheduleworker/app.js#docker run -d -t"
+    }, 
+    "integrationapi": {
+        "github_url": "https://github.com/DuoSoftware/DVP-IntegrationAPI.git", 
+        "configs": [
+            "general", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_INTEGRATIONAPI_PORT={HOST_INTEGRATIONAPI_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_USERSERVICE_HOST={SYS_USERSERVICE_HOST}' --env='SYS_USERSERVICE_VERSION={HOST_VERSION}' --env='SYS_USERSERVICE_PORT={LB_PORT}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_INTEGRATIONAPI_PORT}/tcp -p 8882:8882 --log-opt max-size=10m --log-opt max-file=10 --restart=always --name integrationapi integrationapi:{VERSION_TAG} node /usr/local/src/integrationapi/app.js"
+    }, 
+    "cdreventlistner": {
+        "github_url": "https://github.com/DuoSoftware/DVP-CDREventListner.git", 
+        "configs": [
+            "general", 
+            "cdreventlistner", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_CDREVENTLISTNER_PORT={HOST_CDREVENTLISTNER_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_SAVE_CDR_MONGO={SAVE_CDR_MONGO}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_DB={SYS_REDIS_DB}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_CDREVENTLISTNER_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name cdreventlistner cdreventlistner:{VERSION_TAG} node --expose-gc /usr/local/src/cdreventlistner/app.js"
+    }, 
+    "smppclient": {
+        "github_url": "https://github.com/DuoSoftware/DVP-SMPPClient.git", 
+        "configs": [
+            "general", 
+            "smppclient", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis", 
+            "sms"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_RULESERVICE_HOST={RULESERVICE_HOST}' --env='SYS_RULESERVICE_PORT={SYS_RULESERVICE_PORT}' --env='SYS_RULESERVICE_VERSION={HOST_VERSION}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_SMSSERVER_HOST={SMS_SERVER}' --env='SYS_SMSSERVER_PORT={SMS_PORT}' --env='SYS_SMSSERVER_PASSWORD={SMS_PASSWORD}' --env='SYS_SMSSERVER_USER={SMS_USER}' --env='SMS_NUMBER={SMS_NUMBER}' --env='SMS_QUEUE_NAME={SMS_QUEUE_NAME}' --env='SYS_SMPP_HOST={SMPP_HOST}' --env='SYS_SMPP_PORT={SMPP_PORT}' --env='SYS_SMPP_PASSWORD={SMPP_PASSWORD}' --env='SYS_SMPP_USER={SMPP_USER}' --env='SMS_QUEUE_NAME={SMS_QUEUE}' --env='SYS_RESOURCESERVICE_HOST={SYS_RESOURCESERVICE_HOST}' --env='SYS_RESOURCESERVICE_PORT={SYS_RESOURCESERVICE_PORT}' --env='SYS_RESOURCESERVICE_VERSION={HOST_VERSION}' --env='SYS_INTERACTIONS_HOST={SYS_INTERACTIONS_HOST}' --env='SYS_INTERACTIONS_PORT={SYS_INTERACTIONS_PORT}' --env='SYS_INTERACTIONS_VERSION={HOST_VERSION}' --env='SYS_SCHEDULEWORKER_HOST={SYS_SCHEDULEWORKER_HOST}' --env='SYS_SCHEDULEWORKER_PORT={SYS_SCHEDULEWORKER_PORT}' --env='SYS_SCHEDULEWORKER_VERSION={HOST_VERSION}' --env='SYS_LITETICKET_HOST={SYS_LITETICKET_HOST}' --env='SYS_LITETICKET_PORT={SYS_LITETICKET_PORT}' --env='SYS_LITETICKET_VERSION={HOST_VERSION}' --env='SYS_ARDSLITESERVICE_HOST={SYS_ARDSLITESERVICE_HOST}' --env='SYS_ARDSLITESERVICE_PORT={SYS_ARDSLITESERVICE_PORT}' --env='SYS_ARDSLITESERVICE_VERSION={HOST_VERSION}' --env='SYS_DYNAMICCONFIGGENERATOR_HOST={SYS_DYNAMICCONFIGGENERATOR_HOST}' --env='SYS_DYNAMICCONFIGGENERATOR_PORT={SYS_DYNAMICCONFIGGENERATOR_PORT}' --env='SYS_DYNAMICCONFIGGENERATOR_VERSION={HOST_VERSION}' --env='SYS_HTTPROGRAMINGAPI_HOST={SYS_HTTPROGRAMINGAPI_HOST}' --env='SYS_HTTPROGRAMINGAPI_PORT={SYS_HTTPROGRAMINGAPI_PORT}' --env='SYS_HTTPROGRAMINGAPI_VERSION={HOST_VERSION}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --log-opt max-size=10m --log-opt max-file=10 --restart=always --name smppclient smppclient:{VERSION_TAG} node /usr/local/src/smppclient/app.js"
+    }, 
+    "filearchiveservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-FileArchiveService.git", 
+        "configs": [
+            "general", 
+            "filearchiveservice"
+        ], 
+        "type": "go", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro -v {FILE_DIRECTORY_PATH}:/usr/local/src/upload --env='VERSION_TAG={GO_VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='GO_CONFIG_DIR={GO_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_IP={HOST_IP}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_USERSERVICE_HOST={SYS_USERSERVICE_HOST}' --env='SYS_USERSERVICE_VERSION={HOST_VERSION}' --log-opt max-size=10m --log-opt max-file=10 --restart=always --name filearchiveservice filearchiveservice:{GO_VERSION_TAG} go run *.go"
+    }, 
+    "ipmessagingservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-IPMessagingService.git", 
+        "configs": [
+            "general", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_IPMESSANGERSERVICE_PORT={HOST_IPMESSANGERSERVICE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_NAME={HOST_NAME}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={HOST_NAME}' --env='LB_PORT={LB_PORT}' --env='SYS_INTERACTIONS_HOST={SYS_INTERACTIONS_HOST}' --env='SYS_INTERACTIONS_VERSION={HOST_VERSION}' --env='SYS_INTERACTIONS_PORT={LB_PORT}' --env='SYS_ARDSLITESERVICE_HOST={SYS_ARDSLITESERVICE_HOST}' --env='SYS_ARDSLITESERVICE_VERSION={HOST_VERSION}' --env='SYS_ARDSLITESERVICE_PORT={LB_PORT}' --expose=8889/tcp -p 8889:8889 --expose=8890/tcp -p 8890:8890 --log-opt max-size=10m --log-opt max-file=10 --restart=always --name ipmessagingservice ipmessagingservice:{VERSION_TAG} node /usr/local/src/ipmessagingservice/app.js"
+    }, 
+    "conference": {
+        "github_url": "https://github.com/DuoSoftware/DVP-Conference.git", 
+        "configs": [
+            "general", 
+            "conference", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='SYS_NOTIFICATIONSERVICE_HOST={SYS_NOTIFICATIONSERVICE_HOST}' --env='SYS_NOTIFICATIONSERVICE_PORT={SYS_NOTIFICATIONSERVICE_PORT}' --env='HOST_NAME={HOST_NAME}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_CONFERENCE_PORT={HOST_CONFERENCE_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_CONFIG={REDIS_DB_CONFIG}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={HOST_NAME}.*' --env='LB_FRONTEND={HOST_NAME}.{FRONTEND}' --env='LB_PORT={LB_PORT}' --expose 8821 --log-opt max-size=10m --log-opt max-file=10 --restart=always --name conference conference:{VERSION_TAG} node /usr/local/src/conference/app.js"
+    }, 
+    "resourceservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-ResourceService.git", 
+        "configs": [
+            "general", 
+            "resourceservice", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_RESOURCESERVICE_PORT={HOST_RESOURCESERVICE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_ARDS={REDIS_DB_ARDS}' --env='SYS_DASHBOARD_REDIS_HOST={DASHBOARD_REDIS_HOST}' --env='SYS_DASHBOARD_REDIS_PORT={DASHBOARD_REDIS_PORT}' --env='SYS_DASHBOARD_REDIS_PASSWORD={DASHBOARD_REDIS_PASSWORD}' --env='SYS_REDIS_DB_DASHBOARD={REDIS_DB_DASHBOARD}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_RESOURCESERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name resourceservice resourceservice:{VERSION_TAG} node /usr/local/src/resourceservice/app.js"
+    }, 
+    "interactions": {
+        "github_url": "https://github.com/DuoSoftware/DVP-Interactions.git", 
+        "configs": [
+            "general", 
+            "interactions", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='EXTERNAL_PROFILE_SEARCH={EXTERNAL_PROFILE_SEARCH}' --env='HOST_INTERACTIONS_PORT={HOST_INTERACTIONS_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='SYS_RESOURCESERVICE_HOST={SYS_RESOURCESERVICE_HOST}' --env='SYS_RESOURCESERVICE_PORT={SYS_RESOURCESERVICE_PORT}' --env='SYS_RESOURCESERVICE_VERSION={HOST_VERSION}' --env='SYS_SIPUSERENDPOINTSERVICE_HOST={SYS_SIPUSERENDPOINTSERVICE_HOST}' --env='SYS_SIPUSERENDPOINTSERVICE_PORT={SYS_SIPUSERENDPOINTSERVICE_PORT}' --env='SYS_SIPUSERENDPOINTSERVICE_VERSION={HOST_VERSION}' --env='SYS_CLUSTERCONFIG_HOST={SYS_CLUSTERCONFIG_HOST}' --env='SYS_CLUSTERCONFIG_PORT={SYS_CLUSTERCONFIG_PORT}' --env='SYS_CLUSTERCONFIG_VERSION={HOST_VERSION}' --expose={HOST_INTERACTIONS_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name interactions interactions:{VERSION_TAG} node /usr/local/src/interactions/app.js"
+    }, 
+    "cdrgenerator": {
+        "github_url": "https://github.com/DuoSoftware/DVP-CDRGenerator.git", 
+        "configs": [
+            "general", 
+            "cdrgenerator", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_CDRGENERATOR_PORT={HOST_CDRGENERATOR_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_DB={REDIS_DB_PROCESSEDCDR}' --env='SYS_REDIS_DB_PROCESSEDCDR={REDIS_DB_PROCESSEDCDR}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_PROCESSCDR={REDIS_DB_PROCESSCDR}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_CDRGENERATOR_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name cdrgenerator cdrgenerator:{VERSION_TAG} node /usr/local/src/cdrgenerator/app.js"
+    }, 
+    "crmintegrations": {
+        "github_url": "https://github.com/DuoSoftware/DVP-CRMIntegrations.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_CRMINTEGRATIONS_PORT={HOST_CRMINTEGRATIONS_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONITORRESTAPI_HOST={SYS_MONITORRESTAPI_HOST}' --env='SYS_MONITORRESTAPI_PORT={SYS_MONITORRESTAPI_PORT}' --env='SYS_MONITORRESTAPI_VERSION={HOST_VERSION}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_CRMINTEGRATIONS_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name crmintegrations crmintegrations:{VERSION_TAG} node /usr/local/src/crmintegrations/app.js"
+    }, 
+    "phonenumbertrunkservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-PhoneNumberTrunkService.git", 
+        "configs": [
+            "general", 
+            "phonenumbertrunkservice", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_PHONENUMBERTRUNKSERVICE_PORT={HOST_PHONENUMBERTRUNKSERVICE_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_CONFIG={REDIS_DB_CONFIG}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_PHONENUMBERTRUNKSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name phonenumbertrunkservice phonenumbertrunkservice:{VERSION_TAG} node /usr/local/src/phonenumbertrunkservice/app.js"
+    }, 
+    "cdrengine": {
+        "github_url": "https://github.com/DuoSoftware/DVP-CDREngine.git", 
+        "configs": [
+            "general", 
+            "cdrengine", 
+            "database", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_CDRENGINE_PORT={HOST_CDRENGINE_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_DB={SYS_REDIS_DB}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_CONFIG={REDIS_DB_CONFIG}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose=8816/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name cdrengine cdrengine:{VERSION_TAG} node /usr/local/src/cdrengine/app.js"
+    }, 
+    "ruleservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-RuleService.git", 
+        "configs": [
+            "general", 
+            "ruleservice", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_RULESERVICE_PORT={HOST_RULESERVICE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_CONFIG={REDIS_DB_CONFIG}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_RULESERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name ruleservice ruleservice:{VERSION_TAG} node /usr/local/src/ruleservice/app.js"
+    }, 
+    "dashboardservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-DashBoardService.git", 
+        "configs": [
+            "general", 
+            "dashboardservice", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_DASHBOARDSERVICE_PORT={HOST_DASHBOARDSERVICE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_DASHBOARD={REDIS_DB_DASHBOARD}' --env='SYS_REDIS_DB_ARDS={REDIS_DB_ARDS}' --env='SYS_DASHBOARD_REDIS_HOST={DASHBOARD_REDIS_HOST}' --env='SYS_DASHBOARD_REDIS_PORT={DASHBOARD_REDIS_PORT}' --env='SYS_DASHBOARD_REDIS_PASSWORD={DASHBOARD_REDIS_PASSWORD}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='SYS_STATSD_HOST={STATSD_HOST}' --env='SSYS_STATSD_PORT={STATSD_PORT}' --env='SYS_NOTIFICATIONSERVICE_HOST={SYS_NOTIFICATIONSERVICE_HOST}' --env='SYS_NOTIFICATIONSERVICE_PORT={SYS_NOTIFICATIONSERVICE_PORT}' --env='SYS_NOTIFICATIONSERVICE_VERSION={HOST_VERSION}' --expose={HOST_DASHBOARDSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name dashboardservice dashboardservice:{VERSION_TAG} node /usr/local/src/dashboardservice/app.js"
+    }, 
+    "campaignmanager": {
+        "github_url": "https://github.com/DuoSoftware/DVP-CampaignManager.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_CAMPAIGNMANAGER_PORT={HOST_CAMPAIGNMANAGER_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_CAMPAIGNMANAGER_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name campaignmanager campaignmanager:{VERSION_TAG} node /usr/local/src/campaignmanager/app.js"
+    }, 
+    "callbackservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-CallBackService.git", 
+        "configs": [
+            "general", 
+            "callbackservice", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "go", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t -i --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={GO_VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='GO_CONFIG_DIR={GO_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_CALLBACKSERVICE_PORT={HOST_CALLBACKSERVICE_PORT}' --env='HOST_IP={HOST_IP}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_ARDS={REDIS_DB_ARDS}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_CAMPAIGNMANAGER_HOST={SYS_CAMPAIGNMANAGER_HOST}' --env='SYS_CAMPAIGNMANAGER_NODE_CONFIG_DIR={SYS_CAMPAIGNMANAGER_NODE_CONFIG_DIR}' --env='SYS_CAMPAIGNMANAGER_PORT={SYS_CAMPAIGNMANAGER_PORT}' --env='SYS_DIALER_HOST={SYS_DIALER_HOST}' --env='SYS_DIALER_PORT={SYS_DIALER_PORT}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_CALLBACKSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name callbackservice callbackservice:{GO_VERSION_TAG} go run *.go"
+    }, 
+    "walletservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-Wallet.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_WALLETSERVICE_PORT={HOST_WALLETSERVICE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_KEY=' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='SYS_LIMITSERVICE_HOST={SYS_LIMITSERVICE_HOST}' --env='SYS_LIMITSERVICE_VERSION={HOST_VERSION}' --env='SYS_PHONENUMBERTRUNK_HOST={SYS_PHONENUMBERTRUNK_HOST}' --env='SYS_PHONENUMBERTRUNK_VERSION={HOST_VERSION}' --env='SYS_VOXBONE_URL={SYS_VOXBONE_URL}' --expose={HOST_WALLETSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name walletservice walletservice:{VERSION_TAG} node /usr/local/src/walletservice/app.js"
+    }, 
+    "liteticket": {
+        "github_url": "https://github.com/DuoSoftware/DVP-LiteTicket.git", 
+        "configs": [
+            "general", 
+            "liteticket", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_LITETICKET_PORT={HOST_LITETICKET_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_ARDS={REDIS_DB_ARDS}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_DASHBOARD_REDIS_HOST={DASHBOARD_REDIS_HOST}' --env='SYS_DASHBOARD_REDIS_PORT={DASHBOARD_REDIS_PORT}' --env='SYS_DASHBOARD_REDIS_PASSWORD={DASHBOARD_REDIS_PASSWORD}' --env='SYS_REDIS_DB_DASHBOARD={REDIS_DB_DASHBOARD}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}'  --env='LB_PORT={LB_PORT}' --env='SYS_RESOURCESERVICE_HOST={SYS_RESOURCESERVICE_HOST}'  --env='SYS_RESOURCESERVICE_PORT={SYS_RESOURCESERVICE_PORT}' --env='SYS_RESOURCESERVICE_VERSION={HOST_VERSION}' --env='SYS_SIPUSERENDPOINTSERVICE_HOST={SYS_SIPUSERENDPOINTSERVICE_HOST}'  --env='SYS_SIPUSERENDPOINTSERVICE_PORT={SYS_SIPUSERENDPOINTSERVICE_PORT}' --env='SYS_SIPUSERENDPOINTSERVICE_VERSION={HOST_VERSION}' --env='SYS_CLUSTERCONFIG_HOST={SYS_CLUSTERCONFIG_HOST}'  --env='SYS_CLUSTERCONFIG_PORT={SYS_CLUSTERCONFIG_PORT}' --env='SYS_CLUSTERCONFIG_VERSION={HOST_VERSION}' --env='SYS_ARDSLITESERVICE_HOST={SYS_ARDSLITESERVICE_HOST}'  --env='SYS_ARDSLITESERVICE_PORT={SYS_ARDSLITESERVICE_PORT}' --env='SYS_ARDSLITESERVICE_VERSION={HOST_VERSION}' --env='SYS_NOTIFICATIONSERVICE_HOST={SYS_NOTIFICATIONSERVICE_HOST}'  --env='SYS_NOTIFICATIONSERVICE_PORT={SYS_NOTIFICATIONSERVICE_PORT}' --env='SYS_NOTIFICATIONSERVICE_VERSION={HOST_VERSION}' --env='SYS_SCHEDULEWORKER_HOST={SYS_SCHEDULEWORKER_HOST}'  --env='SYS_SCHEDULEWORKER_PORT={SYS_SCHEDULEWORKER_PORT}' --env='SYS_SCHEDULEWORKER_VERSION={HOST_VERSION}' --env='SYS_INTERACTIONS_HOST={SYS_INTERACTIONS_HOST}' --env='SYS_INTERACTIONS_VERSION={HOST_VERSION}' --env='SYS_FILESERVICE_HOST={SYS_FILESERVICE_HOST}'  --env='SYS_FILESERVICE_PORT={SYS_FILESERVICE_PORT}' --env='SYS_FILESERVICE_VERSION={HOST_VERSION}' --env='HOST_USE_DASHBOARD_MSG_QUEUE={DASHBOARD_USE_MSG_QUEUE}' --expose={HOST_LITETICKET_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name liteticket liteticket:{VERSION_TAG} node --expose-gc /usr/local/src/liteticket/app.js#docker run -d -t"
+    }, 
+    "ardsliteroutingengine": {
+        "github_url": "https://github.com/DuoSoftware/DVP-ARDSLiteRoutingEngine.git", 
+        "configs": [
+            "general", 
+            "ardsliteroutingengine", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "go", 
+        "release_from": "latest", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={GO_VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='GO_CONFIG_DIR={GO_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_ARDSLITEROUTINGENGINE_ID={ARDSLITEROUTINGENGINE_ID}' --env='HOST_USE_MSG_QUEUE={ARDS_USE_MSG_QUEUE}' --env='SYS_REDIS_DB_LOCATION={REDIS_DB_LOCATION}' --env='HOST_ARDSLITEROUTINGENGINE_PORT={HOST_ARDSLITEROUTINGENGINE_PORT}' --env='SYS_ARDSLITESERVICE_HOST={SYS_ARDSLITESERVICE_HOST}' --env='SYS_ARDSLITESERVICE_PORT={LB_PORT}' --env='HOST_IP={HOST_IP}'  --env='HOST_VERSION={HOST_VERSION}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_ARDS={REDIS_DB_ARDS}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --expose={HOST_ARDSLITEROUTINGENGINE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name ardsliteroutingengine ardsliteroutingengine go run *.go"
+    }, 
+    "fileservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-FileService.git", 
+        "configs": [
+            "general", 
+            "fileservice", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis", 
+            "couch"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='128m' -v /etc/localtime:/etc/localtime:ro -v {FILE_DIRECTORY_PATH_LOCAL}:{FILE_DIRECTORY_PATH} --env='SYS_FILE_BASEPATH={FILE_DIRECTORY_PATH}' --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='STORAGE_OPTION={FILE_STORAGE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_FILESERVICE_PORT={HOST_FILESERVICE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_COUCH_HOST={COUCH_HOST}' --env='SYS_COUCH_PORT={COUCH_PORT}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='CRYPTO_ALGO={CRYPTO_ALGO}' --env='CRYPTO_PASSWORD={CRYPTO_PASSWORD}' --expose={HOST_FILESERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name fileservice fileservice:{VERSION_TAG} node /usr/local/src/fileservice/app.js"
+    }, 
+    "httpprogrammingapi": {
+        "github_url": "https://github.com/DuoSoftware/DVP-HTTPProgrammingAPI.git", 
+        "configs": [
+            "general", 
+            "httpprogrammingapi", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='SYS_FREESWITCH_HOST={FREESWITCH_HOST}'  --env='SYS_EVENTSOCKET_PORT={EVENTSOCKET_PORT}' --env='FS_PASSWORD={FREESWITCH_EVENTSOCKET_PASSWORD}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_RABBITMQ_VHOST={RABBITMQ_VHOST}' --env='HOST_DVPEVENTS_TYPE={EVENT_CONSUME_TYPE}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='HOST_HTTPPROGRAMMINGAPI_PORT={HOST_HTTPPROGRAMMINGAPI_PORT}' --env='SYS_FILESERVICE_HOST={SYS_FILESERVICE_HOST}' --env='SYS_FILESERVICE_NODE_CONFIG_DIR={SYS_FILESERVICE_NODE_CONFIG_DIR}' --env='SYS_FILESERVICE_PORT={SYS_FILESERVICE_PORT}' --env='SYS_FILESERVICE_VERSION={HOST_VERSION}' --env='SYS_DOWNLOAD_FILESERVICE_HOST={SYS_FILESERVICE_HOST}' --env='SYS_DOWNLOAD_FILESERVICE_PORT={SYS_FILESERVICE_PORT}' --env='SYS_DOWNLOAD_FILESERVICE_VERSION={HOST_VERSION}' --env='SYS_RULESERVICE_HOST={SYS_RULESERVICE_HOST}' --env='SYS_RULESERVICE_PORT={SYS_RULESERVICE_PORT}' --env='SYS_RULESERVICE_VERSION={HOST_VERSION}' --env='SYS_ARDSLITESERVICE_HOST={SYS_ARDSLITESERVICE_HOST}' --env='SYS_ARDSLITESERVICE_NODE_CONFIG_DIR={SYS_ARDSLITESERVICE_NODE_CONFIG_DIR}' --env='SYS_ARDSLITESERVICE_PORT={SYS_ARDSLITESERVICE_PORT}' --env='SYS_QUEUEMUSIC_HOST={SYS_QUEUEMUSIC_HOST}' --env='SYS_QUEUEMUSIC_PORT={SYS_QUEUEMUSIC_PORT}' --env='SYS_QUEUEMUSIC_VERSION={HOST_VERSION}' --env='SYS_INTERACTION_HOST={SYS_INTERACTION_HOST}' --env='SYS_INTERACTION_PORT={SYS_INTERACTION_PORT}' --env='SYS_INTERACTION_VERSION={HOST_VERSION}' --env='SYS_TICKET_HOST={SYS_TICKET_HOST}' --env='SYS_TICKET_PORT={SYS_TICKET_PORT}' --env='SYS_TICKET_VERSION={SYS_TICKET_VERSION}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='HOST_IP={HOST_IP}' --env='HOST_VERSION={HOST_VERSION}' --env='LB_FRONTEND={LB_FRONTEND}' --env='SYS_CSAT_HOST={SYS_CSAT_HOST}' --env='SYS_CSAT_PORT:8883' --env='SYS_CSAT_VERSION={HOST_VERSION}' --env='SYS_USERSERVICE_HOST={SYS_USERSERVICE_HOST}' --env='SYS_USERSERVICE_VERSION={HOST_VERSION}' --env='SYS_USERSERVICE_PORT={LB_PORT}' --env='LB_PORT={LB_PORT}' --env='HOST_EVENT_CONSUME_TYPE={EVENT_CONSUME_TYPE}' --env='HOST_EVENT_QUEUE={EVENT_QUEUE}' --env='HOST_HTTP_EVENT_QUEUE={HTTP_EVENT_QUEUE}' --expose={HOST_HTTPPROGRAMMINGAPI_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name httpprogrammingapi httpprogrammingapi:{VERSION_TAG} node /usr/local/src/httpprogrammingapi/app.js"
+    }, 
+    "contactbasednumberdialingservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-ContactBasedNumberDialingService.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_CONTACTBASEDNUMBERDIALINGSERVICE_PORT={HOST_CONTACTBASEDNUMBERDIALINGSERVICE_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_CONTACTBASEDNUMBERDIALINGSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name contactbasednumberdialingservice contactbasednumberdialingservice:{VERSION_TAG} node /usr/local/src/contactbasednumberdialingservice/app.js"
+    }, 
+    "ardsmonitoring": {
+        "github_url": "https://github.com/DuoSoftware/DVP-ARDSMonitoring.git", 
+        "configs": [
+            "general", 
+            "ardsmonitoring", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_ARDSMONITOR_PORT={HOST_ARDSMONITOR_PORT}' --env='HOST_IP={HOST_IP}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_ARDS={REDIS_DB_ARDS}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}' --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_FILESERVICE_HOST={SYS_FILESERVICE_HOST}' --env='SYS_FILESERVICE_PORT={SYS_FILESERVICE_PORT}' --env='SYS_FILESERVICE_VERSION={HOST_VERSION}' --env='SYS_CDRPROCESSOR_HOST={SYS_CDRPROCESSOR_HOST}' --env='SYS_CDRPROCESSOR_PORT={SYS_CDRPROCESSOR_PORT}' --env='SYS_CDRPROCESSOR_VERSION={HOST_VERSION}' --env='SYS_NOTIFICATIONSERVICE_HOST={SYS_NOTIFICATIONSERVICE_HOST}' --env='SYS_NOTIFICATIONSERVICE_PORT={SYS_NOTIFICATIONSERVICE_PORT}' --env='SYS_NOTIFICATIONSERVICE_VERSION={HOST_VERSION}' --env='SYS_ARDSLITEROUTINGENGINE_HOST={SYS_ARDSLITEROUTINGENGINE_HOST}' --env='SYS_ARDSLITEROUTINGENGINE_PORT={SYS_ARDSLITEROUTINGENGINE_PORT}' --env='SYS_ARDSLITEROUTINGENGINE_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_ARDSMONITOR_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name ardsmonitoring ardsmonitoring:{VERSION_TAG} node /usr/local/src/ardsmonitoring/app.js"
+    }, 
+    "diameterrelay": {
+        "github_url": "https://github.com/DuoSoftware/DVP-DiameterRelay.git", 
+        "configs": [
+            "general", 
+            "diameterrelay", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_DIAMETERRELAY_PORT={HOST_DIAMETERRELAY_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_NAME={HOST_NAME}' --env='VIRTUAL_HOST={HOST_NAME}.*' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}' --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_DIAMETERSERVER_HOST={SYS_DIAMETERSERVER_HOST}' --env='SYS_DIAMETERSERVER_PORT={DIAMETER_SERVER_PORT}' --env='SYS_DIAMETERSERVER_VERSION={HOST_VERSION}' --env='LB_FRONTEND={HOST_NAME}.{FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_DIAMETERRELAY_PORT}/tcp -p 8886:8886 --log-opt max-size=10m --log-opt max-file=10 --restart=always --name diameterrelay diameterrelay:{VERSION_TAG} node /usr/local/src/diameterrelay/app.js"
+    }, 
+    "voxboneapi": {
+        "github_url": "https://github.com/DuoSoftware/DVP-VoxboneAPI.git", 
+        "configs": [
+            "general", 
+            "voxboneapi", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_VERSION={HOST_VERSION}' --env='VOXBONE_URL={VOXBONE_URL}' --env='HOST_VOXBONEAPI_PORT={HOST_VOXBONEAPI_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_PHONENUMBERTRUNKSERVICE_HOST={SYS_PHONENUMBERTRUNKSERVICE_HOST}' --env='SYS_PHONENUMBERTRUNKSERVICE_NODE_CONFIG_DIR={SYS_PHONENUMBERTRUNKSERVICE_NODE_CONFIG_DIR}' --env='SYS_PHONENUMBERTRUNKSERVICE_PORT={SYS_PHONENUMBERTRUNKSERVICE_PORT}' --env='SYS_PHONENUMBERTRUNKSERVICE_VERSION={HOST_VERSION}' --env='SYS_LIMITHANDLER_HOST={SYS_LIMITHANDLER_HOST}' --env='SYS_LIMITHANDLER_NODE_CONFIG_DIR={SYS_LIMITHANDLER_NODE_CONFIG_DIR}' --env='SYS_LIMITHANDLER_PORT={SYS_LIMITHANDLER_PORT}' --env='SYS_LIMITHANDLER_VERSION={HOST_VERSION}' --env='SYS_BILLINGSERVICE_HOST={SYS_BILLINGSERVICE_HOST}' --env='SYS_BILLINGSERVICE_PORT={LB_PORT}' --env='SYS_BILLINGSERVICE_VERSION={HOST_VERSION}' --env='SYS_WALLETSERVICE_HOST={SYS_WALLETSERVICE_HOST}' --env='SYS_WALLETSERVICE_PORT={LB_PORT}' --env='SYS_WALLETSERVICE_VERSION={HOST_VERSION}' --env='SYS_RULESERVICE_HOST={SYS_RULESERVICE_HOST}' --env='SYS_RULESERVICE_PORT={LB_PORT}' --env='SYS_RULESERVICE_VERSION={HOST_VERSION}' --env='VOXBONE_URL={VOX_URL}' --env='VOX_APIKEY={VOX_KEY}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_VOXBONEAPI_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name voxboneapi voxboneapi:{VERSION_TAG} node /usr/local/src/voxboneapi/app.js"
+    }, 
+    "httpprogrammingmonitorapi": {
+        "github_url": "https://github.com/DuoSoftware/DVP-HTTPProgrammingMonitorAPI.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose=8813/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name httpprogrammingmonitorapi httpprogrammingmonitorapi:{VERSION_TAG} node /usr/local/src/httpprogrammingmonitorapi/app.js#docker run -d -t"
+    }, 
+    "diameterclient": {
+        "github_url": "https://github.com/DuoSoftware/DVP-DiameterClient.git", 
+        "configs": [
+            "general", 
+            "diameterclient", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_DIAMETERCLIENT_PORT={HOST_DIAMETERCLIENT_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_NAME={HOST_NAME}' --env='VIRTUAL_HOST={HOST_NAME}.*' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_USERSERVICE_HOST={SYS_USERSERVICE_HOST}' --env='SYS_USERSERVICE_VERSION={HOST_VERSION}' --env='SYS_USERSERVICE_PORT={LB_PORT}' --env='SYS_WALLETSERVICE_HOST={SYS_WALLETSERVICE_HOST}' --env='SYS_WALLETSERVICE_PORT={LB_PORT}' --env='SYS_WALLETSERVICE_VERSION={HOST_VERSION}' --env='SYS_DIAMETERRELAY_HOST={SYS_DIAMETERRELAY_HOST}' --env='SYS_DIAMETERRELAY_PORT={DIAMETER_RELAY_PORT}' --env='LB_FRONTEND={HOST_NAME}.{FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_DIAMETERCLIENT_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name diameterclient diameterclient:{VERSION_TAG} node /usr/local/src/diameterclient/app.js"
+    }, 
+    "ardsliteroutingengineimproved": {
+        "github_url": "https://github.com/DuoSoftware/DVP-ARDSLiteRoutingEngineImproved.git", 
+        "configs": [
+            "general", 
+            "ardsliteroutingengineimproved", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "go", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={GO_VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='GO_CONFIG_DIR={GO_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_ARDSLITEROUTINGENGINEIMPROVED_ID={ARDSLITEROUTINGENGINEIMPROVED_ID}' --env='HOST_USE_MSG_QUEUE={ARDS_USE_MSG_QUEUE}' --env='SYS_REDIS_DB_LOCATION={REDIS_DB_LOCATION}' --env='HOST_ARDSLITEROUTINGENGINEIMPROVED_PORT={HOST_ARDSLITEROUTINGENGINEIMPROVED_PORT}' --env='HOST_IP={HOST_IP}'  --env='HOST_VERSION={HOST_VERSION}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_ARDS={REDIS_DB_ARDS}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --expose={HOST_ARDSLITEROUTINGENGINEIMPROVED_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name ardsliteroutingengineimproved ardsliteroutingengineimproved:{GO_VERSION_TAG} go run *.go"
+    }, 
+    "carrierprovider": {
+        "github_url": "https://github.com/DuoSoftware/DVP-CarrierProvider.git", 
+        "configs": [
+            "general"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --expose=8080/tcp -p 8090:8080 --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --name carrierprovider carrierprovider:{VERSION_TAG} asadmin start-domain -v"
+    }, 
+    "eventsink": {
+        "github_url": "https://github.com/DuoSoftware/DVP-EventSink.git", 
+        "configs": [
+            "general", 
+            "eventsink", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_EVENTSINK_PORT={HOST_EVENTSINK_PORT}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_RABBITMQ_VHOST={RABBITMQ_VHOST}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_EVENT_CONSUME_TYPE={EVENT_CONSUME_TYPE}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose=8838/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name eventsink eventsink:{VERSION_TAG} node --expose-gc /usr/local/src/eventsink/app.js#docker run -d -t"
+    }, 
+    "appregistry": {
+        "github_url": "https://github.com/DuoSoftware/DVP-APPRegistry.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='HOST_APPREGISTRY_PORT={HOST_APPREGISTRY_PORT}' --env='HOST_IP={HOST_IP}' --env='HOST_VERSION={HOST_VERSION}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_APPREGISTRY_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name appregistry appregistry:{VERSION_TAG} node /usr/local/src/appregistry/app.js"
+    }, 
+    "todolistservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-ToDoListService.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_TODOLISTSERVICE_PORT={HOST_TODOLISTSERVICE_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_NAME={HOST_NAME}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={HOST_NAME}' --env='LB_PORT={LB_PORT}' --env='SYS_SCHEDULEWORKER_HOST={SYS_SCHEDULEWORKER_HOST}' --env='SYS_SCHEDULEWORKER_VERSION={HOST_VERSION}' --env='SYS_NOTIFICATIONSERVICE_HOST={SYS_NOTIFICATIONSERVICE_HOST}' --env='SYS_NOTIFICATIONSERVICE_VERSION={HOST_VERSION}' --expose={HOST_TODOLISTSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name todolistservice todolistservice:{VERSION_TAG} node /usr/local/src/todolistservice/app.js"
+    }, 
+    "mailreceiver": {
+        "github_url": "https://github.com/DuoSoftware/DVP-MailReceiver.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis", 
+            "sms", 
+            "smtp"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_MAILRECEIVER_PORT={HOST_MAILRECEIVER_PORT}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_ENABLE_SMTPLISTNER={HOST_ENABLE_SMTPLISTNER}' --env='HOST_ENABLE_SMTPSENDER={HOST_ENABLE_SMTPLISTNER}' --env='HOST_ENABLE_SMSSENDER={HOST_ENABLE_SMTPLISTNER}' --env='HOST_ENABLE_IMAPLISTNER={HOST_ENABLE_SMTPLISTNER}' --env='HOST_NAME={HOST_NAME}' --env='SYS_SERVER_ID=' --env='SYS_CALLBACK_OPTION={SYS_CALLBACK_OPTION}' --env='SYS_REQUEST_TYPE={SYS_REQUEST_TYPE}' --env='SYS_SERVER_ID={SYS_SERVER_ID}' --env='SYS_RESOURCE_TYPE={SYS_RESOURCE_TYPE}' --env='SYS_EMAIL_QUEUE_NAME={SYS_EMAIL_QUEUE_NAME}' --env='SYS_SMS_QUEUE_NAME={SYS_SMS_QUEUE_NAME}' --env='SYS_SMTP_LISTNER={HOST_ENABLE_SMTPLISTNER}' --env='SYS_SMTP_SENDER={HOST_ENABLE_SMTPLISTNER}' --env='SYS_SMS_SENDER={HOST_ENABLE_SMTPLISTNER}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}' --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_SMSSERVER_HOST={SMS_SERVER}' --env='SYS_SMSSERVER_PORT={SMS_PORT}' --env='SYS_SMSSERVER_PASSWORD={SMS_PASSWORD}' --env='SYS_SMSSERVER_USER={SMS_USER}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={HOST_NAME}' --env='LB_PORT={LB_PORT}' --env='IMAP_USER_NAME={IMAP_USER_NAME}' --env='IMAP_PASSWORD={IMAP_PASSWORD}' --env='IMAP_HOST={IMAP_HOST}' --env='IMAP_PORT={IMAP_PORT}' --env='IMAP_SECURITY={HOST_ENABLE_SMTPLISTNER}' --env='IMAP_MAILBOX={IMAP_MAILBOX}' --env='IMAP_SEEN={HOST_ENABLE_SMTPLISTNER}' --env='IMAP_COMPANY={IMAP_COMPANY}' --env='IMAP_TENAT={IMAP_TENAT}' --env='IMAP_FETCH={HOST_ENABLE_SMTPLISTNER}' --env='SYS_SMTP_HOST={SMTP_HOST}' --env='SYS_SMTP_PORT={SMTP_PORT}' --env='SYS_SMTP_USER={SMTP_USER}' --env='SYS_SMTP_PASSWORD={SMTP_PASSWORD}' --env='SYS_RESOURCESERVICE_HOST={SYS_RESOURCESERVICE_HOST}' --env='SYS_RESOURCESERVICE_VERSION={HOST_VERSION}' --env='SYS_FILESERVICE_HOST={SYS_FILESERVICE_HOST}' --env='SYS_FILESERVICE_VERSION={HOST_VERSION}' --env='SYS_SCHEDULEWORKER_HOST={SYS_SCHEDULEWORKER_HOST}' --env='SYS_SCHEDULEWORKER_VERSION={HOST_VERSION}' --env='SYS_LITETICKET_HOST={SYS_LITETICKET_HOST}' --env='SYS_LITETICKET_VERSION={HOST_VERSION}' --env='SYS_INTERACTIONS_HOST={SYS_INTERACTIONS_HOST}' --env='SYS_INTERACTIONS_VERSION={HOST_VERSION}' --env='SYS_ARDSLITESERVICE_HOST={SYS_ARDSLITESERVICE_HOST}' --env='SYS_ARDSLITESERVICE_VERSION={HOST_VERSION}' --expose={HOST_MAILRECEIVER_PORT}/tcp -p 8877:8877 --log-opt max-size={IMAP_TENAT}0m --log-opt max-file={IMAP_TENAT}0 --restart=always --name mailreceiver mailreceiver:{VERSION_TAG} node /usr/local/src/mailreceiver/app.js"
+    }, 
+    "dynamicconfigurationgenerator": {
+        "github_url": "https://github.com/DuoSoftware/DVP-DynamicConfigurationGenerator.git", 
+        "configs": [
+            "general", 
+            "dynamicconfigurationgenerator", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_NAME={HOST_NAME}' --env='SYS_CALL_RECORD_PATH={OUTBOUND_RECORDING_PATH}' --env='SYS_BILLING_ENABLED={BILLING_ENABLED}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_CONFIG={REDIS_DB_CONFIG}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}' --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_FILESERVICE_HOST={SYS_FILESERVICE_HOST}' --env='SYS_FILESERVICE_PORT={SYS_FILESERVICE_PORT}' --env='SYS_FILESERVICE_VERSION={HOST_VERSION}' --env='SYS_DIAMETERCLIENT_HOST={SYS_DIAMETERCLIENT_HOST}' --env='SYS_DIAMETERCLIENT_PORT={LB_PORT}' --env='SYS_DIAMETERCLIENT_VERSION={HOST_VERSION}' --env='HOST_DYNAMICCONFIGGEN_PORT={HOST_DYNAMICCONFIGGEN_PORT}' --env='HOST_USE_DASHBOARD_MSG_QUEUE={DASHBOARD_USE_MSG_QUEUE}' --env='HOST_IP={HOST_IP}' --env='HOST_VERSION={HOST_VERSION}' --env='VIRTUAL_HOST={HOST_NAME}.*' --env='LB_FRONTEND={HOST_NAME}.{FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_DYNAMICCONFIGGEN_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name dynamicconfigurationgenerator dynamicconfigurationgenerator:{VERSION_TAG} node /usr/local/src/dynamicconfigurationgenerator/app.js"
+    }, 
+    "dashboard": {
+        "github_url": "https://github.com/DuoSoftware/DVP-DashBoard.git", 
+        "configs": [
+            "general", 
+            "dashboard", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "go", 
+        "release_from": "latest", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={GO_VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='GO_CONFIG_DIR={GO_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='SYS_DASHBOARD_REDIS_HOST={DASHBOARD_REDIS_HOST}' --env='SYS_DASHBOARD_REDIS_PORT={DASHBOARD_REDIS_PORT}' --env='SYS_DASHBOARD_REDIS_PASSWORD={DASHBOARD_REDIS_PASSWORD}' --env='SYS_DASHBOARDSERVICE_HOST={SYS_DASHBOARDSERVICE_HOST}' --env='SYS_DASHBOARDSERVICE_PORT={SYS_DASHBOARDSERVICE_PORT}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_DASHBOARD_PORT={HOST_DASHBOARD_PORT}' --env='HOST_DASHBOARD_CACHE={DASHBOARD_CACHE_TYPE}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_DASHBOARD={REDIS_DB_DASHBOARD}' --env='SYS_REDIS_DB_ARDS={REDIS_DB_ARDS}' --env='SYS_STATSD_HOST={STATSD_HOST}' --env='SYS_STATSD_PORT={STATSD_PORT}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --env='SYS_DASHBOARDSERVICE_HOST={SYS_DASHBOARDSERVICE_HOST}' --env='SYS_DASHBOARDSERVICE_PORT={SYS_DASHBOARDSERVICE_PORT}' --env='HOST_USE_DASHBOARD_MSG_QUEUE={DASHBOARD_USE_MSG_QUEUE}' --env='HOST_USE_AMQP_ADAPTER={HOST_USE_AMQP_ADAPTER}' --expose={HOST_DASHBOARD_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name dashboard dashboard:latest go run *.go"
+    }, 
+    "dialerapi": {
+        "github_url": "https://github.com/DuoSoftware/DVP-DialerAPI.git", 
+        "configs": [
+            "general", 
+            "dialerapi", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "go", 
+        "release_from": "latest", 
+        "run_cmd": "docker run -i -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={GO_VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='GO_CONFIG_DIR={GO_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_IP={HOST_IP}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_REDIS_DB_DIALER={REDIS_DB_DIALER}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='SYS_DIALER_ID={SYS_DIALER_ID}' --env='HOST_DIALER_PORT={HOST_DIALER_PORT}' --env='SYS_DIALER_CAMP_LIMIT={SYS_DIALER_CAMP_LIMIT}' --env='SYS_RULESERVICE_HOST={SYS_RULESERVICE_HOST}' --env='SYS_RULESERVICE_PORT={SYS_RULESERVICE_PORT}' --env='SYS_CAMPAIGNMANAGER_HOST={SYS_CAMPAIGNMANAGER_HOST}' --env='SYS_CAMPAIGNMANAGER_PORT={SYS_CAMPAIGNMANAGER_PORT}' --env='SYS_LIMITHANDLER_HOST={SYS_LIMITHANDLER_HOST}' --env='SYS_LIMITHANDLER_PORT={SYS_LIMITHANDLER_PORT}' --env='SYS_CALLBACKSERVICE_HOST={SYS_CALLBACKSERVICE_HOST}' --env='SYS_CALLBACKSERVICE_PORT={SYS_CALLBACKSERVICE_PORT}' --env='SYS_ARDSLITESERVICE_HOST={SYS_ARDSLITESERVICE_HOST}' --env='SYS_ARDSLITESERVICE_PORT={SYS_ARDSLITESERVICE_PORT}' --env='SYS_NOTIFICATIONSERVICE_HOST={SYS_NOTIFICATIONSERVICE_HOST}' --env='SYS_NOTIFICATIONSERVICE_PORT={SYS_NOTIFICATIONSERVICE_PORT}' --env='SYS_CLUSTERCONFIGURATION_HOST={SYS_CLUSTERCONFIGURATION_HOST}' --env='SYS_CLUSTERCONFIGURATION_PORT={SYS_CLUSTERCONFIGURATION_PORT}' --env='SYS_CONTACTBASEDNUMBERDIALINGSERVICE_HOST={SYS_CONTACTBASEDNUMBERDIALINGSERVICE_HOST}' --env='SYS_CONTACTBASEDNUMBERDIALINGSERVICE_PORT={SYS_CONTACTBASEDNUMBERDIALINGSERVICE_PORT}' --env='SYS_FREESWITCH_HOST={FREESWITCH_HOST}' --env='SYS_FS_XMLRPC_PORT={XMLRPC_PORT}' --env='HOST_USE_AMQP_ADAPTER={USE_DIALLER_AMQP_ADAPTER}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_DIALER_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name dialerapi dialerapi:latest go run *.go"
+    }, 
+    "monitorrestapi": {
+        "github_url": "https://github.com/DuoSoftware/DVP-MonitorRestAPI.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_VERSION={HOST_VERSION}' --env='HOST_MONITORRESTAPI_PORT={HOST_MONITORRESTAPI_PORT}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_MONITORRESTAPI_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name monitorrestapi monitorrestapi:{VERSION_TAG} node /usr/local/src/monitorrestapi/app.js"
+    }, 
+    "eventservice": {
+        "github_url": "https://github.com/DuoSoftware/DVP-EventService.git", 
+        "configs": [
+            "general", 
+            "database", 
+            "mongodb", 
+            "rabbitmq", 
+            "redis"
+        ], 
+        "type": "nodejs", 
+        "release_from": "version_tag", 
+        "run_cmd": "docker run -d -t --memory='512m' -v /etc/localtime:/etc/localtime:ro --env='VERSION_TAG={VERSION_TAG}' --env='COMPOSE_DATE={DATE}' --env='NODE_CONFIG_DIR={NODE_CONFIG_DIR}' --env='HOST_EVENTSERVICE_PORT={HOST_EVENTSERVICE_PORT}' --env='HOST_TOKEN={HOST_TOKEN}' --env='HOST_VERSION={HOST_VERSION}' --env='SYS_DATABASE_HOST={DATABASE_HOST}' --env='SYS_DATABASE_TYPE={DATABASE_TYPE}' --env='SYS_DATABASE_POSTGRES_USER={DATABASE_POSTGRES_USER}' --env='SYS_DATABASE_POSTGRES_PASSWORD={DATABASE_POSTGRES_PASSWORD}' --env='SYS_SQL_PORT={SQL_PORT}' --env='SYS_REDIS_HOST={REDIS_HOST}' --env='SYS_REDIS_PASSWORD={REDIS_PASSWORD}' --env='SYS_REDIS_PORT={REDIS_PORT}' --env='SYS_REDIS_MODE={REDIS_MODE}' --env='SYS_REDIS_SENTINEL_HOSTS={REDIS_SENTINEL_HOSTS}' --env='SYS_REDIS_SENTINEL_PORT={REDIS_SENTINEL_PORT}' --env='SYS_REDIS_SENTINEL_NAME={REDIS_SENTINEL_NAME}' --env='SYS_RABBITMQ_HOST={RABBITMQ_HOST}' --env='SYS_RABBITMQ_PORT={RABBITMQ_PORT}' --env='SYS_RABBITMQ_USER={RABBITMQ_USER}' --env='SYS_RABBITMQ_PASSWORD={RABBITMQ_PASSWORD}' --env='SYS_MONGO_HOST={MONGO_HOST}' --env='SYS_MONGO_USER={MONGO_USER}' --env='SYS_MONGO_PASSWORD={MONGO_PASSWORD}'  --env='SYS_MONGO_DB={MONGO_DB}' --env='SYS_MONGO_PORT={MONGO_PORT}' --env='SYS_MONGO_REPLICASETNAME={MONGO_REPLICA_SET_NAME}' --env='VIRTUAL_HOST={VIRTUAL_HOST}' --env='LB_FRONTEND={LB_FRONTEND}' --env='LB_PORT={LB_PORT}' --expose={HOST_EVENTSERVICE_PORT}/tcp --log-opt max-size=10m --log-opt max-file=10 --restart=always --name eventservice eventservice:{VERSION_TAG} node /usr/local/src/eventservice/app.js#docker run -d -t"
+    }
+}

@@ -10,9 +10,14 @@ import sys
 from datetime import datetime
 import json
 import curses
+import os
+import re
+import time
 from curses.panel import new_panel
 from os import system, popen, path
 from curses.textpad import Textbox, rectangle
+import subprocess
+from textwrap import wrap
 
 
 class Installer(object):
@@ -21,13 +26,12 @@ class Installer(object):
         self.config = None
         self.repository = None
         self.install_type = None
-        self._go_version_tag = None
-        self._version_tag = None
+        self.go_version_tag = None
+        self.version_tag = None
+        self.deploy_mode = None
         self.repository_ipurl = None
         self.window_height, self.window_width = [int(i) for i in popen('stty size', 'r').read().split()]
-        
         self.services = services
-        
         self.editor = {
             'screen': None,
             'window': None,
@@ -36,10 +40,11 @@ class Installer(object):
             'statusbar': None,
             'current_item': None
         }
-
         self.data_sources = ['mongodb', 'rabbitmq', 'redis', 'database']
-
         self.date = datetime.now()
+
+        with open('env_meta.json') as f:
+            self.env_meta = json.load(f)
 
     def get_install_type(self):
         if self.install_type is not None:
@@ -52,6 +57,38 @@ class Installer(object):
                 return self.repository
         else:
             return self.set_install_repository()
+
+    def get_version_tag(self, type="nodejs"):
+
+        if type == "nodejs":
+            if self.version_tag is not None:
+                    return self.version_tag
+            else:
+                return self.set_version_tag()
+        elif type == "go":
+            if self.go_version_tag is not None:
+                    return self.go_version_tag
+            else:
+                return self.set_version_tag(type="go")
+
+    def set_repository_ipurl(self):
+
+        if self.repository_ipurl is None or self.repository_ipurl == "":
+            self.repository_ipurl = popen('whiptail --title "Facetone Service Installer" --inputbox "\nPlease enter the repository IP / URL:" 15 60'
+                        ' 3>&1 1>&2 2>&3'.format(type)).read()
+        
+        return self.repository_ipurl
+            
+    def set_version_tag(self, type="nodejs"):
+        input = popen('whiptail --title "Facetone Service Installer" --inputbox "\nPlease enter {} version tag:" 15 60'
+                      ' 3>&1 1>&2 2>&3'.format(type)).read()
+        
+        if type == "nodejs":
+            self.version_tag = input
+            return self.version_tag
+        elif type == "go":
+            self.go_version_tag = input
+            return self.go_version_tag
 
     def init_editor(self, stdscr, section, text=""):
         self.editor['screen'] = stdscr
@@ -112,7 +149,7 @@ class Installer(object):
     
         help_window.addstr(2,1, 
         """
-    * Format = "property": "value",
+    * Configuration should be valid json!
     
     The following controls are available in the editor!
 
@@ -168,23 +205,23 @@ class Installer(object):
             # reset the textbox content to current state!
             current_text = self.editor['textbox'].gather()
 
-            # reformat the text to fit the textbox (when new lines are present in the original text, a blank line will be added if we leave it alone)
-            reformatted_text = ""
-            for line in current_text.splitlines():
-                    eol =  "\n" if line.strip()[-1:] == "," else ""
-                    reformatted_text += line + eol
+            # reformat the text
+            current_text = json.dumps(json.loads(current_text), indent=4)
 
             self.editor['window'].clear()
-            self.editor['window'].addstr(0, 0, reformatted_text)
+            self.editor['window'].addstr(0, 0, current_text)
             self.editor['window'].refresh()
 
             return True
 
     def _print(self, text):
+        lines = ''
+        for line in wrap(text, self.window_width - 4):
+            lines += "| " + line.ljust(self.window_width-4) + " |\n"
+                
+        border = "+{}+\n".format("-" * (self.window_width - 2))
 
-        text = "| {} |".format(text)
-        border = "+{}+".format("-" * (len(text) - 2))
-        print "{}\n{}\n{}".format(border, text, border)
+        print border + lines + border
 
     def listen_keys(self, ch):
         if ch == 20 and self.editor['current_item'] in self.data_sources:
@@ -205,17 +242,28 @@ class Installer(object):
 
     def set_install_type(self):
         self.install_type = popen('whiptail --title "Facetone Service Installer" --notags --menu "" 15 60 4 \
-                    "1" "Install all Services" \
-                    "2" "Custom Installation" 3>&1 1>&2 2>&3'
-                    ).read()
+                                    "1" "Install all Services" \
+                                    "2" "Custom Installation" 3>&1 1>&2 2>&3'
+                                ).read()
 
         return self.install_type
 
+    def set_deploy_mode(self):
+        self.deploy_mode = popen('whiptail --title "Facetone Service Installer" --notags --menu "" 15 60 4 \
+                                    "instance" "Instance" \
+                                    "swarm" "Swarm Cluster" 3>&1 1>&2 2>&3'
+                                ).read()
+
+        return self.deploy_mode
+
+
     def set_install_repository(self):
-        self.repository = popen('whiptail --title "Facetone Service Installer" --notags --menu "\nSelect the repository source." 15 60 4 \
-                    "github" "Github" \
-                    "dockerhub" "Docker Hub" 3>&1 1>&2 2>&3'
-                    ).read()
+        self.repository = popen('whiptail --title "Facetone Service Installer" --notags --menu "\nSelect the repository'
+                                ' source." 15 60 4 \
+                                "local" "Local" \
+                                "github" "GitHub" \
+                                "dockerhub" "Docker Hub" 3>&1 1>&2 2>&3'
+                                ).read()
 
         if self.repository == "":
             self.exit_installer()
@@ -280,33 +328,14 @@ class Installer(object):
     def edit_configuration(self, config_inst):
         config = {}
 
-        def gen_line(section_vals, indent=0):
-
-            e_txt = "";
-
-            for index, (key, value) in enumerate(section_vals.iteritems()):
-                delimiter = "," if index != (len(section_vals) - 1) else ""
-                if type(value) is not dict:
-                    char_indent = " " * indent
-                    e_txt += '{}"{}": "{}"{}\n'.format(char_indent, key, value, delimiter)
-                else:
-                    # recursively generate the second level configurations
-                    sub_text = gen_line(value, 4)
-                    e_txt += '"{}": {{\n{}}}{}\n'.format(key, sub_text, delimiter)
-            return e_txt
-            
-    
-
         for _sec in config_inst.keys():  
             
             conf_invalid = True
 
             while conf_invalid:
-                e_txt = gen_line(config_inst[_sec])
+                e_txt = json.dumps(config_inst[_sec], indent=4)
                 e_txt = curses.wrapper(self.init_editor, _sec, e_txt)
-                e_txt = "{{ {} }}".format(e_txt)
-                e_txt = e_txt.replace('\n', '')
-
+                
                 try:
                     config[_sec] = json.loads(e_txt)
                     conf_invalid = False
@@ -319,6 +348,43 @@ class Installer(object):
                         # break
 
         return config
+
+    # method to expand all placeholder values in the configuration value and return final output
+    def expand_conf_placeholder(self, str, conf_block):
+        placeholders = re.findall(r'{(.*?)}', str)
+        
+        if len(placeholders) != 0:
+            # split the placeholder by arrow notation (->),
+            for _c in placeholders:
+                p_holders_arr = _c.split('->')
+
+                # there are no sub sections, will directly return the corresponding config value for the given key.
+                if len(p_holders_arr) == 1:
+                    str = str.replace('{' + _c + '}', conf_block[_c])
+                else:
+                    # there are sub sections, so we will go through the keys and get the value..
+                    _v = self.config
+                    for sub_sect in p_holders_arr:
+                        _v = _v[sub_sect]
+
+                    str = str.replace('{' + _c + '}', _v)
+
+        return str
+
+    def command(self, cmd):
+        shell = True
+        
+        if isinstance(cmd, list):
+            shell = False
+
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True, shell=shell)
+        success, error = p.communicate()
+
+        if p.returncode != 0:
+            raise Exception("Error running command! " + error)
+        else:
+            return True
+
 
     def run(self):
         # load sample configs, we use this to replace missing sections (keys), or if there's no config file.
@@ -340,6 +406,7 @@ class Installer(object):
         elif self.install_type == "1":
             # set the new config to sample, because we don't have any at the moment.
             new_conf = conf_sample
+            install_list = self.services.keys()
 
         elif self.install_type == "2":
             # get only the required sections from the config.ini.sample file and prompt the user to edit.
@@ -394,18 +461,135 @@ class Installer(object):
         # Write the updated new configuration to the user's real config.
         self.write_to_config(self.config, current_conf)
 
-        # docker service installation process starts from here.
+        # """"""""""""""""""""""""""""""""""""""""""""""""""""
+        # docker service installation process starts from here
+        # """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-        # self.set_install_repository()
+        # prompt the user to select the repository.
+        self.set_install_repository()
 
-        # prompt the uset to select the repository.
-        self.get_repository()
+        # set version tags (go and nodejs)
+        self.set_version_tag("nodejs")
+        self.set_version_tag("go")
 
-        print self.repository
+        self.set_deploy_mode()
+ 
+        # process = subprocess.Popen(["whiptail", "--title", "Progress", "--gauge", "Installing..", "6", "80", "0"], stdin=subprocess.PIPE)
 
-        print self.config
+        count = len(install_list)
+        percent = 0
 
-       
+        os.chdir('/usr/src/')
+        ghub_regex = re.compile(r"github.com/DuoSoftware/(.*?).git")
+
+        try:
+            for i, _service in enumerate(install_list):
+                
+                service_conf = self.config[_service]
+
+                # # ********************************************************************************
+                # process.stdin.write(b'XXX\n{}\nInstalling {} \nXXX\n'.format(percent, _service))
+                # time.sleep(1)
+                # # ********************************************************************************
+
+                if self.services[_service]['type'] == "nodejs":
+                    clone_v_tag = self.version_tag
+                    exec_command = "node /usr/local/src/%s/app.js" % _service
+                elif self.services[_service]['type'] == "go":
+                    clone_v_tag = self.go_version_tag
+                    exec_command = "go run *.go"
+
+                # raise execption if the tag is empty!
+                if clone_v_tag == "":
+                    raise Exception("Error while Installing {} : {} version tag cannot be empty!".format(_service, self.services[_service]['type']))
+
+                if self.repository == "github":
+                    repo_dir_name = ghub_regex.findall(self.services[_service]['github_url'])[0]
+
+                    if not os.path.isdir(repo_dir_name):
+                        self.command(["git", "clone", "-b", clone_v_tag, self.services[_service]['github_url']])
+                elif self.repository == "local":
+                    self.set_repository_ipurl()
+
+                    self.command('docker pull {repo_ipurl}:5000/{service}:{v_tag};'.format(repo_ipurl=self.repository_ipurl, service=_service, v_tag=clone_v_tag))
+                    self.command('docker tag {repo_ipurl}:5000/{service}:{v_tag} {service}:{v_tag};'.format(repo_ipurl=self.repository_ipurl, service=_service, v_tag=clone_v_tag))
+                    self.command('docker rmi -f {repo_ipurl}:5000/{service}:{v_tag};'.format(repo_ipurl=self.repository_ipurl, service=_service, v_tag=clone_v_tag))
+
+                elif self.repository == "dockerhub":
+                    self.command('docker pull facetone/{}:{}'.format(_service, clone_v_tag))
+                
+                
+                os.chdir(repo_dir_name)
+
+                build_cmd = 'docker build --build-arg VERSION_TAG={version_tag} -t {service_name}:{version_tag} .;'.format(version_tag = clone_v_tag, service_name=_service)
+
+                self.command(build_cmd)
+
+                os.chdir('/usr/src/')
+
+                run_cmd = 'docker run -d -t -v /etc/localtime:/etc/localtime:ro '
+
+                # merge the default docker params dict with the user provided docker params..
+                # If user wants to override the defaults, can pass them in config..
+                default_docker_params = {
+                    "--log-opt max-size": "10m", 
+                    "--log-opt max-file": "10", 
+                    "--restart": "always", 
+                    "--memory": "512m"
+                }
+
+                service_conf['DOCKER_PARAMS'].update(default_docker_params)
+
+                # append all docker parameters to the run command..
+                for key, val in service_conf['DOCKER_PARAMS'].iteritems():
+                    run_cmd += '{}="{}" '.format(key, self.expand_conf_placeholder(val, service_conf))
+
+                # remove the docker params key from the config since we don't need to anymore
+                del service_conf['DOCKER_PARAMS']
+
+                # append all required env variable parameters to the run command..
+                required_configs = self.services[_service]['configs']
+
+                for r_conf in required_configs:
+                    # get config key value pairs for all required configs from the current session's config object..                    
+                    for key, val in self.config[r_conf].iteritems():
+                        # get all the session variables set for each config item using env_meta
+                        if key in self.env_meta:
+                        
+                            # set each environment variable
+                            for env_var in self.env_meta[key]:
+                                run_cmd += '--env="{}={}" '.format(env_var, self.expand_conf_placeholder(val, service_conf))
+                            
+                            run_cmd += '--env="VERSION_TAG={}" --env="COMPOSE_DATE={}" '.format(clone_v_tag, self.date)
+
+                # append the name and executable params.
+                run_cmd += '--name {service_name} {service_name}:{v_tag} {_exec}; '.format(service_name=_service, v_tag=clone_v_tag, _exec=exec_command)
+                
+                self.command(run_cmd)
+
+                # # ********************************************************************************
+                # percent = int(float(i + 1) / count * 100)
+                # process.stdin.write(b'{}\nXXX\n{}\nInstalling {} - Done\nXXX\n'.format(percent, percent, _service))
+                # time.sleep(1)
+                # # ********************************************************************************
+            
+
+            # ********************************************************************************
+            # process.stdin.close()
+            # ********************************************************************************
+
+        except Exception as e:
+                    self.exit_installer('Installation failed! Error "{}" in service: {}, {}'.format(type(e).__name__, _service, e))
+        finally:
+            # process.stdin.close()
+            pass
+
+        time.sleep(2)
+        
+            
+        
+        print "======== end ============"
+
 if __name__ == "__main__":
     try:
         with open('services.json', 'r') as js:
@@ -415,5 +599,3 @@ if __name__ == "__main__":
         sys.exit()  
 
     Installer(services).run()
-
-
