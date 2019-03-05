@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-Automated docker service installer.
+docker service installer.
 Author: Nimeshka Srimal
 Date: Feb 2019
 """
@@ -59,7 +59,6 @@ class Installer(object):
             return self.set_install_repository()
 
     def get_version_tag(self, type="nodejs"):
-
         if type == "nodejs":
             if self.version_tag is not None:
                     return self.version_tag
@@ -72,7 +71,6 @@ class Installer(object):
                 return self.set_version_tag(type="go")
 
     def set_repository_ipurl(self):
-
         if self.repository_ipurl is None or self.repository_ipurl == "":
             self.repository_ipurl = popen('whiptail --title "Facetone Service Installer" --inputbox "\nPlease enter the repository IP / URL:" 15 60'
                         ' 3>&1 1>&2 2>&3'.format(type)).read()
@@ -329,20 +327,19 @@ class Installer(object):
         config = {}
 
         for _sec in config_inst.keys():  
-            
             conf_invalid = True
 
             while conf_invalid:
                 e_txt = json.dumps(config_inst[_sec], indent=4)
                 e_txt = curses.wrapper(self.init_editor, _sec, e_txt)
-                
+
                 try:
                     config[_sec] = json.loads(e_txt)
                     conf_invalid = False
                 except Exception, e:
                     confirmation = system('whiptail --title "Invalid configuration." --no-button "Exit Installer" --yesno " \
                                                 \n\nDo you want to edit [{}] section again?" 15 60'.format(_sec))
-                    
+
                     if confirmation != 0:
                         self.exit_installer()
                         # break
@@ -393,7 +390,7 @@ class Installer(object):
 
         # this is the config we are holding all configs for the current installer session.
         new_conf = {}
-
+        
         # This is to hold the content of user's current config file..
         current_conf = None
 
