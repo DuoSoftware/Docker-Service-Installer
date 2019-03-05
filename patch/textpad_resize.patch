@@ -1,0 +1,162 @@
+--- /usr/lib/python2.7/curses/textpad.py	2011-04-11 14:08:28.000000000 -0500
++++ textpad.py	2011-09-27 19:44:52.907272337 -0500
+@@ -41,54 +41,68 @@
+     KEY_BACKSPACE = Ctrl-h
+     """
+     def __init__(self, win, insert_mode=False):
+         self.win = win
+         self.insert_mode = insert_mode
+-        (self.maxy, self.maxx) = win.getmaxyx()
+-        self.maxy = self.maxy - 1
+-        self.maxx = self.maxx - 1
+         self.stripspaces = 1
+         self.lastcmd = None
+         win.keypad(1)
+ 
++    def _getmaxyx(self):
++        (maxy, maxx) = self.win.getmaxyx()
++        return maxy-1, maxx-1
++
+     def _end_of_line(self, y):
+         """Go to the location of the first blank on the given line,
+         returning the index of the last non-blank character."""
+-        last = self.maxx
++        (maxy, maxx) = self._getmaxyx()
++        last = maxx
+         while True:
+             if curses.ascii.ascii(self.win.inch(y, last)) != curses.ascii.SP:
+-                last = min(self.maxx, last+1)
++                last = min(maxx, last+1)
+                 break
+             elif last == 0:
+                 break
+             last = last - 1
+         return last
+ 
+     def _insert_printable_char(self, ch):
+         (y, x) = self.win.getyx()
+-        if y < self.maxy or x < self.maxx:
+-            if self.insert_mode:
+-                oldch = self.win.inch()
++        (maxy, maxx) = self._getmaxyx()
++        (backy, backx) = None, None
++
++        while y < maxy or x < maxx:
++            oldch = self.win.inch()
++
+             # The try-catch ignores the error we trigger from some curses
+             # versions by trying to write into the lowest-rightmost spot
+             # in the window.
+             try:
+                 self.win.addch(ch)
+             except curses.error:
+                 pass
+-            if self.insert_mode:
++            
++            if not self.insert_mode or not curses.ascii.isprint(oldch):
++                break
++
++            # Remember where to put the cursor back since we are in insert_mode
++            if backy is None:
+                 (backy, backx) = self.win.getyx()
+-                if curses.ascii.isprint(oldch):
+-                    self._insert_printable_char(oldch)
+-                    self.win.move(backy, backx)
++
++            ch = oldch
++            (y, x) = self.win.getyx()
++
++        if self.insert_mode:
++            self.win.move(backy, backx)
+ 
+     def do_command(self, ch):
+         "Process a single editing command."
++        (maxy, maxx) = self._getmaxyx()
+         (y, x) = self.win.getyx()
+         self.lastcmd = ch
+         if curses.ascii.isprint(ch):
+-            if y < self.maxy or x < self.maxx:
++            if y < maxy or x < maxx:
+                 self._insert_printable_char(ch)
+         elif ch == curses.ascii.SOH:                           # ^a
+             self.win.move(y, 0)
+         elif ch in (curses.ascii.STX,curses.KEY_LEFT, curses.ascii.BS,curses.KEY_BACKSPACE):
+             if x > 0:
+@@ -96,33 +110,33 @@
+             elif y == 0:
+                 pass
+             elif self.stripspaces:
+                 self.win.move(y-1, self._end_of_line(y-1))
+             else:
+-                self.win.move(y-1, self.maxx)
++                self.win.move(y-1, maxx)
+             if ch in (curses.ascii.BS, curses.KEY_BACKSPACE):
+                 self.win.delch()
+         elif ch == curses.ascii.EOT:                           # ^d
+             self.win.delch()
+         elif ch == curses.ascii.ENQ:                           # ^e
+             if self.stripspaces:
+                 self.win.move(y, self._end_of_line(y))
+             else:
+-                self.win.move(y, self.maxx)
++                self.win.move(y, maxx)
+         elif ch in (curses.ascii.ACK, curses.KEY_RIGHT):       # ^f
+-            if x < self.maxx:
++            if x < maxx:
+                 self.win.move(y, x+1)
+-            elif y == self.maxy:
++            elif y == maxy:
+                 pass
+             else:
+                 self.win.move(y+1, 0)
+         elif ch == curses.ascii.BEL:                           # ^g
+             return 0
+         elif ch == curses.ascii.NL:                            # ^j
+-            if self.maxy == 0:
++            if maxy == 0:
+                 return 0
+-            elif y < self.maxy:
++            elif y < maxy:
+                 self.win.move(y+1, 0)
+         elif ch == curses.ascii.VT:                            # ^k
+             if x == 0 and self._end_of_line(y) == 0:
+                 self.win.deleteln()
+             else:
+@@ -130,11 +144,11 @@
+                 self.win.move(y, x)
+                 self.win.clrtoeol()
+         elif ch == curses.ascii.FF:                            # ^l
+             self.win.refresh()
+         elif ch in (curses.ascii.SO, curses.KEY_DOWN):         # ^n
+-            if y < self.maxy:
++            if y < maxy:
+                 self.win.move(y+1, x)
+                 if x > self._end_of_line(y+1):
+                     self.win.move(y+1, self._end_of_line(y+1))
+         elif ch == curses.ascii.SI:                            # ^o
+             self.win.insertln()
+@@ -146,20 +160,21 @@
+         return 1
+ 
+     def gather(self):
+         "Collect and return the contents of the window."
+         result = ""
+-        for y in range(self.maxy+1):
++        (maxy, maxx) = self._getmaxyx()
++        for y in range(maxy+1):
+             self.win.move(y, 0)
+             stop = self._end_of_line(y)
+             if stop == 0 and self.stripspaces:
+                 continue
+-            for x in range(self.maxx+1):
++            for x in range(maxx+1):
+                 if self.stripspaces and x > stop:
+                     break
+                 result = result + chr(curses.ascii.ascii(self.win.inch(y, x)))
+-            if self.maxy > 0:
++            if maxy > 0:
+                 result = result + "\n"
+         return result
+ 
+     def edit(self, validate=None):
+         "Edit in the widget window and collect the results."
