@@ -276,12 +276,13 @@ class Installer(object):
         
         for service in servicelist:
             padded_srv = service + " "* (self.window_width-25 - len(service))
-            servicelist_str += " '{}' '{}' off".format(service, padded_srv)
+            # changed item and tag value to support older versions of whiptail (in Ubuntu 14)
+            servicelist_str += " '{}' '{}' ".format(padded_srv, service)
 
         w_cmd = '''
                 whiptail \
                     --title "Select the Services" \
-                    --notags \
+                    --noitem \
                     --separate-output \
                     --checklist \
                     " " \
@@ -293,8 +294,8 @@ class Installer(object):
                         self.window_height-20, 
                         servicelist_str
                     )
-                    
-        install_list = popen(w_cmd).read().splitlines()
+
+        install_list = map(lambda x: x.strip(), popen(w_cmd).read().splitlines())
 
         return install_list
 
