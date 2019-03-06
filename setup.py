@@ -471,8 +471,9 @@ class Installer(object):
         self.set_version_tag("go")
 
         self.set_deploy_mode()
- 
-        # process = subprocess.Popen(["whiptail", "--title", "Progress", "--gauge", "Installing..", "6", "80", "0"], stdin=subprocess.PIPE)
+
+        # process to display the progress bar..
+        process = subprocess.Popen(["whiptail", "--title", "Progress", "--gauge", "Installing..", "6", "80", "0"], stdin=subprocess.PIPE)
 
         count = len(install_list)
         percent = 0
@@ -480,15 +481,17 @@ class Installer(object):
         os.chdir('/usr/src/')
         ghub_regex = re.compile(r"github.com/DuoSoftware/(.*?).git")
 
+        def update_progress(process, percent, service_name, status_msg=""):
+            status_msg = "" if status_msg == "" else "- " + status_msg
+            process.stdin.write(b'{}\nXXX\n{}\nInstalling {} {}\nXXX\n'.format(percent, percent, service_name, status_msg))
+            return True
+
         try:
             for i, _service in enumerate(install_list):
                 
                 service_conf = self.config[_service]
-
-                # # ********************************************************************************
-                # process.stdin.write(b'XXX\n{}\nInstalling {} \nXXX\n'.format(percent, _service))
-                # time.sleep(1)
-                # # ********************************************************************************
+                
+                update_progress(process, percent, _service)
 
                 if self.services[_service]['type'] == "nodejs":
                     clone_v_tag = self.version_tag
@@ -500,6 +503,8 @@ class Installer(object):
                 # raise execption if the tag is empty!
                 if clone_v_tag == "":
                     raise Exception("Error while Installing {} : {} version tag cannot be empty!".format(_service, self.services[_service]['type']))
+
+                update_progress(process, percent, _service, "Collecting source..")
 
                 if self.repository == "github":
                     repo_dir_name = ghub_regex.findall(self.services[_service]['github_url'])[0]
@@ -519,6 +524,8 @@ class Installer(object):
                 
                 os.chdir(repo_dir_name)
 
+                update_progress(process, percent, _service, "Building image..")
+
                 build_cmd = 'docker build --build-arg VERSION_TAG={version_tag} -t {service_name}:{version_tag} .;'.format(version_tag = clone_v_tag, service_name=_service)
 
                 self.command(build_cmd)
@@ -537,6 +544,8 @@ class Installer(object):
                 }
 
                 service_conf['DOCKER_PARAMS'].update(default_docker_params)
+
+                update_progress(process, percent, _service, "setting up..")
 
                 # append all docker parameters to the run command..
                 for key, val in service_conf['DOCKER_PARAMS'].iteritems():
@@ -566,21 +575,16 @@ class Installer(object):
                 self.command(run_cmd)
 
                 # # ********************************************************************************
-                # percent = int(float(i + 1) / count * 100)
-                # process.stdin.write(b'{}\nXXX\n{}\nInstalling {} - Done\nXXX\n'.format(percent, percent, _service))
-                # time.sleep(1)
+                percent = int(float(i + 1) / count * 100)
+                update_progress(process, percent, _service, "Done")
+                time.sleep(1)
                 # # ********************************************************************************
+
+            process.stdin.close()
             
-
-            # ********************************************************************************
-            # process.stdin.close()
-            # ********************************************************************************
-
         except Exception as e:
+                    process.stdin.close()
                     self.exit_installer('Installation failed! Error "{}" in service: {}, {}'.format(type(e).__name__, _service, e))
-        finally:
-            # process.stdin.close()
-            pass
 
         time.sleep(2)
         
