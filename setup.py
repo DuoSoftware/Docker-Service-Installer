@@ -386,7 +386,7 @@ class Installer(object):
 
         if self.console_out:
             stdout = None
-            tderr = None
+            stderr = None
         else:
             stdout = subprocess.PIPE
             stderr = subprocess.PIPE
