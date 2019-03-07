@@ -28,6 +28,7 @@ class Installer(object):
         self.install_type = None
         self.go_version_tag = None
         self.version_tag = None
+        self.branch_name = None
         self.deploy_mode = None
         self.repository_ipurl = None
         self.window_height, self.window_width = [int(i) for i in popen('stty size', 'r').read().split()]
@@ -87,6 +88,13 @@ class Installer(object):
         elif type == "go":
             self.go_version_tag = input
             return self.go_version_tag
+    
+    def set_branch_name(self):
+        if self.branch_name is None or self.branch_name == "":
+            self.branch_name = popen('whiptail --title "Facetone Service Installer" --inputbox "\nPlease enter the repository branch name:" 15 60'
+                        ' 3>&1 1>&2 2>&3'.format(type)).read()
+        
+        return self.branch_name
 
     def init_editor(self, stdscr, section, text=""):
         self.editor['screen'] = stdscr
@@ -469,6 +477,7 @@ class Installer(object):
         # set version tags (go and nodejs)
         self.set_version_tag("nodejs")
         self.set_version_tag("go")
+        self.set_branch_name()
 
         self.set_deploy_mode()
 
@@ -494,15 +503,15 @@ class Installer(object):
                 update_progress(process, percent, _service)
 
                 if self.services[_service]['type'] == "nodejs":
-                    clone_v_tag = self.version_tag
+                    v_tag = self.version_tag
                     exec_command = "node /usr/local/src/%s/app.js" % _service
                 elif self.services[_service]['type'] == "go":
-                    clone_v_tag = self.go_version_tag
+                    v_tag = self.go_version_tag
                     exec_command = "go run *.go"
 
                 # raise execption if the tag is empty!
-                if clone_v_tag == "":
-                    raise Exception("Error while Installing {} : {} version tag cannot be empty!".format(_service, self.services[_service]['type']))
+                if v_tag == "" or self.branch_name = "":
+                    raise Exception("Error while Installing {} : {} version tag & branch name cannot be empty!".format(_service, self.services[_service]['type']))
 
                 update_progress(process, percent, _service, "Collecting source..")
 
@@ -510,23 +519,23 @@ class Installer(object):
                     repo_dir_name = ghub_regex.findall(self.services[_service]['github_url'])[0]
 
                     if not os.path.isdir(repo_dir_name):
-                        self.command(["git", "clone", "-b", clone_v_tag, self.services[_service]['github_url']])
+                        self.command(["git", "clone", "-b", self.branch_name, self.services[_service]['github_url']])
                 elif self.repository == "local":
                     self.set_repository_ipurl()
 
-                    self.command('docker pull {repo_ipurl}:5000/{service}:{v_tag};'.format(repo_ipurl=self.repository_ipurl, service=_service, v_tag=clone_v_tag))
-                    self.command('docker tag {repo_ipurl}:5000/{service}:{v_tag} {service}:{v_tag};'.format(repo_ipurl=self.repository_ipurl, service=_service, v_tag=clone_v_tag))
-                    self.command('docker rmi -f {repo_ipurl}:5000/{service}:{v_tag};'.format(repo_ipurl=self.repository_ipurl, service=_service, v_tag=clone_v_tag))
+                    self.command('docker pull {repo_ipurl}:5000/{service}:{v_tag};'.format(repo_ipurl=self.repository_ipurl, service=_service, v_tag=v_tag))
+                    self.command('docker tag {repo_ipurl}:5000/{service}:{v_tag} {service}:{v_tag};'.format(repo_ipurl=self.repository_ipurl, service=_service, v_tag=v_tag))
+                    self.command('docker rmi -f {repo_ipurl}:5000/{service}:{v_tag};'.format(repo_ipurl=self.repository_ipurl, service=_service, v_tag=v_tag))
 
                 elif self.repository == "dockerhub":
-                    self.command('docker pull facetone/{}:{}'.format(_service, clone_v_tag))
+                    self.command('docker pull facetone/{}:{}'.format(_service, v_tag))
                 
                 
                 os.chdir(repo_dir_name)
 
                 update_progress(process, percent, _service, "Building image..")
 
-                build_cmd = 'docker build --build-arg VERSION_TAG={version_tag} -t {service_name}:{version_tag} .;'.format(version_tag = clone_v_tag, service_name=_service)
+                build_cmd = 'docker build --build-arg VERSION_TAG={version_tag} -t {service_name}:{version_tag} .;'.format(version_tag=self.branch_name, service_name=_service)
 
                 self.command(build_cmd)
 
@@ -567,10 +576,10 @@ class Installer(object):
                             for env_var in self.env_meta[key]:
                                 run_cmd += '--env="{}={}" '.format(env_var, self.expand_conf_placeholder(val, service_conf))
                             
-                            run_cmd += '--env="VERSION_TAG={}" --env="COMPOSE_DATE={}" '.format(clone_v_tag, self.date)
+                            run_cmd += '--env="VERSION_TAG={}" --env="COMPOSE_DATE={}" '.format(v_tag, self.date)
 
                 # append the name and executable params.
-                run_cmd += '--name {service_name} {service_name}:{v_tag} {_exec}; '.format(service_name=_service, v_tag=clone_v_tag, _exec=exec_command)
+                run_cmd += '--name {service_name} {service_name}:{v_tag} {_exec}; '.format(service_name=_service, v_tag=v_tag, _exec=exec_command)
                 
                 self.command(run_cmd)
 
