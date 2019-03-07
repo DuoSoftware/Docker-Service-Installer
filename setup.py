@@ -22,7 +22,7 @@ from textwrap import wrap
 
 class Installer(object):
 
-    def __init__(self, services):
+    def __init__(self, services, console=False):
         self.config = None
         self.repository = None
         self.install_type = None
@@ -31,6 +31,7 @@ class Installer(object):
         self.branch_name = None
         self.deploy_mode = None
         self.repository_ipurl = None
+        self.console_out = console
         self.window_height, self.window_width = [int(i) for i in popen('stty size', 'r').read().split()]
         self.services = services
         self.editor = {
@@ -383,11 +384,18 @@ class Installer(object):
         if isinstance(cmd, list):
             shell = False
 
-        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True, shell=shell)
+        if self.console_out:
+            stdout = None
+            tderr = None
+        else:
+            stdout = subprocess.PIPE
+            stderr = subprocess.PIPE
+
+        p = subprocess.Popen(cmd, stdout=stdout, stderr=stderr, close_fds=True, shell=shell)
         success, error = p.communicate()
 
         if p.returncode != 0:
-            raise Exception("Error running command! " + error)
+            raise Exception("Error running command! " + str(error))
         else:
             return True
 
@@ -482,7 +490,10 @@ class Installer(object):
         self.set_deploy_mode()
 
         # process to display the progress bar..
-        process = subprocess.Popen(["whiptail", "--title", "Progress", "--gauge", "Installing..", "6", "80", "0"], stdin=subprocess.PIPE)
+        if self.console_out:
+            process = None
+        else:
+            process = subprocess.Popen(["whiptail", "--title", "Progress", "--gauge", "Installing..", "6", "80", "0"], stdin=subprocess.PIPE)
 
         count = len(install_list)
         percent = 0
@@ -491,8 +502,16 @@ class Installer(object):
         ghub_regex = re.compile(r"github.com/DuoSoftware/(.*?).git")
 
         def update_progress(process, percent, service_name, status_msg=""):
-            status_msg = "" if status_msg == "" else "- " + status_msg
-            process.stdin.write(b'{}\nXXX\n{}\nInstalling {} {}\nXXX\n'.format(percent, percent, service_name, status_msg))
+            if process is not None:
+                status_msg = "" if status_msg == "" else "- " + status_msg
+                process.stdin.write(b'{}\nXXX\n{}\nInstalling {} {}\nXXX\n'.format(percent, percent, service_name, status_msg))
+
+            return True
+        
+        def close_progress(process):
+            if process is not None:
+                process.stdin.close()
+                    
             return True
 
         try:
@@ -510,7 +529,7 @@ class Installer(object):
                     exec_command = "go run *.go"
 
                 # raise execption if the tag is empty!
-                if v_tag == "" or self.branch_name = "":
+                if v_tag == "" or self.branch_name == "":
                     raise Exception("Error while Installing {} : {} version tag & branch name cannot be empty!".format(_service, self.services[_service]['type']))
 
                 update_progress(process, percent, _service, "Collecting source..")
@@ -535,7 +554,7 @@ class Installer(object):
 
                 update_progress(process, percent, _service, "Building image..")
 
-                build_cmd = 'docker build --build-arg VERSION_TAG={version_tag} -t {service_name}:{version_tag} .;'.format(version_tag=self.branch_name, service_name=_service)
+                build_cmd = 'docker build --build-arg VERSION_TAG={branch_name} -t {service_name}:{version_tag} .;'.format(branch_name=self.branch_name, version_tag=v_tag, service_name=_service)
 
                 self.command(build_cmd)
 
@@ -589,10 +608,10 @@ class Installer(object):
                 time.sleep(1)
                 # # ********************************************************************************
 
-            process.stdin.close()
+            close_progress(process)
             
         except Exception as e:
-                    process.stdin.close()
+                    close_progress(process)
                     self.exit_installer('Installation failed! Error "{}" in service: {}, {}'.format(type(e).__name__, _service, e))
 
         time.sleep(2)
@@ -609,4 +628,10 @@ if __name__ == "__main__":
         print "Error: There was an error parsing the services.json file. \n[{}]".format(e.message)
         sys.exit()  
 
-    Installer(services).run()
+    # argument -c = print output to console
+    if "-c" in sys.argv:
+        console = True
+    else:
+        console = False
+
+    Installer(services, console).run()
