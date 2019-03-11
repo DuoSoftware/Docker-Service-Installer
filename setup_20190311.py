@@ -571,9 +571,9 @@ class Installer(object):
                     "--memory": "512m"
                 }
 
-                #service_conf['DOCKER_PARAMS'].update(default_docker_params)
-                default_docker_params.update(service_conf['DOCKER_PARAMS'])
-                service_conf['DOCKER_PARAMS'] = default_docker_params
+                service_conf['DOCKER_PARAMS'].update(default_docker_params)
+                #default_docker_params.update(service_conf['DOCKER_PARAMS'])
+                #service_conf['DOCKER_PARAMS'] = default_docker_params
 
                 update_progress(process, percent, _service, "setting up..")
 
